@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="hoaDonAddDialog"
+        contentWidth="100%" contentHeight="66%"
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+    <customHeader>
+      <Toolbar>
+        <Title text="Thêm mới"/>
+        <ToolbarSpacer />
+        <OverflowToolbarButton  icon="sap-icon://decline" press="closephieuNhapDialog"/>
+      </Toolbar>
+    </customHeader>    
+		<content>
+      <mvc:XMLView viewName="app.HoaDonNhap.Add1" id="app.HoaDonNhap.Add1"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

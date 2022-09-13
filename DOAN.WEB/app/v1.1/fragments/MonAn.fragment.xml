@@ -1,0 +1,40 @@
+﻿<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact">
+	<Dialog id="monAnFrag" title="Danh sách món ăn" contentWidth="50vw" contentHeight="70vh" titleAlignment="Center">
+		<subHeader>
+			<Toolbar>
+				<SearchField search="onSearchMonAn" liveChange="onLiveChangeMonAn" placeholder="Tìm kiếm theo tên hoặc mã món ăn..." />
+			</Toolbar>
+		</subHeader>
+		<Table id="monAnTable" inset="false" items="{path:'monAnModel>/'}" selectionChange="onMonAnItemPress" class="sapUiSizeCompact" mode="SingleSelectMaster">
+			<!--<infoToolbar>
+        <OverflowToolbar>
+          <Label text="Đang hiển thị: " />
+        </OverflowToolbar>
+      </infoToolbar>-->
+			<columns>
+				<Column>
+					<Text text="Tên món ăn" />
+				</Column>
+				<Column >
+					<Text text="Loại"/>
+				</Column>
+				<Column >
+					<Text text="Giá tiền"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectIdentifier title="{monAnModel>tenMonAn}"/>
+						<Text text="{monAnModel>loai}" />
+						<ObjectStatus text="{path:'monAnModel>giaTien', formatter: '.globalFormatter.formatTien' }" />
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<buttons>
+			<Button type="Reject" press="onMonAnCancelPress" text="Bỏ chọn" />
+			<Button type="Emphasized" press="closeMonAnInputDialog" text="Đóng" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

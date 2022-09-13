@@ -1,0 +1,78 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:cc="app.ext.Controls" xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor" 
+    controllerName="app.NhanVien.Add">
+	<Page>
+		<customHeader>
+			<Toolbar design="Solid">
+				<Title text="THÔNG TIN NHÂN VIÊN" level="H4" />
+				<ToolbarSpacer />
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox>
+				<f:Form editable="true" class="displayForm">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Tên nhân viên">
+									<f:fields>
+										<Input id="tenNhanVien" value="{mainModel>/tenNhanVien}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Chức vụ">
+									<f:fields>
+										<Select id="chucVu" forceSelection="false" selectedKey="{mainModel>/chucVu}" required="true">
+											<core:Item key="0" text="Quản lý" />
+											<core:Item key="1" text="Thu ngân" />
+											<core:Item key="2" text="Tạp vụ" />
+											<core:Item key="3" text="Vận chuyển" />
+											<core:Item key="4" text="Bếp trưởng" />
+											<core:Item key="5" text="Bếp phó" />
+											<core:Item key="6" text="Đầu bếp" />
+										</Select>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Lương cơ bản">
+									<f:fields>
+										<Input id="luong" value="{mainModel>/luongCoBan}" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Số điện thoại">
+									<f:fields>
+										<Input id="soDienThoai" value="{mainModel>/soDienThoai}" maxLength="11"  />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Quê quán">
+									<f:fields>
+										<Input id="queQuan" value="{mainModel>/queQuan}" maxLength="500" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Trạng thái">
+									<f:fields>
+										<Select id="trangThai" forceSelection="false" selectedKey="{mainModel>/trangThai}" required="true">
+											<core:Item key="0" text="Đã nghỉ" />
+											<core:Item key="1" text="Đang làm" />
+										</Select>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+			
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button id="saveAdd" text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+					<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+					<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:View>

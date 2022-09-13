@@ -1,0 +1,140 @@
+<mvc:View controllerName="app.PhieuXuatVatDung.PhieuXuat.List" 
+    height="100%"
+    xmlns="sap.ui.table"
+    xmlns:c="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form">
+    <f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true" fitContent="true" class="sapUiNoContentPadding">
+        <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<m:Title text="Mã phiếu xuất {mainModel>/maPhieuXuat}" />
+				</f:heading>
+				<f:expandedContent>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<m:ObjectStatus title="Mã phiếu vận chuyển" text="{path:'mainModel>/maPhieu'}" />
+						<m:ObjectStatus title="Trạng thái vận chuyển" text="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTTVanChuyenText' }" state="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTTVanChuyenColor' }" />
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<m:ObjectStatus title="Địa chỉ" text="{path:'mainModel>/diaChi'}"  />
+						<m:ObjectStatus title="Số điện thoại" text="{path:'mainModel>/soDienThoai' }"  />
+					</l:VerticalLayout>
+				</f:expandedContent>
+				<!--<f:actions>
+					<m:Button tooltip="Thêm mới" text="Lưu đơn vận chuyển" press="onAddButtonPress" visible="true" />
+				</f:actions>-->
+			</f:DynamicPageTitle>
+		</f:title>
+        <f:header>
+			
+        </f:header>
+        <f:content>
+			<Table id="phieuTable"
+                visibleRowCountMode="Auto"
+                noData="Không có kết quả phù hợp"
+                selectionMode="None"
+				rowActionCount="1"
+                rows="{path: 'phieuXuatModel>/'}"
+                ariaLabelledBy="title"
+                fixedColumnCount="2">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title class="blockTitle" id="title" text="Danh sách vật dụng" />
+						<m:ToolbarSpacer />
+						<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+						<!--<m:Button press="DetailThucDon" icon="sap-icon://detail-view" text="Danh sách thực đơn" />-->
+					</m:OverflowToolbar>
+				</extension>
+				<!--<toolbar>
+					<m:OverflowToolbar>
+						<m:ToolbarSpacer />
+						<m:OverflowToolbarButton tooltip="Thêm" text="Thêm" type="Transparent" icon="sap-icon://add-document" press="addVatDung" />
+					</m:OverflowToolbar>
+				</toolbar>-->
+				<columns>
+					<Column width="3rem" hAlign="Center">
+						<m:Label text="STT"/>
+						<template>
+							<m:Text text="{phieuXuatModel>STT}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="15rem">
+						<m:Label text="Tên vật dụng" />
+						<template>
+							<m:Text text="{phieuXuatModel>vatTu/tenVatTu}" wrapping="false" />
+						</template>
+					</Column>
+					
+					<Column width="7rem">
+						<m:Label text="Mã vật dụng"/>
+						<template>
+							<m:Text text="{phieuXuatModel>vatTu/maVatTu}" wrapping="false" />
+							<!--<m:ObjectStatus text="{path:'mainModel>ma', formatter: '.globalFormatter.formatChucVuText' }" />-->
+						</template>
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<m:Label text="SL vận chuyển"/>
+						<template>
+							<m:Text text="{phieuXuatModel>soLuong}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<m:Label text="Số lượng đã xuất"/>
+						<template>
+							<m:Text text="{phieuXuatModel>soLuongDaXuat}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<m:Label text="Số lượng xuất"/>
+						<template>
+							<m:Input value="{phieuXuatModel>soLuongXuat}" 
+									 editable="{phieuXuatModel>isEdit}"
+									 valueState="{phieuXuatModel>state}"
+									valueStateText="Cần nhập dữ liệu"
+									liveChange="soLuongNhapChange"/>
+						</template>
+					</Column>
+					<Column hAlign="End" width="10rem">
+						<m:Label text="Số lượng còn lại"/>
+						<template>
+							<m:Text text="{phieuXuatModel>vatTu/soLuongConLai}" wrapping="false" />
+						</template>
+					</Column>
+					<Column minWidth="10rem">
+						<m:Label text="Trạng thái"/>
+						<template>
+							<m:ObjectStatus text="{path:'phieuXuatModel>isEdit', formatter: '.globalFormatter.trangThaiTTVC' }" state="{path:'phieuXuatModel>isEdit', formatter: '.globalFormatter.trangThaiTTVCColor' }" />
+						</template>
+					</Column>
+				</columns>
+				<rowActionTemplate>
+					<RowAction>
+						<items>
+							<RowActionItem text="Xóa" icon="sap-icon://delete" visible="{phieuXuatModel>isEdit}" press="onRowDelete" />
+						</items>
+					</RowAction>
+				</rowActionTemplate>
+				<footer>
+					<!--<m:OverflowToolbar>
+						<m:Label text="Hiển thị: {countModel>/show}/{countModel>/total}"></m:Label>
+					</m:OverflowToolbar>-->
+					<m:Toolbar>
+						<m:content>
+							<m:ToolbarSpacer />
+							<m:Button text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+							<!--<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />-->
+							<m:Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+						</m:content>
+					</m:Toolbar>
+				</footer>
+				
+			</Table>
+			
+        </f:content>
+        
+    </f:DynamicPage>
+</mvc:View>

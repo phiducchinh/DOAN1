@@ -1,0 +1,184 @@
+<mvc:View controllerName="app.HoaDonNhap.List" 
+    height="100%"
+    xmlns="sap.ui.table"
+    xmlns:c="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form">
+    <f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true" fitContent="true" class="sapUiNoContentPadding">
+        <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<m:Title text="Quản lý hóa đơn nhập thực phẩm" />
+				</f:heading>
+				<f:actions>
+					<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />
+					<!--<m:OverflowToolbarButton id="btnUpdateStatus" press="updateStatusItems" icon="sap-icon://add-equipment" tooltip="Sửa trạng thái hợp đồng" text="Sửa trạng thái hợp đồng" type="Transparent" visible="false" />
+					<m:OverflowToolbarButton id="btnUpdateThanhToanStatus" press="updateThanhToanStatusItems" icon="sap-icon://edit" tooltip="Sửa trạng thái thanh toán" text="Sửa trạng thái thanh toán" type="Transparent" visible="false" />
+					<m:OverflowToolbarButton id="btnDelete" press="deleteItems" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />-->
+					<m:OverflowToolbarButton icon ="sap-icon://refresh" tooltip="Tải lại" text="Tải lại" type="Transparent" press="onRefresh" />
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+        <f:header>
+			<f:DynamicPageHeader pinnable="false">
+				 <form:Form  editable="true" id="alo">
+                    <form:layout>
+                        <form:ResponsiveGridLayout
+						  labelSpanXL="4"
+						  labelSpanL="4"
+						  labelSpanM="4"
+						  labelSpanS="12"
+						  adjustLabelSpan="false"
+						  emptySpanXL="0"
+						  emptySpanL="0"
+						  emptySpanM="0"
+						  emptySpanS="0"
+						  columnsXL="2"
+						  columnsL="2"
+						  columnsM="2"
+						  singleContainerFullSize="false" />
+                    </form:layout>
+                    <form:formContainers>
+                        <form:FormContainer>
+                            <form:formElements>
+                                <form:FormElement label="Tìm kiếm">
+                                    <form:fields>
+										<m:SearchField id="searchField" placeholder="Tìm kiếm theo mã hóa đơn ..." search="onSearch" liveChange="onLiveChange"  width="250px"/>
+                                    </form:fields>
+                                </form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>
+                        <!--<form:FormContainer>
+                            <form:formElements>
+								<form:FormElement label="Trạng thái hợp đồng">
+									<form:fields>
+										<m:Select id="statusFilter" forceSelection="false" selectedKey="-1" change="onStatusFilterChange" >
+											<c:Item key="-1" text="Tất cả" />
+											<c:Item key="0" text="Hủy" />
+											<c:Item key="1" text="Hoãn" />
+											<c:Item key="2" text="Lên hợp đồng" />
+											<c:Item key="3" text="Chuẩn bị" />
+											<c:Item key="4" text="Đang thực hiện" />
+											<c:Item key="5" text="Hoàn thành" />
+										</m:Select>
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="Trạng thái thanh toán">
+									<form:fields>
+										<m:Select id="statusThanhToanFilter" forceSelection="false" selectedKey="-1" change="onStatusThanhToanFilterChange" >
+											<c:Item key="-1" text="Tất cả" />
+											<c:Item key="0" text="Chưa thanh toán" />
+											<c:Item key="1" text="Đã thanh toán" />
+											<c:Item key="2" text="Đang nợ" />
+										</m:Select>
+									</form:fields>
+								</form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>-->
+                    </form:formContainers>
+                </form:Form>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+			<TreeTable id="mainTable"
+				rowHeight="35rem"
+				visibleRowCountMode="Auto"
+				noData="Không có kết quả phù hợp"
+				selectionMode="None"
+				rows="{path: 'mainModel>/',
+						parameters: {
+							numberOfExpandedLevels: 0
+						}}"
+				ariaLabelledBy="title"
+				rowActionCount="0"
+				fixedColumnCount="3"
+				rowSelectionChange="onRowSelectionChange"
+				>
+				<columns>
+					<Column width="8rem" visible="true" >
+						<m:Label text="Mã phiếu" />
+						<template>
+							<m:Text text="{path:'mainModel>maPhieu'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem" visible="true">
+						<m:Label text="Ngày nhập" />
+						<template>
+							<m:Text text="{path:'mainModel>ngayNhap'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="10rem" visible="true" >
+						<m:Label text="Tên thực phẩm" />
+						<template>
+							<m:Text text="{path:'mainModel>thucPham'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="6rem" visible="true" >
+						<m:Label text="Mã thực phẩm" />
+						<template>
+							<m:Text text="{path:'mainModel>maThucPham'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem" visible="true">
+						<m:Label text="Số lượng nhập" />
+						<template>
+							<m:Text text="{path:'mainModel>soLuong'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem" visible="true">
+						<m:Label text="Đơn vị" />
+						<template>
+							<m:Text text="{path:'mainModel>donVi'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="10rem" visible="true">
+						<m:Label text="Giá tiền" />
+						<template>
+							<m:Text text="{path:'mainModel>giaTien'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="10rem" visible="true">
+						<m:Label text="Hạn sử dụng" />
+						<template>
+							<m:Text text="{path:'mainModel>hanSuDung'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column minWidth="Auto" visible="true">
+						<m:Label text="Nhà cung cấp" />
+						<template>
+							<m:Text text="{path:'mainModel>nhaCungCap'}" wrapping="false" />
+						</template>
+					</Column>
+					<!--<Column minWidth="200" sortProperty="TRANGTHAI">
+						<m:Label text="Trạng thái" />
+						<template>
+							<m:ObjectStatus visible="{=!${mainModel>ISORG}}" text="{path:'mainModel>TRANGTHAI', formatter: '.globalFormatter.digitalSignatureStatusText' }" state="{path:'mainModel>TRANGTHAI', formatter: '.globalFormatter.digitalSignatureStatusColor' }" />
+						</template>
+					</Column>-->
+				</columns>
+				<footer>
+					<m:OverflowToolbar>
+						<m:Label text="Hiển thị: {countModel>/total}/{countModel>/total}"></m:Label>
+					</m:OverflowToolbar>
+				</footer>
+				<rowActionTemplate>
+					<RowAction>
+						<items>
+							<RowActionItem text="Chi tiết" icon="sap-icon://detail-view" visible="{=!${mainModel>ISORG}}" press="onRowView" />
+							<RowActionItem text="Sửa" icon="sap-icon://edit" visible="{=${globalPermissionModel>/ManageDigitalSignature_Edit} === true &amp;&amp; !${mainModel>ISORG}}" press="onRowEdit" />
+							<RowActionItem text="Xóa" icon="sap-icon://delete" visible="{=${globalPermissionModel>/ManageDigitalSignature_Del} === true &amp;&amp; !${mainModel>ISORG}}" press="onRowDelete" />
+							<RowActionItem text="Bàn giao" icon="sap-icon://action" visible="{=${globalPermissionModel>/ManageDigitalSignature_Edit} === true &amp;&amp; !${mainModel>ISORG}}" press="onRowEntrust" />
+							<!--<RowActionItem text="Cài đặt thông báo hết hạn" icon="sap-icon://bell" press="onAlertSelectRequest" />-->
+						</items>
+					</RowAction>
+				</rowActionTemplate>
+			</TreeTable>
+            
+        </f:content>
+        
+    </f:DynamicPage>
+</mvc:View>

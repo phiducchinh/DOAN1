@@ -1,0 +1,177 @@
+<mvc:View controllerName="app.HopDong.VanChuyen.List"
+    height="100%"
+    xmlns="sap.ui.table"
+    xmlns:c="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form">
+	<f:DynamicPage showFooter="false" headerExpanded="true" toggleHeaderOnTitleClick="true" fitContent="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<m:Title text="Tên đơn cỗ: {mainModel>/tenHopDong} - Khách hàng: {mainModel>/tenKhachHang}" />
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader>
+				<form:Form editable="true">
+					<form:layout>
+						<form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</form:layout>
+					<form:formContainers>
+						<form:FormContainer>
+							<form:formElements>
+								<form:FormElement label="Mã vận chuyển">
+									<form:fields>
+										<m:Input id="maHopDong" value="{mainModel>/maPhieu}" editable="false" maxLength="255" required="true"/>
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="Địa chỉ">
+									<form:fields>
+										<m:Input id="diaChi" value="{mainModel>/diaChi}" maxLength="255" />
+									</form:fields>
+								</form:FormElement>
+							</form:formElements>
+						</form:FormContainer>
+						<form:FormContainer>
+							<form:formElements>
+								<form:FormElement label="Số điện thoại">
+									<form:fields>
+										<m:Input id="sdt" value="{mainModel>/soDienThoai}" maxLength="255" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="Ngày tạo">
+									<form:fields>
+										<m:DatePicker id="ngayTao" value="{mainModel>/ngayTao}" valueFormat="YYYY-MM-dd" displayFormat="dd/MM/yyyy" />
+									</form:fields>
+								</form:FormElement>
+							</form:formElements>
+						</form:FormContainer>
+					</form:formContainers>
+				</form:Form>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<Table id="vanChuyenTable"
+				visibleRowCountMode="Auto"
+				noData="Không có kết quả phù hợp"
+				selectionMode="None"
+				rows="{path: 'vanChuyenModel>/data'}"
+				ariaLabelledBy="title"
+				rowActionCount="1"
+				fixedColumnCount="2"
+				rowSelectionChange="onRowSelectionChangeVanChuyen"
+				cellClick="onCellClickVanChuyen"
+				firstVisibleRowChanged="onScrollVanChuyen">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title class="blockTitle" id="title" text="Danh sách vật dụng" />
+						<m:ToolbarSpacer />
+						<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+						<m:Button press="DetailThucDon" icon="sap-icon://detail-view" text="Danh sách thực đơn" />
+					</m:OverflowToolbar>
+				</extension>
+				<!--<toolbar>
+					<m:OverflowToolbar>
+						<m:ToolbarSpacer />
+						<m:OverflowToolbarButton tooltip="Thêm" text="Thêm" type="Transparent" icon="sap-icon://add-document" press="addVatDung" />
+					</m:OverflowToolbar>
+				</toolbar>-->
+				<columns>
+					<Column width="15rem">
+						<m:Label text="Tên vật dụng" />
+						<template>
+							<m:Input
+							id="idhang"
+							editable="{vanChuyenModel>isEdit}"
+							placeholder="Tên vật dụng..."
+							showSuggestion="true"
+							value ="{vanChuyenModel>vatTu/tenVatTu}"
+							suggestionItemSelected=".onSelected"
+							suggestionRows="{
+									path :'vatDungModel>/',
+									templateShareable:true}">
+								<m:suggestionColumns>
+									<m:Column
+										width="7rem"
+										hAlign="Left">
+										<m:Label class="blockTitle" text="Tên vật dụng" />
+									</m:Column>
+									<m:Column width="3rem" >
+										<m:Label class="blockTitle" text="Mã vật dụng" />
+									</m:Column>
+								</m:suggestionColumns>
+								<m:suggestionRows>
+									<m:ColumnListItem>
+										<m:Label text="{vatDungModel>tenVatTu}" />
+										<m:Label text="{vatDungModel>maVatTu}" />
+									</m:ColumnListItem>
+								</m:suggestionRows>
+								<m:customData>
+									<c:CustomData key="inputIndex" value="i{vanChuyenModel>index}" writeToDom="true" />
+								</m:customData>
+							</m:Input>
+						</template>
+					</Column>
+
+					<Column width="7rem">
+						<m:Label text="Mã vật dụng"/>
+						<template>
+							<m:Text text="{vanChuyenModel>vatTu/maVatTu}" wrapping="false" />
+							<!--<m:ObjectStatus text="{path:'mainModel>ma', formatter: '.globalFormatter.formatChucVuText' }" />-->
+						</template>
+					</Column>
+					<Column width="7rem" hAlign="Center">
+						<m:Label text="Số lượng"/>
+						<template>
+							<m:Input value="{vanChuyenModel>tong}"/>
+							<!--<m:Text text="{vanChuyenModel>tong}" wrapping="false" />-->
+							<!--<m:ObjectStatus text="{path:'mainModel>ma', formatter: '.globalFormatter.formatChucVuText' }" />-->
+						</template>
+					</Column>
+					<Column hAlign="End" width="10rem">
+						<m:Label text="Số lượng còn lại"/>
+						<template>
+							<m:Text text="{vanChuyenModel>vatTu/soLuongConLai}" wrapping="false" />
+						</template>
+					</Column>
+					<Column>
+						<m:Label text="Trạng thái sử dụng"/>
+						<template>
+							<m:ObjectStatus text="{path:'vanChuyenModel>vatTu/trangThai', formatter: '.globalFormatter.trangThaiVatTuText' }" state="{path:'vanChuyenModel>vatTu/trangThai', formatter: '.globalFormatter.trangThaiVatTuColor' }" />
+						</template>
+					</Column>
+				</columns>
+				<rowActionTemplate>
+					<RowAction>
+						<items>
+							<!--<RowActionItem id="viewVCButtonRow" text="Chi tiết" icon="sap-icon://detail-view" visible="true" press="onRowView" />
+							<RowActionItem id="viewVCButtonVC" text="Đơn vận chuyển" icon="sap-icon://add-equipment" visible="{=${mainModel>trangThai} === 2 }" press="onAddVanChuyen" />
+							<RowActionItem id="editVCButtonRow" text="Sửa" icon="sap-icon://edit" visible="true" press="onRowEdit" />-->
+							<RowActionItem id="deleteVCButtonRow" text="Xóa" icon="sap-icon://delete" visible="true" press="onRowDelete" />
+
+						</items>
+					</RowAction>
+				</rowActionTemplate>
+				<footer>
+					<m:OverflowToolbar>
+						<!--<m:Text text="Hiển thị: 100/100"/>-->
+						<m:ToolbarSpacer />
+						<m:Button tooltip="save" type="Success" text="Lưu đơn vận chuyển" press="onAddButtonPress" visible="true" />
+					</m:OverflowToolbar>
+				</footer>
+			</Table>
+		</f:content>
+		<!--<f:footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button tooltip="save" type="Success" text="Lưu đơn vận chuyển" press="onAddButtonPress" visible="true" />
+			</m:OverflowToolbar>
+		</f:footer>-->
+
+	</f:DynamicPage>
+</mvc:View>

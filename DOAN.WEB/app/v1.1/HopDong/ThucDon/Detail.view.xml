@@ -1,0 +1,87 @@
+<m:View displayBlock="true" controllerName="app.Software.Server.Detail" height="100%"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form">
+	<ObjectPageLayout showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:Title text="{mainModel>/IP}" wrapping="true" class="sapUiTinyMarginEnd" />
+					</m:FlexBox>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							<m:Title text="{mainModel>/HEDIEUHANH}" wrapping="true" class="sapUiTinyMarginEnd" />
+						</m:FlexBox>
+					</m:FlexBox>
+				</snappedHeading>
+				<actions>
+					<m:OverflowToolbarButton tooltip="Sửa" text="Sửa" icon="sap-icon://edit" type="Transparent" visible="{=${globalPermissionModel>/ManageSofware_Edit} === true}" press="onEditButtonPress" />
+					<m:OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" visible="{=${globalPermissionModel>/ManageSofware_Del} === true}" press="onDeleteButtonPress" />
+					<!--<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="closeArea" tooltip="Đóng" text="Đóng" />-->
+				</actions>
+				<navigationActions>
+				</navigationActions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<l:HorizontalLayout allowWrapping="true">
+				<l:VerticalLayout class="sapUiMediumMarginEnd">
+					<m:ObjectAttribute title="Tạo lúc" text="{
+				                                       path: 'mainModel>/CREATED',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />
+					<m:ObjectAttribute title="Sửa lúc" text="{
+				                                       path: 'mainModel>/MODIFIED',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />
+				</l:VerticalLayout>
+				<l:VerticalLayout class="sapUiMediumMarginEnd">
+					<m:ObjectAttribute title="Tạo bởi" text="{ path: 'mainModel>/CREATEDBY', formatter: '.globalFormatter.accountDisplay' }" />
+					<m:ObjectAttribute title="Sửa bởi" text="{ path: 'mainModel>/MODIFIEDBY', formatter: '.globalFormatter.accountDisplay' }" />
+				</l:VerticalLayout>
+			</l:HorizontalLayout>
+		</headerContent>
+		<sections>
+			<ObjectPageSection title="Thông tin chung">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:VBox>
+								<form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true">
+									<form:content>
+										<m:Label text="IP" design="Bold" />
+										<m:Text text="{ path: 'mainModel>/IP'}" />
+										<m:Label text="Hệ điều hành" design="Bold" />
+										<m:Text text="{ path: 'mainModel>/TENHEDIEUHANH'}" />
+										<m:Label text="Loại máy chủ" design="Bold" />
+										<m:Text text="{path:'mainModel>/LOAIMAYCHU', formatter: '.globalFormatter.formatLoaiMayChu' }" />
+										<m:Label text="Công nghệ" design="Bold" />
+										<m:Text text="{path:'mainModel>/CONGNGHE'}" />
+										<m:Label text="Ghi chú" design="Bold" />
+										<m:Text text="{path:'mainModel>/GHICHU'}" />
+									</form:content>
+								</form:SimpleForm>
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</m:View>

@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="detailVatDungDiKemDlg" contentHeight="45%" contentWidth="35%" showHeader="true" verticalScrolling="false">
+		<customHeader>
+		<Toolbar>
+			<Title text="Thông tin chi tiết vật dụng"/>
+			<ToolbarSpacer />
+			<!--<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseMonAnActivityDetail"/>-->
+		</Toolbar>
+		</customHeader>
+		<endButton>
+			<Button text="Đóng" press="onCloseVatDungDiKemMonAnDetail" />
+		</endButton>
+		<content>
+			<mvc:XMLView viewName="app.MonAn.VatDungDiKem.Detail" id="app.MonAn.VatDungDiKem.Detail"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

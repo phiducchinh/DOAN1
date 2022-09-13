@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="addThucPhamDlg" contentHeight="45%" contentWidth="35%" showHeader="false">
+		<customHeader>
+			<Toolbar>
+				<Title text="Thêm mới thực phẩm đi kèm"/>
+				<ToolbarSpacer />
+				<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseThucPhamMonAnAdd"/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<mvc:XMLView viewName="app.MonAn.ThucPham.Add" id="app.MonAn.ThucPham.Add"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

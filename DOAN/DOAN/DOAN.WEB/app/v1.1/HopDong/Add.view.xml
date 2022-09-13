@@ -1,0 +1,144 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" 
+		   xmlns:cc="app.ext.Controls" xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" 
+		   xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor" 
+    controllerName="app.HopDong.Add">
+	<Page>
+		<customHeader>
+			<Toolbar design="Solid">
+				<Title text="THÔNG TIN ĐƠN CỖ" level="H4" />
+				<ToolbarSpacer />
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox>
+				<f:Form editable="true" class="displayForm">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Mã đơn cỗ">
+									<f:fields>
+										<Input id="maHopDong" value="{mainModel>/maHopDong}" editable="false" maxLength="255" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Tên đơn cỗ">
+									<f:fields>
+										<Input id="tenHopDong" value="{mainModel>/tenHopDong}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Tên khách hàng">
+									<f:fields>
+										<Input id="tenKhachHang" value="{mainModel>/tenKhachHang}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Địa chỉ">
+									<f:fields>
+										<Input id="diaChi" value="{mainModel>/diaChi}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Số điện thoại">
+									<f:fields>
+										<Input id="soDienThoai" type="Number" value="{mainModel>/soDienThoai}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Số mâm">
+									<f:fields>
+										<Input id="soMam" type="Number" value="{mainModel>/soMam}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Sử dụng bàn ghế">
+									<f:fields>
+										<Select id="suDungBanGhe" forceSelection="false" selectedKey="{mainModel>/suDungBanGhe}" required="true">
+											<core:Item key="0" text="Không sử dụng" />
+											<core:Item key="1" text="Có sử dụng" />
+										</Select>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Trạng thái">
+									<f:fields>
+										<Select id="trangThai" forceSelection="false" selectedKey="{mainModel>/trangThai}" required="true">
+											<core:Item key="0" text="Hủy" />
+											<core:Item key="1" text="Hoãn" />
+											<core:Item key="2" text="Lên hợp đồng" />
+											<core:Item key="3" text="Chuẩn bị" />
+											<core:Item key="4" text="Đang thực hiện" />
+											<core:Item key="5" text="Hoàn thành" />
+										</Select>
+									</f:fields>
+								</f:FormElement>
+								<!--<f:FormElement label="Trạng thái thanh toán">
+									<f:fields>
+										<Select id="trangThaiThanhToan" forceSelection="false" selectedKey="{mainModel>/trangThaiThanhToan}" required="true">
+											<core:Item key="0" text="Chưa thanh toán" />
+											<core:Item key="1" text="Đã thanh toán" />
+											<core:Item key="2" text="Đang nợ" />
+										</Select>
+									</f:fields>
+								</f:FormElement>-->
+							</f:formElements>
+						
+						</f:FormContainer>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Ngày bắt đầu">
+									<f:fields>
+										<DateTimePicker id="ngayBatDau" value="{mainModel>/ngayBatDau}" valueFormat="yyyy-MM-ddTHH:mm:ss.SSS" displayFormat="HH:mm dd/MM/yyyy" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ngày kết thúc">
+									<f:fields>
+										<DateTimePicker id="ngayKetThuc" value="{mainModel>/ngayKetThuc}" valueFormat="yyyy-MM-ddTHH:mm:ss.SSS" displayFormat="HH:mm dd/MM/yyyy" required="true"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Số mâm phát sinh" visible="false">
+									<f:fields>
+										<Input value="{mainModel>/soMamPhatSinh}" maxLength="500" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Tiền cọc" visible="true">
+									<f:fields>
+									<Input value="{mainModel>/tienCoc}" type="Number" maxLength="500" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Tiền phát sinh" visible="false">
+									<f:fields>
+										<Input value="{mainModel>/tienPhatSinh}" maxLength="500" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Tổng tiền" visible="false">
+									<f:fields>
+										<Input value="{mainModel>/tongTien}" maxLength="500" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Bếp trưởng">
+									<f:fields>
+										<Input id="bepTruong" value="{mainModel>/bepTruong}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadBepTruogFragment" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ghi chú">
+									<f:fields>
+										<TextArea value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="5" width="100%" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				
+			</VBox>
+			
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button id="saveAdd" text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+					<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+					<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:View>

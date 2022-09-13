@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="phieuNhapVatDungDialog"
+        contentWidth="950px" contentHeight="750px" 
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+        <customHeader>
+        <Toolbar>
+            <Title text="Thông tin chi tiết phiếu nhập "/>
+            <ToolbarSpacer />
+            <OverflowToolbarButton  icon="sap-icon://decline" press="onClosePhieuNhapVatDungView"/>
+        </Toolbar>
+        </customHeader>
+        <endButton>
+            <Button text="Đóng" press="onClosePhieuNhapVatDungView" />
+        </endButton>
+        <content>
+            <mvc:XMLView viewName="app.phieuNhapVatDung.Detail" id="app.phieuNhapVatDung.Detail"/>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>

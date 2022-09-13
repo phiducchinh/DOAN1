@@ -1,0 +1,121 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:ff="sap.f"
+		   xmlns:l="sap.ui.layout" xmlns:cc="app.ext.Controls" 
+		   xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified" 
+			xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table" 
+		   xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor" 
+    controllerName="app.HoaDonXuat.Add1">
+	<Page>
+		<t:Table id="phieuXuatTable"
+			noData="Không có kết quả phù hợp"
+			rowActionCount="2"
+			visibleRowCount="Auto"
+			selectionMode="None"
+			rows ="{path:'phieuXuatModel>/'}"
+			ariaLabelledBy="title2">
+			<t:extension>
+				<OverflowToolbar style="Clear">
+					<Title class="blockTitle" id="title" text="Danh sách các thực phẩm" />
+					<ToolbarSpacer />
+					<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+					<Button press="DetailThucDon" icon="sap-icon://detail-view" text="Danh sách thực đơn" />
+				</OverflowToolbar>
+			</t:extension>
+			<t:columns>
+				<t:Column width="17rem">
+					<Label text="Tên thực phẩm" />
+					<t:template>
+						<Input
+						id="idhang"
+						editable="{phieuXuatModel>isEdit}"
+						placeholder="Tên thực phẩm..."
+						showSuggestion="true"
+						value ="{phieuXuatModel>tenThucPham}"
+						suggestionItemSelected=".onSelected"
+						suggestionRows="{
+					path :'thucPhamModel>/',
+					templateShareable:true}">
+							<suggestionColumns>
+								<Column
+									width="7rem"
+									hAlign="Left">
+									<Label class="blockTitle" text="Tên thực phẩm" />
+								</Column>
+								<Column width="3rem" >
+									<Label class="blockTitle" text="Mã thực phẩm" />
+								</Column>
+								<Column
+									hAlign="Left" width="5rem">
+									<Label class="blockTitle" text="Đơn vị" />
+								</Column>
+								<Column
+									hAlign="Center" width="3rem">
+									<Label class="blockTitle" text="Loại" />
+								</Column>
+							</suggestionColumns>
+							<suggestionRows>
+								<ColumnListItem>
+									<Label text="{thucPhamModel>tenThucPham}" />
+									<Label text="{thucPhamModel>maThucPham}" />
+									<Label text="{thucPhamModel>donVi}" />
+									<Label text="{thucPhamModel>loai}" />
+								</ColumnListItem>
+							</suggestionRows>
+							<customData>
+								<core:CustomData key="inputIndex" value="i{phieuXuatModel>index}" writeToDom="true" />
+							</customData>
+						</Input>
+					</t:template>
+				</t:Column>
+
+				<t:Column width="7rem">
+					<Label text="Mã thực phẩm" />
+					<t:template>
+						<Text text="{phieuXuatModel>thucPham/maThucPham}" wrapping="false" />
+					</t:template>
+				</t:Column>
+
+				<t:Column width="10rem">
+					<Label text="Loại thực phẩm" />
+					<t:template>
+						<ObjectStatus text="{path:'phieuXuatModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText' }" state="{path:'phieuXuatModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPState' }" />
+					</t:template>
+				</t:Column>
+				<t:Column>
+					<Label text="Số lượng xuất" />
+					<t:template>
+						<Input
+							class="gianhap"
+							value="{phieuXuatModel>tong}"
+							liveChange="slXuatChange"
+							placeholder="Số lượng...">
+							<customData>
+								<core:CustomData key="soluongIndex" value="i{phieuXuatModel>index}" writeToDom="true" />
+							</customData>
+						</Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="8rem">
+					<Label text="Số lượng trong kho" />
+					<t:template>
+						<Text text="{phieuXuatModel>soLuongTon}" wrapping="false" />
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem">
+					<Label text="Đơn vị" />
+					<t:template>
+						<Text text="{phieuXuatModel>thucPham/donVi}" wrapping="false" />
+					</t:template>
+				</t:Column>
+
+			</t:columns>
+			<t:rowActionTemplate>
+				<t:RowAction>
+					<t:items>
+						<t:RowActionItem text="Sửa" icon="sap-icon://edit" visible="true" press="onRowEdit" />
+						<t:RowActionItem text="Xóa" icon="sap-icon://delete" press="onRowDelete" />
+					</t:items>
+				</t:RowAction>
+			</t:rowActionTemplate>
+		</t:Table>
+	</Page>
+</core:View>

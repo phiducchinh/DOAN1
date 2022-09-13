@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+  xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+	<Popover verticalScrolling="true" placement="Bottom" class="sapUiSizeCompact" showHeader="false">
+		<content>
+			<List id="idListUpdateStatus" mode="SingleSelectMaster">
+				<StandardListItem title="Thực phẩm tươi sống">
+					<customData>
+						<core:CustomData key="Status" value="0" />
+					</customData>
+				</StandardListItem>
+				<StandardListItem title="Thực phẩm khô">
+					<customData>
+						<core:CustomData key="Status" value="1"></core:CustomData>
+					</customData>
+				</StandardListItem>
+			</List>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button type="Emphasized" press="btnUpdateStatus" text="Áp dụng" />
+			</Toolbar>
+		</footer>
+	</Popover>
+</core:FragmentDefinition>

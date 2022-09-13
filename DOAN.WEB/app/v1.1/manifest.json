@@ -1,0 +1,292 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "hmi.sav.dsm.admin",
+    "type": "application",
+    "i18n": "i18n/global.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "app.Root",
+      "type": "XML",
+      "async": true,
+      "id": "app.Root"
+    },
+    "dependencies": {
+      "minUI5Version": "1.64.0",
+      "libs": {
+        "sap.m": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+     
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "/app/v1.1/css/master.css"
+        }
+      ],
+      "js": [
+        {
+          "uri": "/ext/moment/moment.js"
+        },
+        { "uri": "/ext/3rd/xlsx.core.min.js" },
+        { "uri": "libs/rgbcolor.js" },
+        { "uri": "libs/stackblur.js" },
+        { "uri": "libs/canvg.js" },
+        { "uri": "libs/jsPDF.js" }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "app",
+        "controlId": "appRoot",
+        "controlAggregation": "detailPages",
+        "clearTarget": false,
+        "async": true,
+        "bypassed": {
+          "target": "PageNotFound"
+        }
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "homepage",
+          "target": [ "rootMaster", "dashboard_quickstatistics" ]
+        },
+        {
+          "pattern": "dashboard",
+          "name": "Dashboard",
+          "target": [ "rootMaster", "dashboard_quickstatistics" ]
+        },
+        {
+          "pattern": "VatTu",
+          "name": "VatTu",
+          "target": [ "rootMaster", "VatTu" ]
+        },
+        {
+          "pattern": "KhoVatTu",
+          "name": "KhoVatTu",
+          "target": [ "rootMaster", "KhoVatTu" ]
+        },
+        {
+          "pattern": "NhanVien",
+          "name": "NhanVien",
+          "target": [ "rootMaster", "NhanVien" ]
+        },
+        {
+          "pattern": "MonAn",
+          "name": "MonAn",
+          "target": [ "rootMaster", "MonAn" ]
+        },
+        {
+          "pattern": "HopDong",
+          "name": "HopDong",
+          "target": [ "rootMaster", "HopDong" ]
+        },
+        {
+          "pattern": "ThucPham",
+          "name": "ThucPham",
+          "target": [ "rootMaster", "ThucPham" ]
+        },
+        {
+          "pattern": "VanChuyen",
+          "name": "VanChuyen",
+          "target": [ "rootMaster", "VanChuyen" ]
+        },
+        {
+          "pattern": "KhoThucPham",
+          "name": "KhoThucPham",
+          "target": [ "rootMaster", "KhoThucPham" ]
+        },
+        {
+          "pattern": "ThanhToan",
+          "name": "ThanhToan",
+          "target": [ "rootMaster", "ThanhToan" ]
+        },
+        {
+          "pattern": "PhieuMua",
+          "name": "Mua",
+          "target": [ "rootMaster", "HoaDonMua" ]
+        },
+        {
+          "pattern": "PhieuNhap",
+          "name": "Nhap",
+          "target": [ "rootMaster", "HoaDonNhap" ]
+        },
+        {
+          "pattern": "PhieuXuat",
+          "name": "Xuat",
+          "target": [ "rootMaster", "HoaDonXuat" ]
+        },
+        {
+          "pattern": "KhoVatDung/PhieuXuat",
+          "name": "PhieuXuat",
+          "target": [ "rootMaster", "PhieuXuat" ]
+        },
+        {
+          "pattern": "KhoVatDung/PhieuNhap",
+          "name": "PhieuNhap",
+          "target": [ "rootMaster", "PhieuNhap" ]
+        },
+        {
+          "pattern": "KhoVatDung/PhieuMua",
+          "name": "PhieuMua",
+          "target": [ "rootMaster", "PhieuMua" ]
+        },
+        {
+          "pattern": "PhieuXuat/add",
+          "name": "addphieuxuat",
+          "target": [ "rootMaster", "PhieuXuatAdd" ]
+        }
+      ],
+      "targets": {
+        "rootMaster": {
+          "viewId": "RootMaster",
+          "viewName": "RootMaster",
+          "controlId": "appRoot",
+          "controlAggregation": "masterPages",
+          "viewLevel": 1
+        },
+        "dashboard_quickstatistics": {
+          "viewId": "dashboard_quickstatistics",
+          "viewName": "Dashboard.QuickStatisStics",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "VatTu": {
+          "viewId": "VatTu",
+          "viewName": "VatTu.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "NhanVien": {
+          "viewId": "NhanVien",
+          "viewName": "NhanVien.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "MonAn": {
+          "viewId": "MonAn",
+          "viewName": "MonAn.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "HopDong": {
+          "viewId": "HopDong",
+          "viewName": "HopDong.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "ThucPham": {
+          "viewId": "ThucPham",
+          "viewName": "ThucPham.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "VanChuyen": {
+          "viewId": "VanChuyen",
+          "viewName": "VanChuyen.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "KhoThucPham": {
+          "viewId": "KhoThucPham",
+          "viewName": "KhoThucPham.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "HoaDonMua": {
+          "viewId": "HoaDonMua",
+          "viewName": "HoaDonMua.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "HoaDonNhap": {
+          "viewId": "HoaDonNhap",
+          "viewName": "HoaDonNhap.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "HoaDonXuat": {
+          "viewId": "HoaDonXuat",
+          "viewName": "HoaDonXuat.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "KhoVatTu": {
+          "viewId": "KhoVatTu",
+          "viewName": "KhoVatTu.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "PhieuXuat": {
+          "viewId": "PhieuXuat",
+          "viewName": "PhieuXuatVatDung.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "PhieuNhap": {
+          "viewId": "PhieuNhap",
+          "viewName": "PhieuNhapVatDung.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "ThanhToan": {
+          "viewId": "ThanhToan",
+          "viewName": "ThanhToan.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "PhieuMua": {
+          "viewId": "PhieuMua",
+          "viewName": "PhieuMuaVatDung.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "PhieuXuatAdd": {
+          "viewId": "PhieuXuatAdd",
+          "viewName": "HoaDonXuat.MasterAdd",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        }
+      }
+    }
+  }
+}

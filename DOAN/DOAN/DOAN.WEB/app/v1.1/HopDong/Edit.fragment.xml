@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="HopDongEditDialog" stretch="true" verticalScrolling="false" class="sapUiSizeCompact">
+        <customHeader>
+            <Toolbar>
+                <Title text="Cập nhật thông tin "/>
+                <ToolbarSpacer />
+                <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseHopDongEdit"/>
+            </Toolbar>
+        </customHeader>
+
+		<content>
+            <mvc:XMLView viewName="app.HopDong.Edit" id="app.HopDong.Edit"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,197 @@
+<mvc:View controllerName="app.PhieuNhapVatDung.List" 
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    height="100%"
+    xmlns="sap.ui.table"
+    xmlns:c="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form">
+    <f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true" fitContent="true" class="sapUiNoContentPadding">
+        <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<m:Title text="Quản lý phiếu nhập vật dụng" />
+				</f:heading>
+				<f:actions>
+					<m:OverflowToolbarButton press="onAddButtonPress" tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" visible="true" />
+					<m:OverflowToolbarButton icon ="sap-icon://refresh" tooltip="Tải lại" text="Tải lại" type="Transparent" press="onRefresh" />
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+        <f:header>
+			<f:DynamicPageHeader pinnable="false">
+				<form:Form  editable="true" id="alo">
+					<form:layout>
+						<form:ResponsiveGridLayout
+						  labelSpanXL="4"
+						  labelSpanL="4"
+						  labelSpanM="4"
+						  labelSpanS="12"
+						  adjustLabelSpan="false"
+						  emptySpanXL="0"
+						  emptySpanL="0"
+						  emptySpanM="0"
+						  emptySpanS="0"
+						  columnsXL="2"
+						  columnsL="2"
+						  columnsM="2"
+						  singleContainerFullSize="false" />
+					</form:layout>
+					<form:formContainers>
+						<form:FormContainer>
+							<form:formElements>
+								<form:FormElement label="Tìm kiếm">
+									<form:fields>
+										<m:SearchField id="searchField" placeholder="Tìm kiếm theo tên hợp đồng ..." search="onSearch" liveChange="onLiveChange"  width="300px"/>
+									</form:fields>
+								</form:FormElement>
+							</form:formElements>
+						</form:FormContainer>
+					</form:formContainers>
+				</form:Form>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+
+			<!--Table id="mainTable"
+			visibleRowCountMode="Auto"
+			noData="Không có kết quả phù hợp"
+			selectionMode="MultiToggle"
+			rows="{path: 'mainModel>/'}"
+			ariaLabelledBy="title"
+			rowActionCount="2"
+			fixedColumnCount="2"
+			rowSelectionChange="onRowSelectionChange"
+			cellClick="onCellClick"
+			firstVisibleRowChanged="onScroll"-->
+
+
+			<TreeTable id="mainTable"
+				rowHeight="35rem"
+				visibleRowCountMode="Auto"
+				noData="Không có kết quả phù hợp"
+				selectionMode="None"
+				rows="{path: 'mainModel>/',
+				parameters: {
+				numberOfExpandedLevels: 0
+				}}"
+				ariaLabelledBy="title"
+				rowActionCount="0"
+				fixedColumnCount="3"
+				rowSelectionChange="onRowSelectionChange">
+                <columns>
+					<!--<Column width="3rem">
+						<m:Label text="STT"/>
+						<template>
+							<m:Text text="{mainModel>STT}" wrapping="false" />
+						</template>
+					</Column>-->
+					<Column>
+						<m:Label text="Mã phiếu nhập"/>
+						<template>
+							<m:Text text="{mainModel>maPhieu}" wrapping="false" />
+						</template>
+					</Column>
+					<Column>
+						<m:Label text="Ngày tạo"/>
+						<template>
+							<m:Text text="{
+								path: 'mainModel>ngayNhap',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS',
+										UTC: true
+									},
+									pattern: 'dd/MM/yyyy',
+									UTC: false
+								}
+							}" />
+						</template>
+					</Column>
+					<Column width="10rem" visible="true" >
+						<m:Label text="Tên vật dụng" />
+						<template>
+							<m:Text text="{path:'mainModel>tenVatDung'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="7rem" visible="true" >
+						<m:Label text="Mã vật dụng" />
+						<template>
+							<m:Text text="{path:'mainModel>maVatTu'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="5rem" visible="true" hAlign="Center">
+						<m:Label text="SL nhập" />
+						<template>
+							<m:Text text="{path:'mainModel>soLuong'}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Nguồn"/>
+						<template>
+							<m:ObjectStatus text="{path:'mainModel>nguonGoc', formatter: '.globalFormatter.formatNguonGoc'}" />
+						</template>
+					</Column>
+					<Column>
+						<m:Label text="Trạng thái"/>
+						<template>
+							<m:ObjectStatus text="{path:'mainModel>trangThai', formatter: '.globalFormatter.formatTTVanChuyenText'}" state="{path:'mainModel>trangThai', formatter: '.globalFormatter.formatTTVanChuyenColor'}" />
+						</template>
+					</Column>
+					<Column>
+						<m:Label text="Địa chỉ"/>
+						<template>
+							<m:Text text="{mainModel>diaChi}" wrapping="false" />
+						</template>
+					</Column>
+					
+					<Column visible="true">
+						<m:Label text="Ghi chú"/>
+						<template>
+							<m:Text text="{mainModel>ghiChu}" wrapping="false" />
+						</template>
+					</Column>
+					
+					<!--<Column>
+						<m:Label text="Created At"/>
+						<template>
+							<m:Text text="{
+								path: 'mainModel>created',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-ddTHH:mm:ss.SSS',
+										UTC: true
+									},
+									pattern: 'dd/MM/yyyy',
+									UTC: false
+								}
+							}" />
+						</template>
+					</Column>-->
+                </columns>
+					
+                <footer>
+                    <m:OverflowToolbar>
+						<m:Label text="Hiển thị: {countModel>/show}/{countModel>/total}"></m:Label>
+					</m:OverflowToolbar>
+                </footer>
+                <rowActionTemplate>
+					<RowAction>
+						<items>
+							<RowActionItem id="viewButtonRow" text="Chi tiết" icon="sap-icon://detail-view" visible="true" press="onRowView" />
+							<RowActionItem id="editButtonRow" text="Sửa" icon="sap-icon://edit" visible="true" press="onRowEdit" />
+							<RowActionItem id="deleteButtonRow" text="Xóa" icon="sap-icon://delete" visible="true" press="onRowDelete" />
+							
+						</items>
+					</RowAction>
+				</rowActionTemplate>
+            </TreeTable>
+        </f:content>
+        
+    </f:DynamicPage>
+</mvc:View>

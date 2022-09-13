@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="NhanVienDetailDialog"
+        contentWidth="550px" contentHeight="550px"
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+        <customHeader>
+        <Toolbar>
+            <Title text="Thông tin chi tiết "/>
+            <ToolbarSpacer />
+            <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseNhanVienView"/>
+        </Toolbar>
+        </customHeader>
+        <endButton>
+            <Button text="Đóng" press="onCloseNhanVienView" />
+        </endButton>
+        <content>
+            <mvc:XMLView viewName="app.NhanVien.Detail" id="app.NhanVien.Detail"/>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>

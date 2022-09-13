@@ -1,0 +1,211 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.f"
+		   xmlns:l="sap.ui.layout" xmlns:cc="app.ext.Controls"
+		   xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified"
+			xmlns:form="sap.ui.layout.form" xmlns:t="sap.ui.table"
+		   xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor"
+    controllerName="app.HoaDonXuat.MasterAdd">
+	<f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true" showFooter="true" fitContent="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Thêm phiếu xuất thực phẩm" />
+				</f:heading>
+				<!--<f:actions>
+					<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />
+					--><!--<m:OverflowToolbarButton id="btnUpdateStatus" press="updateStatusItems" icon="sap-icon://add-equipment" tooltip="Sửa trạng thái hợp đồng" text="Sửa trạng thái hợp đồng" type="Transparent" visible="false" />
+					<m:OverflowToolbarButton id="btnUpdateThanhToanStatus" press="updateThanhToanStatusItems" icon="sap-icon://edit" tooltip="Sửa trạng thái thanh toán" text="Sửa trạng thái thanh toán" type="Transparent" visible="false" />
+					<m:OverflowToolbarButton id="btnDelete" press="deleteItems" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />--><!--
+					<m:OverflowToolbarButton icon ="sap-icon://refresh" tooltip="Tải lại" text="Tải lại" type="Transparent" press="onRefresh" />
+				</f:actions>-->
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="false">
+				<form:Form editable="true" class="displayForm mg-b">
+					<form:layout>
+						<form:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</form:layout>
+					<form:formContainers>
+						<form:FormContainer>
+							<form:formElements >
+								<form:FormElement label="Mã phiếu xuất">
+									<form:fields>
+										<Input id="maPhieuXuat" editable="false" value="{mainModel>/maphieuXuat}" maxLength="255" required="true" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="Ngày tạo" >
+									<form:fields>
+										<DatePicker id="ngayTao" value="{mainModel>/ngayTao}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" required="true" />
+									</form:fields>
+								</form:FormElement>
+
+							</form:formElements>
+						</form:FormContainer>
+						<form:FormContainer>
+							<form:formElements>
+								<form:FormElement label="Đơn cỗ">
+									<form:fields>
+										<Input id="donCo" value="{mainModel>/donCo}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadDonCoFragment" required="true"/>
+									</form:fields>
+								</form:FormElement>
+
+								<form:FormElement label="Ghi chú" >
+									<form:fields>
+										<TextArea id="ghiChu" value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="3" width="100%" />
+									</form:fields>
+								</form:FormElement>
+							</form:formElements>
+						</form:FormContainer>
+					</form:formContainers>
+				</form:Form>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<f:FlexibleColumnLayout busyIndicatorDelay="0" restoreFocusOnBackNavigation="true" id="fcl">
+				<f:beginColumnPages>
+					<t:Table
+						id="phieuXuatTable"
+						visibleRowCountMode="Auto"
+						noData="Không có kết quả phù hợp"
+						selectionMode="None"
+						rows ="{path:'phieuXuatModel>/'}"
+						ariaLabelledBy="title"
+						rowActionCount="2"
+						fixedColumnCount="2">
+						<t:extension>
+							<OverflowToolbar style="Clear">
+								<Title class="blockTitle" id="title" text="Danh sách các thực phẩm" />
+								<ToolbarSpacer />
+								<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+									<Button press="DetailThucDon" icon="sap-icon://detail-view" text="Danh sách thực đơn" />
+								</OverflowToolbar>
+							</t:extension>
+							<t:columns>
+								<t:Column width="15rem">
+									<Label text="Tên thực phẩm" />
+									<t:template>
+										<Input
+										id="idhang"
+										editable="{phieuXuatModel>isEdit}"
+										placeholder="Tên thực phẩm..."
+										showSuggestion="true"
+										value ="{phieuXuatModel>tenThucPham}"
+										valueStateText="Chọn chi tiết thực phẩm"
+										suggestionItemSelected=".onSelected"
+										suggestionRows="{
+											path :'thucPhamModel>/',
+											templateShareable:true}">
+											<suggestionColumns>
+												<Column
+													width="7rem"
+													hAlign="Left">
+													<Label class="blockTitle" text="Tên thực phẩm" />
+												</Column>
+												<Column width="3rem" >
+													<Label class="blockTitle" text="Mã thực phẩm" />
+												</Column>
+												<Column
+													hAlign="Left" width="5rem">
+													<Label class="blockTitle" text="Đơn vị" />
+												</Column>
+												<Column
+													hAlign="Center" width="3rem">
+													<Label class="blockTitle" text="Loại" />
+												</Column>
+											</suggestionColumns>
+											<suggestionRows>
+												<ColumnListItem>
+													<Label text="{thucPhamModel>tenThucPham}" />
+													<Label text="{thucPhamModel>maThucPham}" />
+													<Label text="{thucPhamModel>donVi}" />
+													<Label text="{thucPhamModel>loai}" />
+												</ColumnListItem>
+											</suggestionRows>
+											<customData>
+												<core:CustomData key="inputIndex" value="i{phieuXuatModel>index}" writeToDom="true" />
+											</customData>
+										</Input>
+									</t:template>
+								</t:Column>
+
+								<t:Column width="8rem">
+									<Label text="Mã thực phẩm" />
+									<t:template>
+										<Text text="{phieuXuatModel>thucPham/maThucPham}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="9rem">
+									<Label text="Trạng thái" />
+									<t:template>
+										<ObjectStatus text="{path:'phieuXuatModel>trangThai', formatter: '.globalFormatter.formatTrangThaiPXText'}" state="{path:'phieuXuatModel>trangThai', formatter: '.globalFormatter.formatTrangThaiPXColor' }" />
+									</t:template>
+								</t:Column>
+
+								<t:Column width="12rem">
+									<Label text="Loại thực phẩm" />
+									<t:template>
+										<ObjectStatus text="{path:'phieuXuatModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText' }" state="{path:'phieuXuatModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPState' }" />
+									</t:template>
+								</t:Column>
+								<t:Column width="10rem">
+									<Label text="Số lượng xuất" />
+									<t:template>
+										<Input
+											class="gianhap"
+											value="{phieuXuatModel>tong}"
+											liveChange="slXuatChange"
+											valueState="{phieuXuatModel>checkStateTP}"
+											valueStateText="Vui lòng chọn chi tiết xuất thực phẩm"
+											placeholder="Số lượng...">
+											<customData>
+												<core:CustomData key="soluongIndex" value="i{phieuXuatModel>index}" writeToDom="true" />
+											</customData>
+										</Input>
+									</t:template>
+								</t:Column>
+								<t:Column width="12rem">
+									<Label text="Số lượng trong kho" />
+									<t:template>
+										<Text text="{phieuXuatModel>soLuongTon}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column>
+									<Label text="Đơn vị" />
+									<t:template>
+										<Text text="{phieuXuatModel>thucPham/donVi}" wrapping="false" />
+									</t:template>
+								</t:Column>
+
+							</t:columns>
+							<t:rowActionTemplate>
+								<t:RowAction>
+									<t:items>
+										<t:RowActionItem text="Sửa" icon="sap-icon://edit" visible="{=${phieuXuatModel>isEdit} !== true}" press="onRowEdit" />
+										<t:RowActionItem text="Xóa" icon="sap-icon://delete" visible="{=${phieuXuatModel>isEdit} !== true}" press="onRowDelete" />
+									</t:items>
+								</t:RowAction>
+							</t:rowActionTemplate>
+							<t:footer>
+								<Toolbar>
+									<content>
+										<ToolbarSpacer />
+										<Button id="saveAdd" text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+										<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+										<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+									</content>
+								</Toolbar>
+							</t:footer>
+						</t:Table>
+				</f:beginColumnPages>
+			</f:FlexibleColumnLayout>
+		</f:content>
+		<!--<f:footer>
+			<Toolbar>
+			<ToolbarSpacer />
+			<Button id="saveAdd" text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+			<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+			<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+			</Toolbar>
+		</f:footer>-->
+	</f:DynamicPage>
+</mvc:View>

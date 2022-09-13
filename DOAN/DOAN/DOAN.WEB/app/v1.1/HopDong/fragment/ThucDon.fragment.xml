@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+	<Dialog id="thucdonFrag" title="Danh sách món ăn" contentWidth="50vw" contentHeight="61vh" titleAlignment="Center">
+		<subHeader>
+			<!--<Toolbar>
+				<SearchField search="onSearchBepTruong" liveChange="onSearchBepTruongLive" placeholder="Tìm kiếm theo tên bếp trưởng ..." />
+			</Toolbar>-->
+		</subHeader>
+		
+		<t:Table id="donCoList"
+                visibleRowCount="11"
+                noData="Không có kết quả phù hợp"
+                selectionMode="None"
+                rows="{path: 'thucDonModel>/'}"
+				ariaLabelledBy="title"
+                rowActionCount="0"
+                fixedColumnCount="0">
+			<t:columns>
+				<t:Column width="3rem" hAlign="Center">
+					<Label text="STT"/>
+					<t:template>
+						<Text text="{thucDonModel>STT}" wrapping="false" />
+					</t:template>
+				</t:Column>
+				<t:Column width="12rem">
+					<Label text="Tên món ăn"/>
+					<t:template>
+						<Text text="{thucDonModel>monAn/tenMonAn}" wrapping="false" />
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="5rem">
+					<Label text="Loại"/>
+					<t:template>
+						<Text text="{thucDonModel>monAn/loai}" wrapping="false" />
+					</t:template>
+				</t:Column>
+				<t:Column width="10rem" hAlign="End">
+					<Label text="Giá tiền"/>
+					<t:template>
+						<Text text="{path:'thucDonModel>giaTien', formatter:'.globalFormatter.formatTien'}" wrapping="false" />
+					</t:template>
+				</t:Column>
+				<t:Column minWidth="Auto">
+					<Label text="Ghi chú"/>
+					<t:template>
+						<ObjectStatus text="{path:'thucDonModel>ghiChu' }" />
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table>
+		<endButton>
+			<Button type="Emphasized" press="closeThucDonnputDialog" text="Đóng" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

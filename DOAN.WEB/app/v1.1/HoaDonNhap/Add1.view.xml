@@ -1,0 +1,242 @@
+<mvc:View height="100%"
+        xmlns:core="sap.ui.core"
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:l="sap.ui.layout"
+        xmlns:cc="app.ext.Controls"
+        xmlns:dnd="sap.ui.core.dnd"
+        xmlns:u="sap.ui.unified"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:t="sap.ui.table"
+        controllerName="app.HoaDonNhap.Add1">
+	<Page>
+		<customHeader>
+			<Toolbar design="Solid">
+				<Title text="Tạo phiếu nhập hàng" level="H3" />
+				<ToolbarSpacer />
+				<!--<Button icon="sap-icon://decline" tooltip="Đóng" press="closeArea" />-->
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox>
+				<f:Form editable="true" class="displayForm">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Mã phiếu nhập">
+									<f:fields>
+										<Input id="idPN" maxLength="255" value="{mainModel>/maHoaDon}" fieldGroupIds='addGroupStepOne' editable='false' required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ngày nhập">
+									<f:fields>
+										<DatePicker id="ngayNhap" value="{mainModel>/ngayTao}" required="true" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" />
+									</f:fields>
+								</f:FormElement>
+								<!--<f:FormElement label="Nhà cung cáp">
+									<f:fields>
+										<Input maxLength="255" fieldGroupIds='addGroupStepOne' required="true" />
+									</f:fields>
+								</f:FormElement>-->
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Phiếu mua">
+									<f:fields>
+										<Input id="maPhieuMua" value="{mainModel>/phieuMua}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadPhieuMuaFragment" required="true"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ghi chú">
+									<f:fields>
+										<TextArea id="ghiChu" value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="3" width="100%" />
+									</f:fields>
+								</f:FormElement>
+								
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<t:Table id="tblData"
+					noData="Chọn phiếu mua"
+					rowActionCount="1"
+					visibleRowCount="Auto"
+					selectionMode="None"
+					rows ="{path:'tableModel>/'}"
+					ariaLabelledBy="title2">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title class="blockTitle" id="title" text="Danh sách các thực phẩm" />
+							<ToolbarSpacer />
+							<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+						</OverflowToolbar>
+					</t:extension>
+					<t:columns>
+						<t:Column width="10rem">
+							<Label text="Tên thực phẩm" />
+							<t:template>
+								<Text text="{tableModel>thucPham/tenThucPham}" wrapping="false" />
+								<!--<Input
+								id="idhang"
+								editable="{tableModel>isEdit}"
+								placeholder="Tên thực phẩm..."
+								showSuggestion="true"
+								value ="{tableModel>tenThucPham}"
+								suggestionItemSelected=".onSelected"
+								suggestionRows="{
+									path :'thucPhamModel>/',
+									templateShareable:true}">
+									<suggestionColumns>
+										<Column
+											width="7rem"
+											hAlign="Left">
+											<Label class="blockTitle" text="Tên thực phẩm" />
+										</Column>
+										<Column width="3rem" >
+											<Label class="blockTitle" text="Mã thực phẩm" />
+										</Column>
+										<Column
+											hAlign="Left" width="5rem">
+											<Label class="blockTitle" text="Đơn vị" />
+										</Column>
+										<Column
+											hAlign="Center" width="3rem">
+											<Label class="blockTitle" text="Loại" />
+										</Column>
+									</suggestionColumns>
+									<suggestionRows>
+										<ColumnListItem>
+											<Label text="{thucPhamModel>tenThucPham}" />
+											<Label text="{thucPhamModel>maThucPham}" />
+											<Label text="{thucPhamModel>donVi}" />
+											<Label text="{thucPhamModel>loai}" />
+										</ColumnListItem>
+									</suggestionRows>
+									<customData>
+										<core:CustomData key="inputIndex" value="i{tableModel>index}" writeToDom="true" />
+									</customData>
+								</Input>-->
+							</t:template>
+						</t:Column>
+
+						<t:Column width="7rem">
+							<Label text="Mã thực phẩm" />
+							<t:template>
+								<Text text="{tableModel>thucPham/maThucPham}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						<t:Column width="10rem">
+							<Label text="Loại thực phẩm" />
+							<t:template>
+								<ObjectStatus text="{path:'tableModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText' }" state="{path:'tableModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPState' }" />
+							</t:template>
+						</t:Column>
+						<t:Column width="7rem" hAlign="Center">
+							<Label text="Số lượng PM" />
+							<t:template>
+								<Text text="{tableModel>soLuongPM}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						<t:Column width="7rem" hAlign="Center">
+							<Label text="Số lượng đã nhập" />
+							<t:template>
+								<Text text="{tableModel>soLuongDaNhap}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						
+						<t:Column>
+							<Label text="Số lượng nhập" />
+							<t:template>
+								<Input
+									class="gianhap"
+									liveChange="slNhapChange"
+									editable="{tableModel>isEdit}"
+									value="{tableModel>soLuongNhap}"
+									valueStateText="Không được để trống"
+									valueState="{tableModel>cSoLuong}"
+									placeholder="Số lượng...">
+									<customData>
+										<core:CustomData key="soluongIndex" value="i{tableModel>index}" writeToDom="true" />
+									</customData>
+								</Input>
+							</t:template>
+						</t:Column>
+						<t:Column width="5rem">
+							<Label text="Đơn vị" />
+							<t:template>
+								<Text text="{tableModel>thucPham/donVi}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						<t:Column>
+							<Label text="Giá tiền" />
+							<t:template>
+								<Input
+									class="giatien"
+									liveChange="giaTienChange"
+									editable="{tableModel>isEdit}"
+									value="{tableModel>giaTien}"
+									valueState="{tableModel>cGiaTien}"
+									valueStateText="Không được để trống"
+									placeholder="Giá tiền...">
+									<customData>
+										<core:CustomData key="giaTienIndex" value="i{tableModel>index}" writeToDom="true" />
+									</customData>
+								</Input>
+							</t:template>
+						</t:Column>
+						<t:Column>
+							<Label text="Hạn sủ dụng" />
+							<t:template>
+								<Input
+									class="hansudung"
+									liveChange="HSDChange"
+									editable="{tableModel>isEdit}"
+									value="{tableModel>hanSuDung}"
+									valueState="{tableModel>cHanSuDung}"
+									placeholder="Số ngày...">
+									<customData>
+										<core:CustomData key="hanDungIndex" value="i{tableModel>index}" writeToDom="true" />
+									</customData>	
+								</Input>
+							</t:template>
+						</t:Column>
+						<t:Column>
+							<Label text="Nhà cung cấp" />
+							<t:template>
+								<Input
+									class="nhaCungCap"
+									editable="{tableModel>isEdit}"
+									value="{tableModel>nhaCungCap}"
+									placeholder="Nhà cung cấp...">
+									<customData>
+										<core:CustomData key="nccIndex" value="i{tableModel>index}" writeToDom="true" />
+									</customData>	
+								</Input>
+							</t:template>
+						</t:Column>
+					</t:columns>
+					<t:rowActionTemplate>
+						<t:RowAction>
+							<t:items>
+								<t:RowActionItem text="Xóa" icon="sap-icon://delete" visible="{tableModel>isEdit}" press="onRowDelete" />
+							</t:items>
+						</t:RowAction>
+					</t:rowActionTemplate>
+				</t:Table>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+					<!--<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />-->
+					<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

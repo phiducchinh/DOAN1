@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact">
+	<Dialog id="donCoFrag" title="Chọn đơn vận chuyển muốn tạo phiếu xuất" contentWidth="50vw" contentHeight="70vh" >
+		<!--<subHeader>
+			<Toolbar>
+				<SearchField search="onSearchdonCo" liveChange="onSearchdonCoLive" placeholder="Tìm kiếm theo tên bếp trưởng ..." />
+			</Toolbar>
+		</subHeader>-->
+		<Table id="donCoList" inset="false" items="{path:'donCoModel>/'}"
+			   selectionChange="ondonCoPress"
+				class="sapUiSizeCompact"
+			   mode="SingleSelectMaster">
+			<columns>
+				<Column>
+					<Text text="Tên đơn cỗ" />
+				</Column>
+				<Column>
+					<Text text="Số mâm" />
+				</Column>
+				<Column>
+					<Text text="Địa chỉ" />
+				</Column>
+				<Column>
+					<Text text="Trạng thái" />
+				</Column>
+				<Column>
+					<Text text="Phiếu xuất" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectIdentifier title="{donCoModel>tenHopDong}"/>
+						<ObjectIdentifier title="{donCoModel>soMam}"/>
+						<ObjectIdentifier title="{donCoModel>diaChi}"/>
+						<ObjectStatus text="{path:'donCoModel>trangThai', formatter: '.globalFormatter.formatTrangThaiHDText' }" state="{path:'donCoModel>trangThai', formatter: '.globalFormatter.formatTrangThaiHDColor' }" />
+						<ObjectStatus text="{path:'donCoModel>isPhieuXuat', formatter: '.globalFormatter.formatTTText' }" state="{path:'donCoModel>isPhieuXuat', formatter: '.globalFormatter.formatTTColor' }" />
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<beginButton>
+			<Button type="Ghost" press="ondonCoCancelPress" text="Không có" />
+		</beginButton>
+		<endButton>
+			<Button type="Emphasized" press="closedonCoputDialog" text="Đóng" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

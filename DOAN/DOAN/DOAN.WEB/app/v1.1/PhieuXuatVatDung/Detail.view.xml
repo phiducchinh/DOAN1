@@ -1,0 +1,106 @@
+<mvc:View controllerName="app.PhieuXuatVatDung.Detail"
+		  xmlns:m="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          xmlns:t="sap.ui.table"
+          xmlns:form="sap.ui.layout.form"
+          xmlns:dnd="sap.ui.core.dnd"
+          xmlns:f="sap.f"
+          xmlns:l="sap.ui.layout"
+          height="100%">
+	<f:DynamicPage headerExpanded="true" fitContent="true" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Mã phiếu xuất: {mainModel>/maPhieu}" />
+				</f:heading>
+				<f:expandedContent>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectStatus title="Trạng thái phiếu vận chuyển" text="{path:'mainModel>/vanChuyen/trangThai', formatter: '.globalFormatter.formatTTVanChuyenText'}" state="{path:'mainModel>/vanChuyen/trangThai', formatter: '.globalFormatter.formatTTVanChuyenColor'}" />
+						<m:ObjectStatus title="Mã phiếu vận chuyển" text="{path:'mainModel>/vanChuyen/maPhieu'}" />
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<m:ObjectStatus title="Địa chỉ" text="{path:'mainModel>/vanChuyen/diaChi'}"  />
+						<m:ObjectStatus title="Số điện thoại" text="{path:'mainModel>/vanChuyen/soDienThoai' }"  />
+					</l:VerticalLayout>
+				</f:expandedContent>
+				<f:actions>
+					<!--<OverflowToolbarButton tooltip="Sửa" text="Sửa" icon="sap-icon://edit" type="Transparent" press="onEditButtonPress" />-->
+					<!--<OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" press="onDeleteButtonPress" />-->
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<l:HorizontalLayout allowWrapping="true">
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Ngày tạo" text="{
+				                                       path: 'mainModel>/ngayTao',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS', UTC: true },
+				                                         pattern: 'dd/MM/yyyy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />
+					</l:VerticalLayout>
+				</l:HorizontalLayout>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			
+			<t:Table visibleRowCountMode="Auto"
+				busyIndicatorDelay="1"
+				id="phieuXuatTable"
+				rows="{path: 'phieuXuatModel>/'}"
+				selectionMode="None"
+				ariaLabelledBy="title"
+				rowActionCount="0"
+				fixedColumnCount="2"
+				cellClick="PhieuXuatCellClick"
+				rowSelectionChange="onVanChuyenRowSelectionChange">
+				<t:toolbar>
+					<OverflowToolbar>
+						<Title text="Danh sách vật dụng"></Title>
+						<ToolbarSpacer />
+						<OverflowToolbarButton tooltip="Tải lại" text="Tải lại" icon ="sap-icon://refresh" press="reLoadData" />
+					</OverflowToolbar>
+				</t:toolbar>
+				<t:columns>
+					<t:Column width="3em" hAlign="Center" sortProperty="STT">
+						<Label text="STT" />
+						<t:template>
+							<Text text="{ path: 'phieuXuatModel>STT'}" />
+						</t:template>
+					</t:Column>
+					<t:Column width="15rem">
+						<Label text="Tên vật dụng" />
+						<t:template>
+							<Text text="{path: 'phieuXuatModel>vatTu/tenVatTu'}" />
+						</t:template>
+					</t:Column>
+					<t:Column width="10rem" >
+						<Label text="Mã vật dụng" />
+						<t:template>
+							<Text text="{path: 'phieuXuatModel>vatTu/maVatTu'}" wrapping="false" />
+						</t:template>
+					</t:Column>
+					<t:Column width="7rem" hAlign="Center">
+						<Label text="Số lượng" />
+						<t:template>
+							<Text text="{path: 'phieuXuatModel>soLuong'}" wrapping="false" />
+						</t:template>
+					</t:Column>
+
+					<t:Column minWidth="15rem" >
+						<Label text="Trạng thái" />
+						<t:template>
+							<m:ObjectStatus text="{path:'phieuXuatModel>vatTu/trangThai', formatter: '.globalFormatter.trangThaiVatTuText' }" state="{path:'phieuXuatModel>vatTu/trangThai', formatter: '.globalFormatter.trangThaiVatTuColor' }" />
+						</t:template>
+					</t:Column>
+				</t:columns>
+			</t:Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

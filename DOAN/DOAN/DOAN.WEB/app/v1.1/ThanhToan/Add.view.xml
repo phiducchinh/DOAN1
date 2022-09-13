@@ -1,0 +1,65 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:cc="app.ext.Controls" xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor" 
+    controllerName="app.ThucPham.Add">
+	<Page>
+		<customHeader>
+			<Toolbar design="Solid">
+				<Title text="THÔNG TIN ThỰC PHẨM" level="H4" />
+				<ToolbarSpacer />
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox>
+				<f:Form editable="true" class="displayForm">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Tên thực phẩm">
+									<f:fields>
+										<Input id="tenThucPham" value="{mainModel>/tenThucPham}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Mã thực phẩm">
+									<f:fields>
+										<Input id="maThucPham" value="{mainModel>/maThucPham}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Loại">
+									<f:fields>
+										<Select id="loai" forceSelection="false" selectedKey="{mainModel>/loai}" required="true">
+											<core:Item key="0" text="Thực phẩm tươi sống" />
+											<core:Item key="1" text="Thực phẩm khô" />
+										</Select>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Đơn vị">
+									<f:fields>
+										<Input id="donVi" value="{mainModel>/donVi}" required="true" />
+									</f:fields>
+								</f:FormElement>
+							<f:FormElement label="Ghi chú">
+									<f:fields>
+										<TextArea value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="5" width="100%" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+			
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button id="saveAdd" text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+					<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+					<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:View>

@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="addVatDungDlg" contentWidth="550px" contentHeight="450px" showHeader="false">
+		<customHeader>
+			<Toolbar>
+				<Title text="Thêm mới dụng cụ đi kèm"/>
+				<ToolbarSpacer />
+				<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseVatDungMonAnAdd"/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<mvc:XMLView viewName="app.MonAn.VatDungDiKem.Add" id="app.MonAn.VatDungDiKem.Add"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

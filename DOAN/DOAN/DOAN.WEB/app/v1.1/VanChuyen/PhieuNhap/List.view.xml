@@ -1,0 +1,150 @@
+<mvc:View controllerName="app.VanChuyen.PhieuNhap.List" 
+    height="100%"
+    xmlns="sap.ui.table"
+    xmlns:t="sap.ui.table"
+    xmlns:c="sap.ui.core"
+    xmlns:fa="sap.f"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form">
+    <fa:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true" fitContent="true" class="sapUiNoContentPadding">
+		<fa:header>
+			<fa:DynamicPageHeader>
+				<f:Form editable="true" class="displayForm mgr-b">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements >
+								<f:FormElement label="Mã phiếu nhập">
+									<f:fields>
+										<m:Input id="maPhieuNhap" value="{mainModel>/maPhieu}" editable="false" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ngày tạo" >
+									<f:fields>
+										<m:DatePicker id="ngayTao" value="{mainModel>/ngayTao}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" required="true" />
+									</f:fields>
+								</f:FormElement>
+
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Phiếu Xuất" >
+									<f:fields>
+										<m:Input id="phieuXuat" value="{mainModel>/phieuXuat}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadPhieuXuatFragment" required="true"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ghi chú" >
+									<f:fields>
+										<m:TextArea id="ghiChu" value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="3" width="100%" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</fa:DynamicPageHeader>
+		</fa:header>
+        <fa:content>
+				<Table id="vatDungNhapTable"
+					visibleRowCountMode="Auto"
+					noData="Chọn phiếu xuất vật dụng"
+					selectionMode="None"
+					rows="{path: 'vanChuyenModel>/'}"
+					ariaLabelledBy="title"
+					rowActionCount="1">
+					<extension>
+						<m:OverflowToolbar style="Clear">
+							<m:Title class="blockTitle" id="title" text="Danh sách vật dụng" />
+							<m:ToolbarSpacer />
+							<!--<m:Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+							<!--<m:Button press="DetailThucDon" icon="sap-icon://detail-view" text="Danh sách thực đơn" />-->
+						</m:OverflowToolbar>
+					</extension>
+					
+					<columns>
+						<Column width="15rem">
+							<m:Label text="Tên vật dụng" />
+							<template>
+								<m:Text text="{vanChuyenModel>vatTu/tenVatTu}" wrapping="false" />
+							</template>
+						</Column>
+
+						<Column width="7rem">
+							<m:Label text="Mã vật dụng"/>
+							<template>
+								<m:Text text="{vanChuyenModel>vatTu/maVatTu}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="8rem" hAlign="Center">
+							<m:Label text="Số lượng xuất"/>
+							<template>
+								<m:Text text="{vanChuyenModel>soLuong}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="8rem" hAlign="Center">
+							<m:Label text="Số lượng đã lấy"/>
+							<template>
+								<m:Text text="{vanChuyenModel>soLuongDaLay}" wrapping="false" />
+							</template>
+						</Column>
+						<!--<Column width="8rem" hAlign="Center">
+							<m:Label text="Số lượng thất thoát"/>
+							<template>
+								<m:Text text="{vanChuyenModel>soLuongMat}" wrapping="false" />
+							</template>
+						</Column>-->
+						<Column width="8rem" hAlign="Center">
+							<m:Label text="Số lượng lấy về"/>
+							<template>
+								<m:Input value="{vanChuyenModel>soLuongNhap}" 
+										 editable="{vanChuyenModel>isEdit}" 
+										 valueState="{vanChuyenModel>state}"
+										 valueStateText="Cần nhập dữ liệu"
+										 liveChange="soLuongNhapChange"/>
+							</template>
+						</Column>
+						<!--<Column width="5rem" hAlign="Center">
+							<m:Label text="Thất thoát"/>
+							<template>
+								--><!--<m:CheckBox text="" editable="{vanChuyenModel>isEdit}" selected="{vanChuyenModel>biMat}"/>--><!--
+								<m:Input type="Number" editable="{vanChuyenModel>isEdit}" value="{vanChuyenModel>soLuongNhapMat}" liveChange="soLuongMatChange"/>
+							</template>
+						</Column>-->
+						<Column minWidth="Auto">
+							<m:Label text="Trạng thái nhập"/>
+							<template>
+								<m:ObjectStatus text="{path:'vanChuyenModel>isEdit', formatter: '.globalFormatter.trangThaiTTVC' }" state="{path:'vanChuyenModel>isEdit', formatter: '.globalFormatter.trangThaiTTVCColor' }" />
+							</template>
+						</Column>
+					</columns>
+
+					<footer>
+						<m:Toolbar>
+							<m:content>
+								<m:Button text="Hoàn thành" press="saveF" type="Emphasized" icon="sap-icon://accept" />
+								<m:ToolbarSpacer />
+								<m:Button text="Lưu" type="Accept" icon="sap-icon://accept" press="save" />
+								<m:Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+							</m:content>
+						</m:Toolbar>
+					</footer>
+					<rowActionTemplate>
+						<RowAction>
+							<items>
+								<!--<RowActionItem id="deleteVCButtonRow" text="Xóa" icon="sap-icon://delete" visible="true" press="onRowDelete" />-->
+							</items>
+						</RowAction>
+					</rowActionTemplate>
+				</Table>
+        </fa:content>
+		
+		
+    </fa:DynamicPage>
+</mvc:View>

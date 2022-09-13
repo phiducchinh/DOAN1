@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact">
+	<Dialog id="phieuXuatFrag" title="Chọn đơn phiếu xuất" contentWidth="50vw" contentHeight="70vh" >
+		<!--<subHeader>
+			<Toolbar>
+				<SearchField search="onSearchphieuXuat" liveChange="onSearchphieuXuatLive" placeholder="Tìm kiếm theo tên bếp trưởng ..." />
+			</Toolbar>
+		</subHeader>-->
+		<Table id="phieuXuatList" inset="false" items="{path:'phieuXuatModel>/'}"
+			   selectionChange="onphieuXuatPress"
+				class="sapUiSizeCompact"
+			   mode="SingleSelectMaster">
+			<columns>
+				<Column>
+					<Text text="Mã đơn vận chuyển" />
+				</Column>
+				<Column>
+					<Text text="Mã phiếu xuất" />
+				</Column>
+				<Column>
+					<Text text="Tên đơn cỗ" />
+				</Column>
+				<Column>
+					<Text text="Địa chỉ" />
+				</Column>
+				<Column>
+					<Text text="Trạng thái" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectIdentifier title="{phieuXuatModel>vanChuyen/maPhieu}"/>
+						<ObjectIdentifier title="{phieuXuatModel>maPhieu}"/>
+						<ObjectIdentifier title="{phieuXuatModel>vanChuyen/hopDong/tenHopDong}"/>
+						<ObjectIdentifier title="{phieuXuatModel>vanChuyen/diaChi}"/>
+						<ObjectStatus text="{path:'phieuXuatModel>vanChuyen/trangThai', formatter: '.globalFormatter.formatTTVanChuyenText'}" state="{path:'phieuXuatModel>vanChuyen/trangThai', formatter: '.globalFormatter.formatTTVanChuyenColor'}" />
+
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<!--<beginButton>
+			<Button type="Ghost" press="onphieuXuatCancelPress" text="Không có" />
+		</beginButton>-->
+		<endButton>
+			<Button type="Emphasized" press="closephieuXuatputDialog" text="Đóng" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

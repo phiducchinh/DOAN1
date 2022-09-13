@@ -1,0 +1,112 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns="sap.ui.table" class="sapUiSizeCompact">
+	<m:Dialog id="updateFrag" title="Hóa đơn thanh toán {thanhToanModel>/info/tenHopDong} - {thanhToanModel>/info/tenKhachHang}" contentWidth="55%" contentHeight="70%" >
+		<m:VBox>
+			<f:Form editable="true" class="displayForm">
+				<f:layout>
+					<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="Mã hóa đơn">
+								<f:fields>
+									<m:Input id="maHoaDon" value="{thanhToanModel>/info/maHoaDon}" maxLength="255" required="true" />
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Tiền cọc">
+								<f:fields>
+									<m:Input id="tenHopDong" value="{thanhToanModel>/info/tienCoc}" maxLength="255" />
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Ngày tạo">
+								<f:fields>
+									<m:DatePicker id="ngayBatDau" value="{thanhToanModel>/info/ngayTao}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" required="true" />
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+
+					</f:FormContainer>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="Số mâm - phát sinh" visible="true">
+								<f:fields>
+									<m:Input id="soMamx" value="{thanhToanModel>/info/soMam}" maxLength="100" editable="false" />
+									<m:Input id="soMamPhatSinhx" value="{thanhToanModel>/info/soMamPhatSinh}" maxLength="100" editable="false"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="Tiền phát sinh">
+								<f:fields>
+									<m:Input value="{thanhToanModel>/info/tienPhatSinh}" maxLength="255" required="true" liveChange="tienPhatSinhChange" />
+								</f:fields>
+							</f:FormElement>
+							
+							<f:FormElement label="Ghi chú">
+								<f:fields>
+									<m:TextArea value="{thanhToanModel>/info/ghiChuu}" growing="true" maxLength="500" growingMaxLines="5" width="100%" />
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+
+			<Table id="thanhToanModel"
+                visibleRowCountMode="Auto"
+                noData="Không có kết quả phù hợp"
+                selectionMode="None"
+                rows="{path: 'thanhToanModel>/data'}"
+                ariaLabelledBy="title"
+                rowActionCount="0"
+                fixedColumnCount="2">
+				<extension>
+
+				</extension>
+				<columns>
+					<Column width="3rem" hAlign="Center">
+						<m:Label text="STT"/>
+						<template>
+							<m:Text text="{thanhToanModel>STT}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="15rem">
+						<m:Label text="Tên món ăn"/>
+						<template>
+							<m:Text text="{thanhToanModel>monAn/tenMonAn}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="7rem" hAlign="Center">
+						<m:Label text="Số lượng"/>
+						<template>
+							<m:Text text="{thanhToanModel>soLuong}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="10rem" hAlign="End">
+						<m:Label text="Đơn giá (VNĐ)"/>
+						<template>
+							<m:Text text="{path:'thanhToanModel>giaTien', formatter:'.globalFormatter.formatTienn' }"  />
+						</template>
+					</Column>
+					<Column visible="true" minWidth="10rem" hAlign="End">
+						<m:Label text="Thành tiền (VNĐ)" />
+						<template>
+							<m:Text text="{path:'thanhToanModel>thanhTien', formatter: '.globalFormatter.formatTien' }"  />
+						</template>
+					</Column>
+				</columns>
+				<footer>
+					<m:OverflowToolbar>
+						<m:Label class="color-red" text="TỔNG TIỀN: {path:'thanhToanModel>/tongTien', formatter:'.globalFormatter.formatTien'} VNĐ"></m:Label>
+					</m:OverflowToolbar>
+				</footer>
+			</Table>
+			
+		</m:VBox>
+		
+		<m:beginButton>
+			<m:Button type="Success" press="onSaveThanhToanPress" text="Lưu" />
+		</m:beginButton>
+		<m:endButton>
+			<m:Button type="Emphasized" press="closeThanhToanDialog" text="Đóng" />
+		</m:endButton>
+	</m:Dialog>
+</core:FragmentDefinition>

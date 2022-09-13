@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="MonAnDetailDialog" 
+        stretch="true" 
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+        <customHeader>
+        <Toolbar>
+            <Title text="Thông tin chi tiết "/>
+            <ToolbarSpacer />
+            <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseMonAnView"/>
+        </Toolbar>
+        </customHeader>
+        <endButton>
+            <Button text="Đóng" press="onCloseMonAnView" />
+        </endButton>
+        <content>
+            <mvc:XMLView viewName="app.MonAn.Detail" id="app.MonAn.Detail"/>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>

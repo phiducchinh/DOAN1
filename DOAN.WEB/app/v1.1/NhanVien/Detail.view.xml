@@ -1,0 +1,155 @@
+<mvc:View controllerName="app.NhanVien.Detail"
+		  xmlns:m="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          xmlns:t="sap.ui.table"
+          xmlns:form="sap.ui.layout.form"
+          xmlns:dnd="sap.ui.core.dnd"
+          xmlns:f="sap.f"
+          xmlns:l="sap.ui.layout"
+          height="100%">
+	<f:DynamicPage headerExpanded="true" fitContent="true" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{mainModel>/tenNhanVien}" />
+				</f:heading>
+				<f:expandedContent>
+					 <ObjectStatus title="Trạng thái" text="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTrangThaiText' }" state="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTrangThaiColor' }" /> 
+				</f:expandedContent>
+				<f:actions>
+					<OverflowToolbarButton tooltip="Sửa" text="Sửa" icon="sap-icon://edit" type="Transparent" press="onEditButtonPress" />
+					<OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" press="onDeleteButtonPress" />
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<!--<l:HorizontalLayout allowWrapping="true">
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Tạo lúc" text="{
+				                                       path: 'mainModel>/created',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yyyy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />
+						--><!--<ObjectAttribute title="Sửa lúc" text="{
+				                                       path: 'mainModel>/MODIFIED',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />--><!--
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Tạo bởi" text="{mainModel>/createdBy}" />
+						--><!--<ObjectAttribute title="Sửa bởi" text="{ path: 'mainModel>/MODIFIEDBY', formatter: '.globalFormatter.accountDisplay' }" />--><!--
+					</l:VerticalLayout>
+				</l:HorizontalLayout>--> 
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<IconTabBar id="detailIconTabBar" headerMode="Inline" upperCase="true" expandable="false" class="sapUiNoContentPadding" stretchContentHeight="true" select="onTabSelectionChange">
+				<items>
+					<IconTabFilter text="THÔNG TIN NHÂN VIÊN" key="newsPostTab">
+						<form:Form editable="true" class="displayForm">
+							<form:layout>
+								<form:ResponsiveGridLayout
+								  labelSpanXL="4"
+								  labelSpanL="4"
+								  labelSpanM="4"
+								  labelSpanS="4"
+								  adjustLabelSpan="false"
+								  emptySpanXL="0"
+								  emptySpanL="0"
+								  emptySpanM="0"
+								  emptySpanS="0"
+								  columnsXL="2"
+								  columnsL="2"
+								  columnsM="1"
+								  singleContainerFullSize="false" />
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="Tên nhân viên">
+											<form:fields>
+												<Text text="{path:'mainModel>/tenNhanVien'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Chức vụ">
+											<form:fields>
+												<Text text="{path:'mainModel>/chucVu' , formatter: '.globalFormatter.formatChucVuText'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Lương cơ bản">
+											<form:fields>
+												<Text text="{path:'mainModel>/luongCB' , formatter: '.globalFormatter.formatTien'} VNĐ" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Số điện thoại">
+											<form:fields>
+												<Text text="{path:'mainModel>/soDienThoai'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Quê quán">
+											<form:fields>
+												<Text text="{path:'mainModel>/queQuan'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Trạng thái">
+											<form:fields>
+												<ObjectStatus text="{path:'mainModel>/trangThai' , formatter: '.globalFormatter.formatTrangThaiText'}" state="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTrangThaiColor' }" />
+											</form:fields>
+										</form:FormElement>
+										<!--<form:FormElement label="Status">
+											<form:fields>
+												<Text text="{path:'mainModel>/status'}" />
+											</form:fields>
+										</form:FormElement>-->
+									</form:formElements>
+								</form:FormContainer>
+								<!--<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="Description">
+											<form:fields>
+												<Text text="{path:'mainModel>/description'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Slide Title">
+											<form:fields>
+												<Text text="{path:'mainModel>/slideTitle'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Slide Content">
+											<form:fields>
+												<Text text="{path:'mainModel>/slideContent'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Image Slide Property">
+											<form:fields>
+												<Text text="{path:'mainModel>/imageSlideProperty'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="News Links URl">
+											<form:fields>
+												<Text text="{path:'mainModel>/newsLinksURl'}" />
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>-->
+							</form:formContainers>
+						</form:Form>
+					</IconTabFilter>
+					
+				</items>
+			</IconTabBar>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

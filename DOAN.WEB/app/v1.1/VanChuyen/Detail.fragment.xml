@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="vanChuyenDetailDialog"
+        contentWidth="850px" contentHeight="850px"
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+        <customHeader>
+        <Toolbar>
+            <Title text="Thông tin chi tiết đơn vận chuyển"/>
+            <ToolbarSpacer />
+            <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseVanChuyenView"/>
+        </Toolbar>
+        </customHeader>
+        <endButton>
+            <Button text="Đóng" press="onCloseVanChuyenView" />
+        </endButton>
+        <content>
+            <mvc:XMLView viewName="app.VanChuyen.Detail" id="app.VanChuyen.Detail"/>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,61 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" controllerName="app.MonAn.VatDungDiKem.Add">
+  <Page>
+    <customHeader>
+      <Toolbar design="Solid">
+        <Title text="Thông tin vật dụng" level="H4" />
+        <!--<ToolbarSpacer />
+        <Button icon="sap-icon://decline" tooltip="Đóng" press="closeArea" />-->
+      </Toolbar>
+    </customHeader>
+    <content>
+      <VBox class="sapUiSmallMargin">
+        <f:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="true">
+          <f:content>
+            <Label text="Tên vật tư" design="Bold" />
+		    <Input id="tenVatDung" value="{mainModel>/tenVatDung}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadVatDungFragment" required="true"/>
+			<Label text="Số lượng" design="Bold" />
+			<Input id="soLuong" value="{mainModel>/soLuong}" required="true"/>
+			<Label text="Ghi chú" design="Bold" />
+			<TextArea id="ghiChu" growing="true" value="{mainModel>/ghiChu}" maxLength="500" growingMaxLines="10" width="100%" />
+
+			  <!--<Input id="heDieuHanh" maxLength="50" showValueHelp="true" value="{mainModel>/tenHeDieuHanh}" valueHelpOnly="true" valueHelpRequest="openOperatingSystemFragment"/>
+			<Label text="Loại máy chủ" design="Bold" required="true" />
+			<ComboBox id="loaiMayChu" selectedKey="{mainModel>/LoaiMayChu}">
+				<core:Item key="0" text="Server app" />
+				<core:Item key="1" text="Database" />
+			</ComboBox>
+			<Label text="Công nghệ" design="Bold" />
+			<Input id="congNghe" value="{mainModel>/CongNghe}"/>
+			<Label text="Ghi chú" design="Bold"/>
+            <TextArea id="ghiChu" growing="true" value="{mainModel>/GhiChu}" maxLength="500" growingMaxLines="7" width="100%" />-->
+          </f:content>
+        </f:SimpleForm>
+      </VBox>
+    </content>
+    <footer>
+      <Toolbar active="true">
+        <content>
+          <ToolbarSpacer />
+          <Button text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+          <Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+          <Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+        </content>
+      </Toolbar>
+    </footer>
+  </Page>
+</core:View>

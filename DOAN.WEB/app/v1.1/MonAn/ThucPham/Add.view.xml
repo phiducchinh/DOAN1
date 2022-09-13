@@ -1,0 +1,51 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" 
+		   xmlns:f="sap.ui.layout.form" 
+		   controllerName="app.MonAn.ThucPham.Add">
+  <Page>
+    <customHeader>
+      <Toolbar design="Solid">
+        <Title text="Thông tin thực phẩm" level="H4" />
+      </Toolbar>
+    </customHeader>
+    <content>
+      <VBox class="sapUiSmallMargin">
+        <f:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="true">
+          <f:content>
+            <Label text="Tên thực phẩm" design="Bold" />
+		    <Input id="tenThucPham" value="{mainModel>/tenthucPham}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="loadThucPhamFragment" required="true"/>
+			<Label text="Số lượng" design="Bold" />
+			<Input id="soLuong" value="{mainModel>/soLuong}" required="true"/>
+			<Label text="Ghi chú" design="Bold" />
+			<TextArea id="ghiChu" growing="true" value="{mainModel>/ghiChu}" maxLength="500" growingMaxLines="10" width="100%" />
+
+          </f:content>
+        </f:SimpleForm>
+      </VBox>
+    </content>
+    <footer>
+      <Toolbar active="true">
+        <content>
+          <ToolbarSpacer />
+          <Button text="Hoàn tất" type="Accept" icon="sap-icon://accept" press="save" />
+          <Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />
+          <Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+        </content>
+      </Toolbar>
+    </footer>
+  </Page>
+</core:View>

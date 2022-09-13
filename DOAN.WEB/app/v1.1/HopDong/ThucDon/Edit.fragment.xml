@@ -1,0 +1,12 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="editServerDlg" contentHeight="100%" contentWidth="50%" showHeader="false">
+		<endButton>
+			<Button text="Đóng" icon="sap-icon://cancel" press="onCloseServerSoftwareEdit" />
+		</endButton>
+		<content>
+			<mvc:XMLView viewName="app.Software.DevHistory.Edit" id="app.Software.DevHistory.Edit"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

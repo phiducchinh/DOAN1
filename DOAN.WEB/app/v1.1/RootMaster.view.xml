@@ -1,0 +1,35 @@
+﻿<mvc:View
+	height="100%"
+    displayBlock="true"
+    xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+    controllerName="app.RootMaster" class="sapUiSizeCompact">
+  <Page id="appSidebar" enableScrolling="true" showNavButton="false" showSubHeader="false">
+    <customHeader>
+      <Toolbar>
+        <SearchField liveChange="onSearchTyping" />
+        <ToggleButton icon="sap-icon://pushpin-off" press="onTogglePinMenu" pressed="true" />
+      </Toolbar>
+    </customHeader>
+    <content>
+      <Tree id="sidebarItem"
+            items="{path:'sideBarModel>/main'}"
+            mode="SingleSelectMaster"
+            includeItemInSelection="true"
+            toggleOpenState="onToggleOpenState"
+            selectionChange="onItemSelect">
+        <StandardTreeItem  title="{sideBarModel>Value}" type="Navigation" icon="{sideBarModel>Icon}" />
+      </Tree>
+    </content>
+    <!--<footer>
+      <OverflowToolbar id="otbFooter" content="{path:'sideBarModel>/fixed'}">
+        <Button type="Transparent" icon="{sideBarModel>Icon}" tooltip="{sideBarModel>Value}" press="onFixedButtonPress">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+      </OverflowToolbar>
+    </footer>-->
+  </Page>
+</mvc:View>

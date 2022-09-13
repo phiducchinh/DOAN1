@@ -1,0 +1,169 @@
+<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:cc="app.ext.Controls" xmlns:dnd="sap.ui.core.dnd" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:r="sap.ui.richtexteditor" 
+    controllerName="app.HoaDonMua.Add">
+	<Page>
+		<customHeader>
+			<Toolbar design="Solid">
+				<Title text="THÔNG TIN PHIẾU MUA" level="H4" />
+				<ToolbarSpacer />
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox class="mgr-b">
+				<f:Form editable="true" class="displayForm">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements >
+								<f:FormElement label="Mã phiếu mua">
+									<f:fields>
+										<Input id="maPhieuMua" value="{mainModel>/maPhieuMua}" maxLength="255" required="true" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Ngày tạo" >
+									<f:fields>
+										<DatePicker id="ngayTao" value="{mainModel>/ngayTao}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" required="true" />
+									</f:fields>
+								</f:FormElement>
+								
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Ghi chú" >
+									<f:fields>
+										<TextArea id="ghiChu" value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="3" width="100%" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+			<VBox>
+				<t:Table id="phieuMuaTable"
+					noData="Không có kết quả phù hợp"
+					rowActionCount="1"
+					visibleRowCount="Auto"
+					selectionMode="None"
+					rows ="{path:'phieuMuaModel>/'}"
+					ariaLabelledBy="title2">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title class="blockTitle" id="title" text="Danh sách các thực phẩm" />
+							<ToolbarSpacer />
+							<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+							<Button press="DetailThucDon" icon="sap-icon://detail-view" text="Thực đơn" />
+						</OverflowToolbar>
+					</t:extension>
+					<t:columns>
+						<t:Column width="17rem">
+							<Label text="Tên thực phẩm" />
+							<t:template>
+								<Input
+								id="idhang"
+								editable="{phieuMuaModel>isEdit}"
+								placeholder="Tên thực phẩm..."
+								showSuggestion="true"
+								value ="{phieuMuaModel>tenThucPham}"
+								suggestionItemSelected=".onSelected"
+								suggestionRows="{
+									path :'thucPhamModel>/',
+									templateShareable:true}">
+									<suggestionColumns>
+										<Column
+											width="7rem"
+											hAlign="Left">
+											<Label class="blockTitle" text="Tên thực phẩm" />
+										</Column>
+										<Column width="3rem" >
+											<Label class="blockTitle" text="Mã thực phẩm" />
+										</Column>
+										<Column
+											hAlign="Left" width="5rem">
+											<Label class="blockTitle" text="Đơn vị" />
+										</Column>
+										<Column
+											hAlign="Center" width="3rem">
+											<Label class="blockTitle" text="Loại" />
+										</Column>
+									</suggestionColumns>
+									<suggestionRows>
+										<ColumnListItem>
+											<Label text="{thucPhamModel>tenThucPham}" />
+											<Label text="{thucPhamModel>maThucPham}" />
+											<Label text="{thucPhamModel>donVi}" />
+											<Label text="{thucPhamModel>loai}" />
+										</ColumnListItem>
+									</suggestionRows>
+									<customData>
+										<core:CustomData key="inputIndex" value="i{phieuMuaModel>index}" writeToDom="true" />
+									</customData>
+								</Input>
+							</t:template>
+						</t:Column>
+
+						<t:Column width="7rem">
+							<Label text="Mã thực phẩm" />
+							<t:template>
+								<Text text="{phieuMuaModel>thucPham/maThucPham}" wrapping="false" />
+							</t:template>
+						</t:Column>
+
+						<t:Column width="10rem">
+							<Label text="Loại thực phẩm" />
+							<t:template>
+								<ObjectStatus text="{path:'phieuMuaModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText' }" state="{path:'phieuMuaModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPState' }" />
+							</t:template>
+						</t:Column>
+						<t:Column>
+							<Label text="Số lượng mua" />
+							<t:template>
+								<Input
+									type="Number"
+									class="gianhap"
+									value="{phieuMuaModel>tong}"
+									placeholder="Số lượng...">
+									<customData>
+										<core:CustomData key="soluongIndex" value="i{phieuMuaModel>index}" writeToDom="true" />
+									</customData>
+								</Input>
+							</t:template>
+						</t:Column>
+						<t:Column width="8rem" hAlign="Center">
+							<Label text="SL trong kho" />
+							<t:template>
+								<Text text="{phieuMuaModel>soLuongTon}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						<t:Column width="5rem">
+							<Label text="Đơn vị" />
+							<t:template>
+								<Text text="{phieuMuaModel>thucPham/donVi}" wrapping="false" />
+							</t:template>
+						</t:Column>
+						
+					</t:columns>
+					<t:rowActionTemplate>
+						<t:RowAction>
+							<t:items>
+								<t:RowActionItem text="Xóa" icon="sap-icon://delete" press="onRowDelete" />
+							</t:items>
+						</t:RowAction>
+					</t:rowActionTemplate>
+				</t:Table>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button id="saveAdd" press="save" text="Hoàn tất" type="Accept" icon="sap-icon://accept" />
+					<!--<Button text="Đặt lại" type="Ghost" icon="sap-icon://reset" press="clearForm" />-->
+					<Button text="Hủy bỏ" type="Reject" icon="sap-icon://cancel" press="closeArea" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:View>

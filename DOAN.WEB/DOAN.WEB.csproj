@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E1AE57E0-86C8-497F-98E0-946F9B16D811}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DOAN.WEB</RootNamespace>
+    <AssemblyName>DOAN.WEB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\v1.1\adal.js" />
+    <Content Include="app\v1.1\appConfig.js" />
+    <Content Include="app\v1.1\appConstants.js" />
+    <Content Include="app\v1.1\Component-preload.js" />
+    <Content Include="app\v1.1\Component.js" />
+    <Content Include="app\v1.1\controllers\HomePage.controller.js" />
+    <Content Include="app\v1.1\css\master.css" />
+    <Content Include="app\v1.1\Dashboard\QuickStatisStics.controller.js" />
+    <Content Include="app\v1.1\Dashboard\QuickStatisStics.view.xml" />
+    <Content Include="app\v1.1\Errors\NotAuthorization.controller.js" />
+    <Content Include="app\v1.1\Errors\NotAuthorization.view.xml" />
+    <Content Include="app\v1.1\Errors\NotAuthorizationApp.controller.js" />
+    <Content Include="app\v1.1\Errors\NotAuthorizationApp.view.xml" />
+    <Content Include="app\v1.1\Errors\PageNotFound.controller.js" />
+    <Content Include="app\v1.1\Errors\PageNotFound.view.xml" />
+    <Content Include="app\v1.1\ext\3rd\xlsx.core.min.js" />
+    <Content Include="app\v1.1\ext\Auth.Connector.Adal.js" />
+    <Content Include="app\v1.1\ext\Controls\CoreButton.js" />
+    <Content Include="app\v1.1\ext\Controls\CoreOverflowToolbarButton.js" />
+    <Content Include="app\v1.1\ext\CoreJsonModel.js" />
+    <Content Include="app\v1.1\ext\moment\library.js" />
+    <Content Include="app\v1.1\ext\moment\moment-with-locales.js" />
+    <Content Include="app\v1.1\ext\moment\moment-with-locales.min.js" />
+    <Content Include="app\v1.1\ext\moment\moment.js" />
+    <Content Include="app\v1.1\ext\SavJsonModel.js" />
+    <Content Include="app\v1.1\ext\SavListBinding.js" />
+    <Content Include="app\v1.1\fragments\MonAn.fragment.xml" />
+    <Content Include="app\v1.1\fragments\ThucPham.fragment.xml" />
+    <Content Include="app\v1.1\fragments\VatDung.fragment.xml" />
+    <Content Include="app\v1.1\globalformatter.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Add1.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Add.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Add1.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Add.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Detail.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Detail.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Edit.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Edit.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\Detail.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\Detail.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\FlexibleColumnLayout.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\FlexibleColumnLayout.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\Master.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\Flex\Master.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\fragment\Dialog.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\fragment\EditChiTiet.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\fragment\DonCo.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\List.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\List.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\MasterAdd.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\MasterAdd.view.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\HoaDonXuat\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonXuat\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\fragment\DonCo.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Add1.controller.js" />
+    <Content Include="app\v1.1\HoaDonNhap\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Add1.view.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Detail.controller.js" />
+    <Content Include="app\v1.1\HoaDonNhap\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Detail.view.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Edit.controller.js" />
+    <Content Include="app\v1.1\HoaDonNhap\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\Edit.view.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\fragment\PhieuMua.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\fragment\VanChuyen.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\List.controller.js" />
+    <Content Include="app\v1.1\HoaDonNhap\List.view.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\HoaDonNhap\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonNhap\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Add.controller.js" />
+    <Content Include="app\v1.1\HoaDonMua\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Add.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Detail.controller.js" />
+    <Content Include="app\v1.1\HoaDonMua\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Detail.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Edit.controller.js" />
+    <Content Include="app\v1.1\HoaDonMua\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonMua\Edit.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\fragment\Dialog.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonMua\List.controller.js" />
+    <Content Include="app\v1.1\HoaDonMua\List.view.xml" />
+    <Content Include="app\v1.1\HoaDonMua\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\HoaDonMua\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\HoaDonMua\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\ThucDon.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\ThanhToan.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\PhatSinh.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\VanChuyen.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\BepTruong.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\UpdateStatusThanhToan.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add.controller.js" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add.view.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add1.controller.js" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add1.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Add1.view.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Detail.controller.js" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Detail.view.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Edit.controller.js" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\ThucDon\Edit.view.xml" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\List.controller.js" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\List.view.xml" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\VanChuyen.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\VatDung\Add.controller.js" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\VatDung\Add.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\VanChuyen\VatDung\Add.view.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Add.controller.js" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Add.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Add.view.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Detail.controller.js" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Detail.view.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Edit.controller.js" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\VatDungDiKem\Edit.view.xml" />
+    <Content Include="app\v1.1\init.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Detail.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Detail.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Detail.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Edit.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Edit.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\Edit.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\fragment\Dialog.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\fragment\DonCo.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\List.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\List.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\PhieuMua\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\libs\canvg.js" />
+    <Content Include="app\v1.1\libs\jsPDF.js" />
+    <Content Include="app\v1.1\libs\rgbcolor.js" />
+    <Content Include="app\v1.1\libs\stackblur.js" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Add.controller.js" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Add.fragment.xml" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Add.view.xml" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Detail.controller.js" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Detail.fragment.xml" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\Detail.view.xml" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\fragment\PhieuMua.fragment.xml" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\List.controller.js" />
+    <Content Include="app\v1.1\PhieuMuaVatDung\List.view.xml" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\Detail.controller.js" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\Detail.fragment.xml" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\Detail.view.xml" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\List.controller.js" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\List.view.xml" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\PhieuNhap\List.controller.js" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\PhieuNhap\List.view.xml" />
+    <Content Include="app\v1.1\PhieuNhapVatDung\PhieuNhap\VanChuyenVe.fragment.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\fragment\PhieuXuat.fragment.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\fragment\VanChuyen.fragment.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\fragment\VanChuyenDi.fragment.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\PhieuXuat\List.controller.js" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\PhieuXuat\List.view.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\PhieuXuat\VanChuyenDi.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\Add.controller.js" />
+    <Content Include="app\v1.1\ThanhToan\Add.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\Add.view.xml" />
+    <Content Include="app\v1.1\ThanhToan\Detail.controller.js" />
+    <Content Include="app\v1.1\ThanhToan\Detail.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\Detail.view.xml" />
+    <Content Include="app\v1.1\ThanhToan\Edit.controller.js" />
+    <Content Include="app\v1.1\ThanhToan\Edit.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\Edit.view.xml" />
+    <Content Include="app\v1.1\ThanhToan\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\fragment\DonCo.fragment.xml" />
+    <Content Include="app\v1.1\ThanhToan\List.controller.js" />
+    <Content Include="app\v1.1\ThanhToan\List.view.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\KhoThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Detail.controller.js" />
+    <Content Include="app\v1.1\KhoThucPham\Detail.fragment.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Detail.view.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Edit.controller.js" />
+    <Content Include="app\v1.1\KhoThucPham\Edit.fragment.xml" />
+    <Content Include="app\v1.1\KhoThucPham\Edit.view.xml" />
+    <Content Include="app\v1.1\KhoThucPham\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\KhoThucPham\List.controller.js" />
+    <Content Include="app\v1.1\KhoThucPham\List.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\Detail.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\Detail.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\Detail.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\Edit.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\Edit.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\Edit.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\fragment\DonCo.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\fragment\VanChuyenVe.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\fragment\VanChuyenDi.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\List.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\List.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\PhieuNhap\List.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\PhieuNhap\List.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\PhieuNhap\VanChuyenVe.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\PhieuXuat\List.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\PhieuXuat\List.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Detail.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Detail.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Detail.view.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Edit.controller.js" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Edit.fragment.xml" />
+    <Content Include="app\v1.1\VanChuyen\ThucPham\Edit.view.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Detail.controller.js" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Detail.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Detail.view.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Edit.controller.js" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Edit.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Edit.view.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Add.controller.js" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Add.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Add.view.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Detail.controller.js" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Detail.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\VatDungDiKem\Detail.view.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Edit.controller.js" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Edit.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\ThucPham\Edit.view.xml" />
+    <Content Include="app\v1.1\ThucPham\Add.controller.js" />
+    <Content Include="app\v1.1\ThucPham\Add.fragment.xml" />
+    <Content Include="app\v1.1\ThucPham\Add.view.xml" />
+    <Content Include="app\v1.1\ThucPham\Detail.controller.js" />
+    <Content Include="app\v1.1\ThucPham\Detail.fragment.xml" />
+    <Content Include="app\v1.1\ThucPham\Detail.view.xml" />
+    <Content Include="app\v1.1\ThucPham\Edit.controller.js" />
+    <Content Include="app\v1.1\ThucPham\Edit.fragment.xml" />
+    <Content Include="app\v1.1\ThucPham\Edit.view.xml" />
+    <Content Include="app\v1.1\ThucPham\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\ThucPham\List.controller.js" />
+    <Content Include="app\v1.1\ThucPham\List.view.xml" />
+    <Content Include="app\v1.1\MonAn\Add.controller.js" />
+    <Content Include="app\v1.1\MonAn\Add.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\Add.view.xml" />
+    <Content Include="app\v1.1\MonAn\Detail.controller.js" />
+    <Content Include="app\v1.1\MonAn\Detail.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\Detail.view.xml" />
+    <Content Include="app\v1.1\MonAn\Edit.controller.js" />
+    <Content Include="app\v1.1\MonAn\Edit.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\Edit.view.xml" />
+    <Content Include="app\v1.1\MonAn\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\MonAn\List.controller.js" />
+    <Content Include="app\v1.1\MonAn\List.view.xml" />
+    <Content Include="app\v1.1\HopDong\Add.controller.js" />
+    <Content Include="app\v1.1\HopDong\Add.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\Add.view.xml" />
+    <Content Include="app\v1.1\HopDong\Detail.controller.js" />
+    <Content Include="app\v1.1\HopDong\Detail.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\Detail.view.xml" />
+    <Content Include="app\v1.1\HopDong\Edit.controller.js" />
+    <Content Include="app\v1.1\HopDong\Edit.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\Edit.view.xml" />
+    <Content Include="app\v1.1\HopDong\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\HopDong\List.controller.js" />
+    <Content Include="app\v1.1\HopDong\List.view.xml" />
+    <Content Include="app\v1.1\Root.controller.js" />
+    <Content Include="app\v1.1\Root.view.xml" />
+    <Content Include="app\v1.1\RootMaster.controller.js" />
+    <Content Include="app\v1.1\RootMaster.view.xml" />
+    <Content Include="app\v1.1\NhanVien\Add.controller.js" />
+    <Content Include="app\v1.1\NhanVien\Add.fragment.xml" />
+    <Content Include="app\v1.1\NhanVien\Add.view.xml" />
+    <Content Include="app\v1.1\NhanVien\Detail.controller.js" />
+    <Content Include="app\v1.1\NhanVien\Detail.fragment.xml" />
+    <Content Include="app\v1.1\NhanVien\Detail.view.xml" />
+    <Content Include="app\v1.1\NhanVien\Edit.controller.js" />
+    <Content Include="app\v1.1\NhanVien\Edit.fragment.xml" />
+    <Content Include="app\v1.1\NhanVien\Edit.view.xml" />
+    <Content Include="app\v1.1\NhanVien\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\NhanVien\List.controller.js" />
+    <Content Include="app\v1.1\NhanVien\List.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Add.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\Add.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Add.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Detail.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\Detail.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Detail.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Edit.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\Edit.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\Edit.view.xml" />
+    <Content Include="app\v1.1\KhoVatTu\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\KhoVatTu\List.controller.js" />
+    <Content Include="app\v1.1\KhoVatTu\List.view.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\Detail.controller.js" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\Detail.fragment.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\Detail.view.xml" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\List.controller.js" />
+    <Content Include="app\v1.1\PhieuXuatVatDung\List.view.xml" />
+    <Content Include="app\v1.1\VatTu\Add.controller.js" />
+    <Content Include="app\v1.1\VatTu\Add.fragment.xml" />
+    <Content Include="app\v1.1\VatTu\Add.view.xml" />
+    <Content Include="app\v1.1\VatTu\Detail.controller.js" />
+    <Content Include="app\v1.1\VatTu\Detail.fragment.xml" />
+    <Content Include="app\v1.1\VatTu\Detail.view.xml" />
+    <Content Include="app\v1.1\VatTu\Edit.controller.js" />
+    <Content Include="app\v1.1\VatTu\Edit.fragment.xml" />
+    <Content Include="app\v1.1\VatTu\Edit.view.xml" />
+    <Content Include="app\v1.1\VatTu\fragment\UpdateStatus.fragment.xml" />
+    <Content Include="app\v1.1\VatTu\List.controller.js" />
+    <Content Include="app\v1.1\VatTu\List.view.xml" />
+    <Content Include="app\v1.1\views\Homepage.view.xml" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="app\v1.1\ext\moment\moment-with-locales.min.js.map" />
+    <Content Include="app\v1.1\i18n\global.properties" />
+    <Content Include="app\v1.1\i18n\global_en.properties" />
+    <Content Include="app\v1.1\i18n\global_vi.properties" />
+    <Content Include="app\v1.1\i18n\setup\setup.properties" />
+    <Content Include="app\v1.1\manifest.json" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49551</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44313/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

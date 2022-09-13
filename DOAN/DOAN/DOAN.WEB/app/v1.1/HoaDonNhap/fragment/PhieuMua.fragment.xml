@@ -1,0 +1,50 @@
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact">
+	<Dialog id="phieuMuaFrag" title="Chọn phiếu mua" contentWidth="50vw" contentHeight="70vh" >
+		<Table id="phieuMuaList" inset="false" items="{path:'phieuMuaModel>/'}"
+				selectionChange="onphieuMuaPress"
+				class="sapUiSizeCompact"
+				mode="SingleSelectMaster">
+			<columns>
+				<Column>
+					<Text text="Mã phiếu mua" />
+				</Column>
+				<Column>
+					<Text text="Tên đơn cỗ" />
+				</Column>
+				<Column>
+					<Text text="Ngày tạo" />
+				</Column>
+				<Column>
+					<Text text="Trạng thái" />
+				</Column>
+					
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectIdentifier title="{phieuMuaModel>maHoaDon}"/>
+						<ObjectIdentifier title="{phieuMuaModel>hopDong/tenHopDong}"/>
+						<ObjectIdentifier title="{
+								path: 'phieuMuaModel>ngayTao',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS',
+										UTC: true
+									},
+									pattern: 'dd/MM/yyyy',
+									UTC: false
+								}
+							}"/>
+						<ObjectStatus text="{path:'phieuMuaModel>isCheck', formatter: '.globalFormatter.isCkeckText' }" state="{path:'phieuMuaModel>isCheck', formatter: '.globalFormatter.isCkeckColor' }" />
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button type="Emphasized" press="closephieumuaDialog" text="Đóng" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
+<!--</core:FragmentDefinition>-->

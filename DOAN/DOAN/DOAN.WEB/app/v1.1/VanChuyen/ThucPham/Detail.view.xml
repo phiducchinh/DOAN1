@@ -1,0 +1,63 @@
+<m:View displayBlock="true" controllerName="app.MonAn.ThucPham.Detail" height="100%"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form">
+	<ObjectPageLayout showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:Title text="{mainModel>/thucPham/tenThucPham}" wrapping="true" class="sapUiTinyMarginEnd" />
+					</m:FlexBox>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							<m:Title text="{path:'mainModel>/vatPham/loai', formatter: '.globalFormatter.formatLoaiTPText'}" wrapping="true" class="sapUiTinyMarginEnd" />
+						</m:FlexBox>
+					</m:FlexBox>
+				</snappedHeading>
+				<actions>
+					<m:OverflowToolbarButton tooltip="Sửa" text="Sửa" icon="sap-icon://edit" type="Transparent" press="onEditButtonPress" />
+					<m:OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" press="onDeleteButtonPress" />
+					<!--<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="closeArea" tooltip="Đóng" text="Đóng" />-->
+				</actions>
+				<navigationActions>
+				</navigationActions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+		</headerContent>
+		<sections>
+			<ObjectPageSection title="Thông tin chung">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:VBox>
+								<form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true">
+									<form:content>
+										<m:Label text="Tên thực phẩm" design="Bold" />
+										<m:Text text="{ path: 'mainModel>/thucPham/tenThucPham'}" />
+										<m:Label text="Mã vật phẩm" design="Bold" />
+										<m:Text text="{ path: 'mainModel>/thucPham/maThucPham'}" />
+										<m:Label text="Món ăn" design="Bold" />
+										<m:Text text="{path:'mainModel>/monAn/tenMonAn'}" />
+										<m:Label text="Số lượng" design="Bold" />
+										<m:Text text="{path:'mainModel>/soLuong'}" />
+										<m:Label text="Đơn vị" design="Bold" />
+										<m:Text text="{path:'mainModel>/thucPham/donVi'}" />
+										<m:Label text="Ghi chú" design="Bold" />
+										<m:Text text="{path:'mainModel>/ghiChu'}" />
+									</form:content>
+								</form:SimpleForm>
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</m:View>

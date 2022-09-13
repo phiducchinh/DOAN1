@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="VatTuEditDialog" contentWidth="550px" contentHeight="600px" verticalScrolling="false" class="sapUiSizeCompact">
+        <customHeader>
+            <Toolbar>
+                <Title text="Cập nhật thông tin "/>
+                <ToolbarSpacer />
+                <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseVatTuEdit"/>
+            </Toolbar>
+        </customHeader>
+
+		<content>
+            <mvc:XMLView viewName="app.VatTu.Edit" id="app.VatTu.Edit"/>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

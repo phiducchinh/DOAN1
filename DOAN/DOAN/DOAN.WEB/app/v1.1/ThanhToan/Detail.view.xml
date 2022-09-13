@@ -1,0 +1,100 @@
+<mvc:View controllerName="app.ThanhToan.Detail"
+		  xmlns:m="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          xmlns:t="sap.ui.table"
+          xmlns:form="sap.ui.layout.form"
+          xmlns:dnd="sap.ui.core.dnd"
+          xmlns:f="sap.f"
+          xmlns:l="sap.ui.layout"
+          height="100%">
+	<f:DynamicPage headerExpanded="true" fitContent="true" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Mã hóa đơn: {mainModel>/maHoaDon}" />
+				</f:heading>
+				<f:expandedContent>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectStatus title="Tên đơn cỗ" text="{path:'mainModel>/hopDong/tenHopDong'}" />
+						<m:ObjectStatus title="Tên khách hàng" text="{path:'mainModel>/hopDong/tenKhachHang'}" />
+						<m:ObjectStatus title="Tiền phát sinh" text="{path:'mainModel>/tienPhatSinh', formatter:'.globalFormatter.formatTienn'}" />
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<m:ObjectStatus title="Ngày tạo" text="{
+				                                       path: 'mainModel>/ngayTao',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS', UTC: true },
+				                                         pattern: 'dd/MM/yyyy',
+                                                 UTC: false
+				                                       }
+				                                     }"  />
+						<m:ObjectStatus title="Ghi chú" text="{path:'mainModel>/ghiChu' }"  />
+					</l:VerticalLayout>
+				</f:expandedContent>
+				<f:actions>
+					<!--<OverflowToolbarButton tooltip="Xuất" text="Sửa" icon="sap-icon://edit" type="Transparent" press="onEditButtonPress" />-->
+					<!--<OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" press="onDeleteButtonPress" />-->
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<t:Table id="thanhToanModel"
+                visibleRowCountMode="Auto"
+                noData="Không có kết quả phù hợp"
+                selectionMode="None"
+                rows="{path: 'thanhToanModel>/'}"
+                ariaLabelledBy="title"
+                rowActionCount="0"
+                fixedColumnCount="2">
+				<t:extension>
+
+				</t:extension>
+				<t:columns>
+					<t:Column width="3rem" hAlign="Center">
+						<Label text="STT"/>
+						<t:template>
+							<Text text="{thanhToanModel>STT}" wrapping="false" />
+						</t:template>
+					</t:Column>
+					<t:Column width="15rem">
+						<Label text="Tên món ăn"/>
+						<t:template>
+							<Text text="{thanhToanModel>monAn/tenMonAn}" wrapping="false" />
+						</t:template>
+					</t:Column>
+					<t:Column width="7rem" hAlign="Center">
+						<Label text="Số lượng"/>
+						<t:template>
+							<Text text="{thanhToanModel>soLuong}" wrapping="false" />
+						</t:template>
+					</t:Column>
+					<t:Column width="10rem" hAlign="End">
+						<Label text="Đơn giá (VNĐ)"/>
+						<t:template>
+							<Text text="{path:'thanhToanModel>giaTien', formatter:'.globalFormatter.formatTienn' }"  />
+						</t:template>
+					</t:Column>
+					<t:Column visible="true" minWidth="10rem" hAlign="End">
+						<Label text="Thành tiền (VNĐ)" />
+						<t:template>
+							<Text text="{path:'thanhToanModel>thanhTien', formatter: '.globalFormatter.formatTien' }"  />
+						</t:template>
+					</t:Column>
+				</t:columns>
+				<t:footer>
+					<OverflowToolbar>
+						<Label class="color-red" text="TỔNG TIỀN: {path:'mainModel>/tongTien', formatter:'.globalFormatter.formatTien'} VNĐ"></Label>
+					</OverflowToolbar>
+				</t:footer>
+			</t:Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

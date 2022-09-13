@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+  xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+	<Popover verticalScrolling="true" placement="Bottom" class="sapUiSizeCompact" showHeader="false">
+		<content>
+			<List id="idListUpdateStatus" mode="SingleSelectMaster">
+				<StandardListItem title="Hủy">
+					<customData>
+						<core:CustomData key="Status" value="0" />
+					</customData>
+				</StandardListItem>
+				<StandardListItem title="Hoãn">
+					<customData>
+						<core:CustomData key="Status" value="1"></core:CustomData>
+					</customData>
+				</StandardListItem>
+				<!--<StandardListItem title="Lên hợp đồng">
+					<customData>
+						<core:CustomData key="Status" value="2"></core:CustomData>
+					</customData>
+				</StandardListItem>-->
+				<StandardListItem title="Chuẩn bị" >
+					<customData>
+						<core:CustomData key="Status" value="3"></core:CustomData>
+					</customData>
+				</StandardListItem>
+				<StandardListItem title="Đang thực hiện">
+					<customData>
+						<core:CustomData key="Status" value="4"></core:CustomData>
+					</customData>
+				</StandardListItem>
+				<StandardListItem title="Hoàn thành">
+					<customData>
+						<core:CustomData key="Status" value="5"></core:CustomData>
+					</customData>
+				</StandardListItem>
+			</List>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button type="Emphasized" press="btnUpdateStatus" text="Áp dụng" />
+			</Toolbar>
+		</footer>
+	</Popover>
+</core:FragmentDefinition>

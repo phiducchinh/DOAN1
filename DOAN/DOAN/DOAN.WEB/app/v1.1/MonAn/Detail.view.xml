@@ -1,0 +1,299 @@
+<mvc:View controllerName="app.MonAn.Detail"
+		  xmlns:m="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns="sap.m"
+          xmlns:t="sap.ui.table"
+          xmlns:form="sap.ui.layout.form"
+          xmlns:dnd="sap.ui.core.dnd"
+          xmlns:f="sap.f"
+          xmlns:l="sap.ui.layout"
+          height="100%">
+	<f:DynamicPage headerExpanded="true" fitContent="true" toggleHeaderOnTitleClick="true" class="sapUiNoContentPadding">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{mainModel>/tenMonAn}" />
+				</f:heading>
+				<f:expandedContent>
+					 <!--<ObjectStatus title="Trạng thái" text="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTrangThaiText' }" state="{path:'mainModel>/trangThai', formatter: '.globalFormatter.formatTrangThaiColor' }" />--> 
+				</f:expandedContent>
+				<f:actions>
+					<OverflowToolbarButton tooltip="Sửa" text="Sửa" icon="sap-icon://edit" type="Transparent" press="onEditButtonPress" />
+					<OverflowToolbarButton tooltip="Xóa" text="Xóa" icon="sap-icon://delete" type="Transparent" press="onDeleteButtonPress" />
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<!--<l:HorizontalLayout allowWrapping="true">
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Tạo lúc" text="{
+				                                       path: 'mainModel>/created',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yyyy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />
+						--><!--<ObjectAttribute title="Sửa lúc" text="{
+				                                       path: 'mainModel>/MODIFIED',
+				                                       type: 'sap.ui.model.type.DateTime',
+				                                       formatOptions: {
+                                                 source: { pattern: 'yyyy-MM-ddTHH:mm:ss.SSS', UTC: true },
+				                                         pattern: 'dd/MM/yy HH:mm',
+                                                 UTC: false
+				                                       }
+				                                     }" />--><!--
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Tạo bởi" text="{mainModel>/createdBy}" />
+						--><!--<ObjectAttribute title="Sửa bởi" text="{ path: 'mainModel>/MODIFIEDBY', formatter: '.globalFormatter.accountDisplay' }" />--><!--
+					</l:VerticalLayout>
+				</l:HorizontalLayout>--> 
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<IconTabBar id="detailIconTabBar" headerMode="Inline" upperCase="true" expandable="false" class="sapUiNoContentPadding" stretchContentHeight="true" select="onTabSelectionChange">
+				<items>
+					<IconTabFilter text="THÔNG TIN MÓN ĂN" key="monAnTab">
+						<form:Form editable="true" class="displayForm">
+							<form:layout>
+								<form:ResponsiveGridLayout
+								  labelSpanXL="4"
+								  labelSpanL="4"
+								  labelSpanM="4"
+								  labelSpanS="4"
+								  adjustLabelSpan="false"
+								  emptySpanXL="0"
+								  emptySpanL="0"
+								  emptySpanM="0"
+								  emptySpanS="0"
+								  columnsXL="2"
+								  columnsL="2"
+								  columnsM="1"
+								  singleContainerFullSize="false" />
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="Tên món ăn">
+											<form:fields>
+												<Text text="{path:'mainModel>/tenMonAn'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Loại">
+											<form:fields>
+												<Text text="{path:'mainModel>/loai'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Giá tiền">
+											<form:fields>
+												<Text text="{path:'mainModel>/giaTien'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Ghi chú">
+											<form:fields>
+												<!--<Text text="{path:'mainModel>/trangThai'} , formatter: '.globalFormatter.formatTrangThaiText'}" state="{path:'mainModel>/isSlider', formatter: '.globalFormatter.formatTrangThaiColor' }" />-->
+												<Text text="{path:'mainModel>/ghiChu'}" />
+											</form:fields>
+										</form:FormElement>
+										<!--<form:FormElement label="Status">
+											<form:fields>
+												<Text text="{path:'mainModel>/status'}" />
+											</form:fields>
+										</form:FormElement>-->
+									</form:formElements>
+								</form:FormContainer>
+								<!--<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="Description">
+											<form:fields>
+												<Text text="{path:'mainModel>/description'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Slide Title">
+											<form:fields>
+												<Text text="{path:'mainModel>/slideTitle'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Slide Content">
+											<form:fields>
+												<Text text="{path:'mainModel>/slideContent'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="Image Slide Property">
+											<form:fields>
+												<Text text="{path:'mainModel>/imageSlideProperty'}" />
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="News Links URl">
+											<form:fields>
+												<Text text="{path:'mainModel>/newsLinksURl'}" />
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>-->
+							</form:formContainers>
+						</form:Form>
+					</IconTabFilter>
+					<IconTabFilter text="THỰC PHẨM" key="thucPhamTab">
+						<t:Table visibleRowCountMode="Auto"
+											 busyIndicatorDelay="1"
+											 id="ThucPhamTable"
+											 rows="{path: 'thucPhamModel>/'}"
+											 selectionMode="MultiToggle"
+											 ariaLabelledBy="title"
+											 rowActionCount="2"
+											 fixedColumnCount="2"
+											cellClick="thucPhamCellClick"
+											 rowSelectionChange="onThucPhamRowSelectionChange">
+							<t:toolbar>
+								<OverflowToolbar>
+									<Title text="Danh sách thực phẩm"></Title>
+									<ToolbarSpacer />
+
+									<SearchField width="200px" search="onThucPhamSearch" liveChange="onThucPhamLiveChange" />
+									<!--<OverflowToolbarButton type="Transparent" icon="sap-icon://filter" tooltip="Lọc theo thời gian" text="Lọc theo thời gian" press="setMaintenanceTimeFilter">
+										<layoutData>
+											<OverflowToolbarLayoutData priority="NeverOverflow" />
+										</layoutData>
+									</OverflowToolbarButton>-->
+									<OverflowToolbarButton tooltip="Thêm" text="Thêm" type="Transparent" icon="sap-icon://add-document" press="addThucPham" />
+									<OverflowToolbarButton tooltip="Tải lại" text="Tải lại" icon ="sap-icon://refresh" press="onThucPhamRefresh" />
+									<OverflowToolbarButton id="deleteThucPhamButton" press="onDeleteThucPhamButtonPress" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />
+								</OverflowToolbar>
+							</t:toolbar>
+							<t:columns>
+								<t:Column width="3em" hAlign="Center" sortProperty="STT">
+									<Label text="STT" />
+									<t:template>
+										<Text text="{ path: 'thucPhamModel>STT'}" />
+									</t:template>
+								</t:Column>
+								<t:Column width="15rem">
+									<Label text="Tên thực phẩm" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>thucPham/tenThucPham'}" />
+									</t:template>
+								</t:Column>
+								<t:Column width="10rem" >
+									<Label text="Mã thực phẩm" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>thucPham/maThucPham'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="7rem" hAlign="Center">
+									<Label text="Số lượng" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>soLuong'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="10rem" >
+									<Label text="Đơn vị" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>thucPham/donVi'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="10rem" >
+									<Label text="Loại" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="21rem" >
+									<Label text="Ghi chú" />
+									<t:template>
+										<Text text="{path: 'thucPhamModel>ghiChu'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+
+							</t:columns>
+							<t:rowActionTemplate>
+								<t:RowAction>
+									<t:items>
+										<t:RowActionItem text="Chi tiết" icon="sap-icon://detail-view" press="onRowViewThucPham" />
+										<t:RowActionItem text="Sửa" icon="sap-icon://edit" press="onRowEditThucPham" />
+										<t:RowActionItem text="Xóa" icon="sap-icon://delete"  press="onRowDeleteThucPham" />
+									</t:items>
+								</t:RowAction>
+							</t:rowActionTemplate>
+						</t:Table>
+					</IconTabFilter>
+					<IconTabFilter text="VẬT DỤNG ĐI KÈM" key="vatDungTab">
+						<t:Table visibleRowCountMode="Auto"
+											 busyIndicatorDelay="1"
+											 id="VatDungTable"
+											 rows="{path: 'vatDungModel>/'}"
+											 selectionMode="MultiToggle"
+											 ariaLabelledBy="title"
+											 rowActionCount="2"
+											 fixedColumnCount="2"
+											cellClick="VatDungCellClick"
+											 rowSelectionChange="onVatDungRowSelectionChange">
+							<t:toolbar>
+								<OverflowToolbar>
+									<Title text="Danh sách vật dụng"></Title>
+									<ToolbarSpacer />
+
+									<SearchField width="200px" search="onVatDungSearch" liveChange="onVatDungLiveChange" />
+									<!--<OverflowToolbarButton type="Transparent" icon="sap-icon://filter" tooltip="Lọc theo thời gian" text="Lọc theo thời gian" press="setMaintenanceTimeFilter">
+										<layoutData>
+											<OverflowToolbarLayoutData priority="NeverOverflow" />
+										</layoutData>
+									</OverflowToolbarButton>-->
+									<OverflowToolbarButton tooltip="Thêm" text="Thêm" type="Transparent" icon="sap-icon://add-document" press="addVatDung" />
+									<OverflowToolbarButton tooltip="Tải lại" text="Tải lại" icon ="sap-icon://refresh" press="onVatDungRefresh" />
+									<OverflowToolbarButton id="deleteVatDungButton" press="onDeleteVatDungButtonPress" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />
+								</OverflowToolbar>
+							</t:toolbar>
+							<t:columns>
+								<t:Column width="3em" hAlign="Center" sortProperty="STT">
+									<Label text="STT" />
+									<t:template>
+										<Text text="{ path: 'vatDungModel>STT'}" />
+									</t:template>
+								</t:Column>
+								<t:Column width="15rem">
+									<Label text="Tên vật dụng" />
+									<t:template>
+										<Text text="{path: 'vatDungModel>vatTu/tenVatTu'}" />
+									</t:template>
+								</t:Column>
+								<t:Column width="10rem" >
+									<Label text="Mã vật dụng" />
+									<t:template>
+										<Text text="{path: 'vatDungModel>vatTu/maVatTu'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="7rem" hAlign="Center">
+									<Label text="Số lượng" />
+									<t:template>
+										<Text text="{path: 'vatDungModel>soLuong'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+								<t:Column width="21rem" >
+									<Label text="Ghi chú" />
+									<t:template>
+										<Text text="{path: 'vatDungModel>ghiChu'}" wrapping="false" />
+									</t:template>
+								</t:Column>
+
+							</t:columns>
+							<t:rowActionTemplate>
+								<t:RowAction>
+									<t:items>
+										<t:RowActionItem text="Chi tiết" icon="sap-icon://detail-view" press="onRowViewVatDung" />
+										<t:RowActionItem text="Sửa" icon="sap-icon://edit" press="onRowEditVatDung" />
+										<t:RowActionItem text="Xóa" icon="sap-icon://delete"  press="onRowDeleteVatDung" />
+									</t:items>
+								</t:RowAction>
+							</t:rowActionTemplate>
+						</t:Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Dialog id="ThanhToanDetailDialog"
+        contentWidth="750px" contentHeight="750px" 
+        verticalScrolling="false" 
+        class="sapUiSizeCompact">
+        <customHeader>
+        <Toolbar>
+            <Title text="Thông tin chi tiết hóa đơn thanh toán "/>
+            <ToolbarSpacer />
+            <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseThanhToanView"/>
+        </Toolbar>
+        </customHeader>
+        <endButton>
+            <Button text="Đóng" press="onCloseThanhToanView" />
+        </endButton>
+        <content>
+            <mvc:XMLView viewName="app.ThanhToan.Detail" id="app.ThanhToan.Detail"/>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>
