@@ -1,12 +1,19 @@
 <core:FragmentDefinition
 	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core">
-	<Dialog id="editServerDlg" contentHeight="100%" contentWidth="50%" showHeader="false">
-		<endButton>
-			<Button text="Đóng" icon="sap-icon://cancel" press="onCloseServerSoftwareEdit" />
-		</endButton>
+	<Dialog id="thucDonEditDialog"
+        contentWidth="750px" contentHeight="80vh"
+        verticalScrolling="false"
+        class="sapUiSizeCompact">
+		<customHeader>
+			<Toolbar>
+				<Title class="fw-b" text="Chỉnh sửa thực đơn"/>
+				<ToolbarSpacer />
+				<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseTDEdit"/>
+			</Toolbar>
+		</customHeader>
 		<content>
-			<mvc:XMLView viewName="app.Software.DevHistory.Edit" id="app.Software.DevHistory.Edit"/>
+			<mvc:XMLView viewName="app.HopDong.ThucDon.Edit" id="app.HopDong.ThucDon.Edit"/>
 		</content>
 	</Dialog>
 </core:FragmentDefinition>

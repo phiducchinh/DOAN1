@@ -25,6 +25,14 @@ namespace DOAN.API.Controllers
             var list = await _context.HoaDonNhap.OrderByDescending(a=>a.id).ToListAsync();
             return Ok(list);
         }
+
+        [HttpGet("filter/{title}")]
+        public async Task<ActionResult<IEnumerable<HoaDonNhap>>> GetAllSearch(string title)
+        {
+            var list = await _context.HoaDonNhap.OrderByDescending(a => a.id).Where(x=>x.maHoaDon.Contains(title)).ToListAsync();
+            return Ok(list);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<HoaDonNhap>> GetById(int id)
         {

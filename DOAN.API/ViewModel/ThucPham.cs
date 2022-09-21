@@ -26,4 +26,9 @@ namespace DOAN.API.ViewModel
         public string? ghiChu { get; set; } = string.Empty;
         public List<ChiTietPhieuNhap> phieuNhap { get; set; }
     }
+    public class filter
+    {
+        public string? title { get; set; }
+        public int? status { get; set; }
+    }
 }

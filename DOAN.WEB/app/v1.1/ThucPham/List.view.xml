@@ -12,7 +12,7 @@
         <f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<m:Title text="Quản lý thực phẩm" />
+					<m:Title text="Quản lý danh mục thực phẩm" />
 				</f:heading>
 				<f:actions>
 					<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />
@@ -85,7 +85,7 @@
 
                 </extension>
                 <columns>
-					<Column width="3rem">
+					<Column width="3rem" hAlign="Center">
 						<m:Label text="STT"/>
 						<template>
 							<m:Text text="{mainModel>STT}" wrapping="false" />

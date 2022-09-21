@@ -1,4 +1,6 @@
-<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" controllerName="app.Software.Server.Add">
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form" controllerName="app.HopDong.ThucDon.Add">
   <Page>
     <customHeader>
       <Toolbar design="Solid">
@@ -47,4 +49,4 @@
       </Toolbar>
     </footer>
   </Page>
-</core:View>
+</mvc:View>

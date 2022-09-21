@@ -160,9 +160,12 @@
                 this.idHopDong = oData.IdDonCo;
                 Connector.getFromApi(sdConfig.adminApiEndpoint + 'ChiTietPhieuMua/hopDong/' + oData.IdDonCo, {
                     fnProcessData: function (data) {
-                        console.log(data);
                         if (data && data.length > 0)
                             root.formatDataThucPham(data);
+                        else {
+                            root.phieuMuaModel.setData([{ isEdit: true }])
+
+                        }
                     }
                 });
                 this.getView().byId('ngayTao').setValue(moment().format('DD/MM/YYYY'));

@@ -37,7 +37,6 @@
             const root = this;
             Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucPham/getall', {
                 fnProcessData: function (data) {
-                    console.log(data);
                     if (data && data.length > 0) {
                         data.forEach(item => {
                             if (item.phieuNhap && item.phieuNhap.length > 0) {
@@ -46,9 +45,14 @@
                                     i.loai = item.loai;
                                     i.soLuong = i.soLuongConLai;
                                     i.thucPham = null;
+                                    i.ngayNhap = i.hoaDonhNhap.ngayTao;
+                                    i.hoaDonhNhap = null;
                                 })
                             }
                         })
+                        data = data.filter(item => {
+                            return item.soLuong > 0;
+                        });
                     }
                     root.mainModel.setData(data);
                 }
@@ -68,7 +72,7 @@
         removeSelections: function () {
             this.mainTable.clearSelection();
             //this.getView().byId('btnUpdateStatus').setVisible(false);
-            this.getView().byId('btnDelete').setVisible(false);
+            //this.getView().byId('btnDelete').setVisible(false);
         },
         onRowSelectionChange: function (oEvent) {
             const selectedIndices = this.mainTable.getSelectedIndices();
@@ -135,14 +139,21 @@
             let title = this.getView().byId("searchField").getValue();
             let status = this.getView().byId('statusFilter').getSelectedKey();
             this.filter.title = title;
-            this.filter.status = status;
+            this.filter.status = Number(status);
             Connector.postToApi(sdConfig.adminApiEndpoint + 'ThucPham/filter', {
                 oParameters: root.filter,
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
-                            data[i]['STT'] = i + 1;
-                        }
+                        data.forEach(item => {
+                            if (item.phieuNhap && item.phieuNhap.length > 0) {
+                                item.phieuNhap.forEach(i => {
+                                    i.donVi = item.donVi;
+                                    i.loai = item.loai;
+                                    i.soLuong = i.soLuongConLai;
+                                    i.thucPham = null;
+                                })
+                            }
+                        })
                     }
                     root.mainModel.setData(data);
                 }
@@ -160,7 +171,7 @@
             const isReset = params.clearButtonPressed;
             if (isReset) {
                 this.filter.title = "";
-                this.searchFilter();
+                this.loadData();
             }
             else
                 this.searchFilter();

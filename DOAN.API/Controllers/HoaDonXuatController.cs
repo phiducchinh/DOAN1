@@ -42,6 +42,30 @@ namespace DOAN.API.Controllers
             }
             return Ok(result);
         }
+
+        [HttpGet("filter/{title}")]
+        public async Task<ActionResult<IEnumerable<HoaDonXuatAll>>> GetAll(string title)
+        {
+            var list = await _context.HoaDonXuat.Where(x=>x.maHoaDon.Contains(title)).OrderByDescending(a=>a.id).ToListAsync();
+            List<HoaDonXuatAll> result = new List<HoaDonXuatAll>();
+            if (list != null)
+            {
+                list.ForEach(item =>
+                {
+                    IEnumerable<ChiTietPhieuXuat> ct = _context.ChiTietPhieuXuat.Include(a => a.thucPham).Include(v => v.chiTietPhieuNhap).Where(x => x.idHoaDon == item.id).OrderBy(v => v.idThucPham).ToList();
+                    result.Add(new HoaDonXuatAll()
+                    {
+                        id = item.id,
+                        chiTietPhieus = ct,
+                        ghiChu = item.ghiChu,
+                        idHopDong = item.idHopDong,
+                        maHoaDon = item.maHoaDon,
+                        ngayTao = item.ngayTao
+                    });
+                });
+            }
+            return Ok(result);
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<HoaDonXuat>> GetById(int id)
         {

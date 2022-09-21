@@ -66,6 +66,25 @@ namespace DOAN.API.Controllers
             await _context.SaveChangesAsync();
             return Ok("Thêm thành công");
         }
+
+        [HttpPost("editList")]
+        public async Task<ActionResult> EditMonAn(List<ThucDon> thucDon)
+        {
+
+
+            thucDon.ForEach(item =>
+            {   var ma= _context.ThucDon.SingleOrDefault(x => x.idMonAn == item.idMonAn && x.idHopDong==item.idHopDong);
+                if (ma != null)
+                {
+                    _context.ThucDon.Remove(ma);
+                }
+                item.hopDong = null;
+                item.monAn = null;
+            });
+            _context.ThucDon.AddRange(thucDon);
+            await _context.SaveChangesAsync();
+            return Ok("Thêm thành công");
+        }
         [HttpPut("{id}")]
         public async Task<ActionResult> Edit(int id,ThucDon thucDon)
         {

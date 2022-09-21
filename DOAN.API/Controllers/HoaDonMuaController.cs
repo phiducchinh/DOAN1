@@ -25,6 +25,12 @@ namespace DOAN.API.Controllers
             var list = await _context.HoaDonMua.Include(x=>x.hopDong).ToListAsync();
             return Ok(list);
         }
+        [HttpGet("filter/{title}")]
+        public async Task<ActionResult<IEnumerable<HoaDonMua>>> GetAllSearch(string title)
+        {
+            var list = await _context.HoaDonMua.Include(x => x.hopDong).Where(a=>a.maHoaDon.Contains(title)).ToListAsync();
+            return Ok(list);
+        }
 
         [HttpGet("getnewid")]
         public async Task<ActionResult<HoaDonMua>> GetIdNgoai()

@@ -1,5 +1,7 @@
-<core:View height="100%"
+<mvc:View height="100%"
         xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+		  
         xmlns="sap.m"
         xmlns:l="sap.ui.layout"
         xmlns:cc="app.ext.Controls"
@@ -154,4 +156,4 @@
 			</Toolbar>
 		</footer>
 	</Page>
-</core:View>
+</mvc:View>

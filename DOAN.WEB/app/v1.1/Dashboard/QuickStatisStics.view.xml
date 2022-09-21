@@ -7,6 +7,7 @@
   xmlns:viz.data="sap.viz.ui5.data"
   xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
   xmlns="sap.m"
+  xmlns:unified="sap.ui.unified"
   xmlns:f="sap.f"
   controllerName="app.Dashboard.QuickStatisStics"
   xmlns:grid="sap.ui.layout.cssgrid"
@@ -25,41 +26,144 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content>
-			<Panel id="pgBlockContainer" backgroundDesign="Solid" class="fb-cont" width="100%" height="100%">
-				<headerToolbar>
-					<OverflowToolbar>
-						<core:Icon src="sap-icon://badge" />
-						<Text id="blockTitle" class="blockTitle" />
-						<ToolbarSpacer />
-						<SegmentedButton id="segBtn" selectedKey="column" selectionChange = "onViewChange" class="sapUiTinyMarginRight">
-							<items>
-								<SegmentedButtonItem icon="sap-icon://column-chart-dual-axis" key="column" />
-								<SegmentedButtonItem icon="sap-icon://full-stacked-column-chart" key="stacked" />
-							</items>
-						</SegmentedButton>
-					</OverflowToolbar>
-				</headerToolbar>
-				<content>
-					<viz:VizFrame id="iVizFrame" height="100%" width="100%" vizType='column'>
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{dataModel>/Data}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition identity="{dataModel>VATDUNGID}" name="Status" value="{dataModel>TENVATDUNG}" />
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition identity="CL" name="Còn lại" value="{dataModel>CL}" />
-									<viz.data:MeasureDefinition identity="MUON" name="Đang mượn" value="{dataModel>MUON}" />
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
+			<VBox>
+				<Panel id="pgBlockContainer1" backgroundDesign="Solid" class="fb-cont" height="700px">
+					<headerToolbar>
+						<OverflowToolbar>
+							<core:Icon src="sap-icon://badge" />
+							<Text id="blockTitle1" text="Lịch đơn cỗ" class="blockTitle" />
+							<ToolbarSpacer />
+							<!--<SegmentedButton id="segBtn1" selectedKey="column" selectionChange = "onViewChange" class="sapUiTinyMarginRight">
+								<items>
+									<SegmentedButtonItem icon="sap-icon://column-chart-dual-axis" key="column" />
+									<SegmentedButtonItem icon="sap-icon://full-stacked-column-chart" key="stacked" />
+								</items>
+							</SegmentedButton>-->
+						</OverflowToolbar>
+					</headerToolbar>
 
-						<viz:feeds>
-							<viz.feeds:FeedItem id="fiSoftwareType" uid="valueAxis" type="Measure" values="CL,MUON" />
-							<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
-						</viz:feeds>
-					</viz:VizFrame>
-				</content>
-			</Panel>
+					<!--id="PC1"
+					builtInViews="Day"
+					appointmentHeight="Automatic"
+					appointmentRoundWidth="HalfColumn"
+					showIntervalHeaders="false"
+					showRowHeaders="false"
+					groupAppointmentsMode="Collapsed"
+					showDayNamesLine="true"
+					startDate="{path: 'planningModel>/startDate'}"
+					rows="{path: 'planningModel>/people'}"
+					appointmentsVisualization="Filled"
+					appointmentSelect="handleAppointmentSelect"
+					viewChange="viewChange"
+					startDateChange="changePlan"
+					showWeekNumbers="false"-->
+					<content>
+						<PlanningCalendar
+							showRowHeaders="false"
+							id="PC1"
+							startDate="{path: 'planningModel>/startDate'}"
+							viewKey="D"
+					appointmentHeight="Automatic"
+							
+							showDayNamesLine="false"
+							rows="{path: 'planningModel>/people'}"
+							appointmentsVisualization="Filled"
+							appointmentSelect="handleAppointmentSelect"
+							showEmptyIntervalHeaders="false"
+							viewChange = "viewChange"
+							startDateChange="changePlan"
+							>
+							<toolbarContent>
+								<Title text="Thời gian" titleStyle="H4"/>
+							</toolbarContent>
+							<views>
+								<PlanningCalendarView
+									key="D"
+									intervalType="Day"
+									description="Ngày"
+									intervalsS="1"
+									intervalsM="3"
+									intervalsL="7"
+									showSubIntervals="false">
+								</PlanningCalendarView>
+								<PlanningCalendarView
+									key="M"
+									intervalType="Month"
+									description="Tháng"
+									intervalsS="1"
+									intervalsM="2"
+									intervalsL="3"
+									showSubIntervals="false">
+								</PlanningCalendarView>
+							</views>
+							<rows>
+								<PlanningCalendarRow
+									appointments="{path : 'planningModel>appointments', templateShareable: false}"
+									>
+									<!--intervalHeaders="{path: 'planningModel>headers', templateShareable: false}"-->
+									<customData>
+										<core:CustomData key="emp-name" value="{planningModel>name}" writeToDom="true"/>
+									</customData>
+									<appointments>
+										<unified:CalendarAppointment
+											startDate="{planningModel>start}"
+											endDate="{planningModel>end}"
+											title="{planningModel>title}"
+											text="{planningModel>info}"
+											type="{planningModel>type}"
+											tentative="{planningModel>tentative}">
+										</unified:CalendarAppointment>
+									</appointments>
+									<!--<intervalHeaders>
+										<unified:CalendarAppointment
+											startDate="{planningModel>start}"
+											endDate="{planningModel>end}"
+											icon="{planningModel>pic}"
+											title="{planningModel>planningModel>title}"
+											type="{planningModel>type}">
+										</unified:CalendarAppointment>
+									</intervalHeaders>-->
+								</PlanningCalendarRow>
+							</rows>
+						</PlanningCalendar>
+					</content>
+				</Panel>
+				<Panel id="pgBlockContainer" backgroundDesign="Solid" class="fb-cont" height="700px">
+					<headerToolbar>
+						<OverflowToolbar>
+							<core:Icon src="sap-icon://badge" />
+							<Text id="blockTitle" class="blockTitle" />
+							<ToolbarSpacer />
+							<SegmentedButton id="segBtn" selectedKey="column" selectionChange = "onViewChange" class="sapUiTinyMarginRight">
+								<items>
+									<SegmentedButtonItem icon="sap-icon://column-chart-dual-axis" key="column" />
+									<SegmentedButtonItem icon="sap-icon://full-stacked-column-chart" key="stacked" />
+								</items>
+							</SegmentedButton>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+						<viz:VizFrame id="iVizFrame" height="100%" width="100%" vizType='column'>
+							<viz:dataset>
+								<viz.data:FlattenedDataset data="{dataModel>/Data}">
+									<viz.data:dimensions>
+										<viz.data:DimensionDefinition identity="{dataModel>VATDUNGID}" name="Status" value="{dataModel>TENVATDUNG}" />
+									</viz.data:dimensions>
+									<viz.data:measures>
+										<viz.data:MeasureDefinition identity="CL" name="Còn lại" value="{dataModel>CL}" />
+										<viz.data:MeasureDefinition identity="MUON" name="Đang mượn" value="{dataModel>MUON}" />
+									</viz.data:measures>
+								</viz.data:FlattenedDataset>
+							</viz:dataset>
+
+							<viz:feeds>
+								<viz.feeds:FeedItem id="fiSoftwareType" uid="valueAxis" type="Measure" values="CL,MUON" />
+								<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
+							</viz:feeds>
+						</viz:VizFrame>
+					</content>
+				</Panel>
+			</VBox>
 		</f:content>
 	</f:DynamicPage>
 </mvc:View>

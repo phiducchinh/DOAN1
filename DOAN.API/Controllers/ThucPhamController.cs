@@ -31,7 +31,47 @@ namespace DOAN.API.Controllers
             List<AllThucPham> list= new List<AllThucPham>();
             listThucPham.ForEach(async item =>
             {
-                var listTP = _context.ChiTietPhieuNhap.Where(x => x.idThucPham == item.id && x.isCheck==0).ToList();
+                var listTP = _context.ChiTietPhieuNhap.Where(x => x.idThucPham == item.id && x.isCheck==0).Include(z=>z.hoaDonhNhap).ToList();
+                AllThucPham chiTiet = new AllThucPham();
+                chiTiet.id = item.id;
+                chiTiet.donVi = item.donVi;
+                chiTiet.ghiChu = item.ghiChu;
+                chiTiet.loai = item.loai;
+                chiTiet.maThucPham = item.maThucPham;
+                chiTiet.soLuong = item.soLuong;
+                chiTiet.tenThucPham = item.tenThucPham;
+                if (listTP.Any())
+                {
+                    chiTiet.phieuNhap = listTP;
+                }
+                else
+                {
+                    chiTiet.phieuNhap = null;
+                }
+                list.Add(chiTiet);
+            });
+            return Ok(list);
+        }
+
+        [HttpPost("filter")]
+        public async Task<ActionResult<IEnumerable<AllThucPham>>> GetAllTPFilter(filter filter)
+        {
+            var listThucPham = await _context.ThucPham.ToListAsync();
+
+            if (filter.title!=null)
+            {
+                listThucPham= listThucPham.Where(x=> x.tenThucPham.Contains(filter.title) || x.maThucPham.Contains(filter.title)).ToList();
+            }
+            if (filter.status != -1)
+            {
+                listThucPham = listThucPham.Where(x => x.loai == filter.status).ToList();
+            }
+
+
+            List<AllThucPham> list = new List<AllThucPham>();
+            listThucPham.ForEach(item =>
+            {
+                var listTP = _context.ChiTietPhieuNhap.Where(x => x.idThucPham == item.id && x.isCheck == 0).ToList();
                 AllThucPham chiTiet = new AllThucPham();
                 chiTiet.id = item.id;
                 chiTiet.donVi = item.donVi;

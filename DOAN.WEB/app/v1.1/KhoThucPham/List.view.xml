@@ -15,9 +15,9 @@
 					<m:Title text="Quản lý thực phẩm" />
 				</f:heading>
 				<f:actions>
-					<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />
+					<!--<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />-->
 					<!--<m:OverflowToolbarButton id="btnUpdateStatus" press="updateStatusItems" icon="sap-icon://edit" tooltip="Sửa trạng thái" text="Sửa trạng thái" type="Transparent" visible="false" />-->
-					<m:OverflowToolbarButton id="btnDelete" press="deleteItems" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />
+					<!--<m:OverflowToolbarButton id="btnDelete" press="deleteItems" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />-->
 					<m:OverflowToolbarButton icon ="sap-icon://refresh" tooltip="Tải lại" text="Tải lại" type="Transparent" press="onRefresh" />
 				</f:actions>
 			</f:DynamicPageTitle>
@@ -116,6 +116,23 @@
 						<m:Label text="Đơn vị"/>
 						<template>
 							<m:Text text="{mainModel>donVi}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="10rem">
+						<m:Label text="Ngày nhập"/>
+						<template>
+							<m:Text text="{
+								path: 'mainModel>ngayNhap',
+								type: 'sap.ui.model.type.DateTime',
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS',
+										UTC: true
+									},
+									pattern: 'dd/MM/yyyy',
+									UTC: false
+								}
+							}" />
 						</template>
 					</Column>
 					<Column width="10rem">

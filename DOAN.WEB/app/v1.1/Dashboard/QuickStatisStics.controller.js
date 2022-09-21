@@ -1,13 +1,19 @@
 ﻿
 sap.ui.define([
+    'sap/ui/core/Core',
+    'sap/ui/core/Fragment',
     'sap/ui/core/mvc/Controller',
     'app/ext/CoreJsonModel',
-], function (Controller, CoreJsonModel) {
+    'app/ext/Auth.Connector.Adal',
+    'sap/m/MessageBox',
+
+], function (Core,Fragment,Controller, CoreJsonModel, Connector, MessageBox) {
     "use strict";
     const controller = {
         componentTypeReportModel: new CoreJsonModel(),
         componentModel: new CoreJsonModel(),
-        dataModel: new CoreJsonModel(),
+		dataModel: new CoreJsonModel(),
+		planningModel: new CoreJsonModel(),
         _chartPro: {
             title: {
                 visible: false
@@ -129,11 +135,263 @@ sap.ui.define([
             },
         ],
         onInit: function () {
-            //this.bus = Core.getEventBus();
+            this.bus = Core.getEventBus();
             this.getView().setModel(this.dataModel, "dataModel");
+			this.getView().setModel(this.planningModel,"planningModel");
             this.initial();
-        },
+            this.bus.subscribe('HopDongChannel', 'onCloseHopDongView', this.onCloseHopDongView, this);
 
+    //        console.log({
+				//startDate: new Date("2017", "0", "15", "8", "0"),
+				//people: [{
+				//	pic: "test-resources/sap/ui/documentation/sdk/images/John_Miller.png",
+				//	name: "John Miller",
+				//	role: "team member",
+				//	appointments: [
+				//		{
+				//			start: new Date("2017", "0", "8", "08", "30"),
+				//			end: new Date("2017", "0", "8", "09", "30"),
+				//			title: "Meet Max Mustermann",
+				//			type: "Type02",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "11", "10", "0"),
+				//			end: new Date("2017", "0", "11", "12", "0"),
+				//			title: "Team meeting",
+				//			info: "room 1",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "12", "11", "30"),
+				//			end: new Date("2017", "0", "12", "13", "30"),
+				//			title: "Lunch",
+				//			info: "canteen",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "15", "08", "30"),
+				//			end: new Date("2017", "0", "15", "09", "30"),
+				//			title: "Meet Max Mustermann",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "15", "10", "0"),
+				//			end: new Date("2017", "0", "15", "12", "0"),
+				//			title: "Team meeting",
+				//			info: "room 1",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "15", "11", "30"),
+				//			end: new Date("2017", "0", "15", "13", "30"),
+				//			title: "Lunch",
+				//			info: "canteen",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "15", "13", "30"),
+				//			end: new Date("2017", "0", "15", "17", "30"),
+				//			title: "Discussion with clients",
+				//			info: "online meeting",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "16", "04", "00"),
+				//			end: new Date("2017", "0", "16", "22", "30"),
+				//			title: "Discussion of the plan",
+				//			info: "Online meeting",
+				//			type: "Type04",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "18", "08", "30"),
+				//			end: new Date("2017", "0", "18", "09", "30"),
+				//			title: "Meeting with the manager",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "18", "11", "30"),
+				//			end: new Date("2017", "0", "18", "13", "30"),
+				//			title: "Lunch",
+				//			info: "canteen",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "18", "1", "0"),
+				//			end: new Date("2017", "0", "18", "22", "0"),
+				//			title: "Team meeting",
+				//			info: "regular",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "21", "00", "30"),
+				//			end: new Date("2017", "0", "21", "23", "30"),
+				//			title: "New Product",
+				//			info: "room 105",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "25", "11", "30"),
+				//			end: new Date("2017", "0", "25", "13", "30"),
+				//			title: "Lunch",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "29", "10", "0"),
+				//			end: new Date("2017", "0", "29", "12", "0"),
+				//			title: "Team meeting",
+				//			info: "room 1",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "30", "08", "30"),
+				//			end: new Date("2017", "0", "30", "09", "30"),
+				//			title: "Meet Max Mustermann",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "30", "10", "0"),
+				//			end: new Date("2017", "0", "30", "12", "0"),
+				//			title: "Team meeting",
+				//			info: "room 1",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "30", "11", "30"),
+				//			end: new Date("2017", "0", "30", "13", "30"),
+				//			title: "Lunch",
+				//			type: "Type03",
+				//			tentative: true
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "30", "13", "30"),
+				//			end: new Date("2017", "0", "30", "17", "30"),
+				//			title: "Discussion with clients",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "0", "31", "10", "00"),
+				//			end: new Date("2017", "0", "31", "11", "30"),
+				//			title: "Discussion of the plan",
+				//			info: "Online meeting",
+				//			type: "Type04",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "1", "3", "08", "30"),
+				//			end: new Date("2017", "1", "13", "09", "30"),
+				//			title: "Meeting with the manager",
+				//			type: "Type02",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "1", "4", "10", "0"),
+				//			end: new Date("2017", "1", "4", "12", "0"),
+				//			title: "Team meeting",
+				//			info: "room 1",
+				//			type: "Type01",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: false
+				//		},
+				//		{
+				//			start: new Date("2017", "2", "30", "10", "0"),
+				//			end: new Date("2017", "4", "33", "12", "0"),
+				//			title: "Working out of the building",
+				//			type: "Type07",
+				//			pic: "sap-icon://sap-ui5",
+				//			tentative: true
+				//		}
+				//	],
+				//}]
+            this.bus.subscribe('HopDongChannel', 'onCloseHopDongView', this.onCloseHopDongView, this);
+    //        });
+            this.initialPlan();
+        },
+        initialPlan: function () {
+            const root = this;
+            var date = new Date();
+            let startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), "0", "0");
+
+            let dataPlan = {
+                startDate: startDate,
+                people: []
+            }
+            let obj= {
+                name: "Đơn cỗ",
+                appointments: [
+                    //{
+                    //    start: new Date("2022", "8", "20", "10", "30"),
+                    //    end: new Date("2022", "8", "20", "17", "30"),
+                    //    title: "Đơn cỗ A",
+                    //    info: "Anh Bình",
+                    //    type: "Type02",
+                    //    tentative: true
+                    //},
+                    //{
+                    //    start: new Date("2022", "8", "21", "8", "0"),
+                    //    end: new Date("2022", "8", "21", "19", "0"),
+                    //    title: "Đơn cỗ 4",
+                    //    info: "Bác Lan",
+                    //    type: "Type01",
+                    //    tentative: false
+                    //},
+                    //{
+                    //    start: new Date("2022", "8", "21", "10", "0"),
+                    //    end: new Date("2022", "8", "22", "10", "0"),
+                    //    title: "Đơn cỗ 4",
+                    //    info: "Bác Lan",
+                    //    type: "Type04",
+                    //    tentative: false
+                    //}
+                    
+                ]
+            }
+            dataPlan.people.push(obj);
+            root.planningModel.setData(dataPlan)
+
+            let start = moment().format('yyyy-MM-DDTHH:mm:ss.SSS');
+            Connector.getFromApi(sdConfig.adminApiEndpoint + 'hopdong/getByStartDate/' + start, {
+                fnProcessData: function (data) {
+                    if (data && data.length > 0) {
+                        data.forEach(item => {
+                            obj.appointments.push({
+                                id: item.id,
+                                start: new Date(moment(item.ngayBatDau).format('yyyy'), moment(item.ngayBatDau).format('MM')-1, moment(item.ngayBatDau).format('DD'), moment(item.ngayBatDau).format('HH'), moment(item.ngayBatDau).format('mm')),
+                                end: new Date(moment(item.ngayKetThuc).format('yyyy'), moment(item.ngayKetThuc).format('MM')-1, moment(item.ngayKetThuc).format('DD'), moment(item.ngayKetThuc).format('HH'), moment(item.ngayKetThuc).format('mm')),
+                                title: item.tenHopDong,
+                                info: item.tenKhachHang,
+                                type: "Type01",
+                                tentative: false
+                            })
+                        })
+                    }
+                    setTimeout(function () {
+                        root.planningModel.setData(dataPlan)
+                    },200)
+                }
+            });
+        },
         initial: function () {
             let root = this;
             //root.getView().byId('pgBlockContainer').setBusy(true);
@@ -148,8 +406,69 @@ sap.ui.define([
             })
             //root.addSetting();
         },
+        changePlan: function () {
+            const root = this;
+            let planData = this.planningModel.getData();
+            let month = Number(planData.startDate.getMonth() + 1);
+            month = month >= 10 ? month : "0" + month;
+            let date = planData.startDate.getDate();
+            date = date >= 10 ? date : "0" + date;
 
+            let day = planData.startDate.getFullYear() + "-" + month + "-" + date + "T00:00:00.000";
 
+            Connector.getFromApi(sdConfig.adminApiEndpoint + 'hopdong/getByStartDate/' + day, {
+                fnProcessData: function (data) {
+                    if (data && data.length > 0) {
+                        let arr = [];
+                        data.forEach(item => {
+                            arr.push({
+                                id: item.id,
+                                start: new Date(moment(item.ngayBatDau).format('yyyy'), moment(item.ngayBatDau).format('MM') - 1, moment(item.ngayBatDau).format('DD'), moment(item.ngayBatDau).format('HH'), moment(item.ngayBatDau).format('mm')),
+                                end: new Date(moment(item.ngayKetThuc).format('yyyy'), moment(item.ngayKetThuc).format('MM') - 1, moment(item.ngayKetThuc).format('DD'), moment(item.ngayKetThuc).format('HH'), moment(item.ngayKetThuc).format('mm')),
+                                title: item.tenHopDong,
+                                info: item.tenKhachHang,
+                                type: "Type01",
+                                tentative: false
+                            })
+                        })
+                        planData.people[0].appointments = arr;
+                        root.planningModel.refresh();
+                    }
+                    
+                }
+            });
+            
+        },
+        viewChange: function (e) {
+            var ctrl = e.getSource().getViewKey();
+            if (ctrl == "Day") {
+                this.initialPlan();
+            }
+        },
+        handleAppointmentSelect: function (oEvent) {
+            var oAppointment = oEvent.getParameters('appointment').appointment.getBindingContext('planningModel').getObject();
+            const root = this;
+            if (!this._HopDongDetail) {
+                Fragment.load({
+                    id: root.getView().getId(),
+                    name: "app.HopDong.Detail",
+                    type: "XML",
+                    controller: this
+                }).then(function (frag) {
+                    root._HopDongDetail = frag;
+                    root._HopDongDetail.open();
+                    root.bus.publish('HopDongChannel', 'loadDetailPage', { Id: oAppointment.id, title: oAppointment.title });
+                });
+            }
+            else {
+                root._HopDongDetail.open();
+                root.bus.publish('HopDongChannel', 'loadDetailPage', { Id: oAppointment.id, title: oAppointment.title });
+            }
+        },
+        onCloseHopDongView: function () {
+            if (this._HopDongDetail)
+            this._HopDongDetail.close();
+        },
         //onAfterRendering: function () {
         //    const data = this.getView().data('blockData');
         //    if (data.Configs.title)

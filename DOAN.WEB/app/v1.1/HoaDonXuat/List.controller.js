@@ -39,7 +39,6 @@
             const root = this;
             Connector.getFromApi(sdConfig.adminApiEndpoint + 'HoaDonXuat', {
                 fnProcessData: function (data) {
-                    console.log(data);
                     if (data && data.length > 0) {
                         for (var i = 0; i < data.length; i++) {
                             data[i]['STT'] = i + 1;
@@ -70,35 +69,46 @@
         },
         
         searchFilter: function () {
-            //const root = this;
-            //let title = this.getView().byId("searchField").getValue();
-            //let status = this.getView().byId('statusFilter').getSelectedKey();
-            //this.filter.title = title;
-            //this.filter.status = status;
-            //Connector.postToApi(sdConfig.adminApiEndpoint + 'HoaDonXuat/filter', {
-            //    oParameters: root.filter,
-            //    fnProcessData: function (data) {
-            //        if (data && data.length > 0) {
-            //            for (var i = 0; i < data.length; i++) {
-            //                data[i]['STT'] = i + 1;
-            //            }
-            //        }
-            //        root.mainModel.setData(data);
-            //    }
-            //});
+            const root = this;
+            let title = this.getView().byId("searchField").getValue();
+            if (title) {
+                Connector.getFromApi(sdConfig.adminApiEndpoint + 'HoaDonXuat/filter/' + title, {
+                    oParameters: root.filter,
+                    fnProcessData: function (data) {
+                        if (data && data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                data[i]['STT'] = i + 1;
+                                for (var j = 0; j < data[i].chiTietPhieus.length; j++) {
+                                    data[i].chiTietPhieus[j].hoaDonXuat = null;
+                                    data[i].chiTietPhieus[j].tenThucPham = data[i].chiTietPhieus[j].thucPham.tenThucPham;
+                                    data[i].chiTietPhieus[j].maThucPham = data[i].chiTietPhieus[j].thucPham.maThucPham;
+                                    data[i].chiTietPhieus[j].donVi = data[i].chiTietPhieus[j].thucPham.donVi;
+                                    data[i].chiTietPhieus[j].hanSuDung = data[i].chiTietPhieus[j].chiTietPhieuNhap.hanSuDung;
+                                    data[i].chiTietPhieus[j].ncc = data[i].chiTietPhieus[j].chiTietPhieuNhap.ncc;
+                                    data[i].chiTietPhieus[j].thucPham = null;
+                                    data[i].chiTietPhieus[j].chiTietPhieuNhap = null;
+                                }
+                            }
+                        }
+                        root.mainModel.setData(data);
+                    }
+                });
+            }
+            
         },
         onLiveChange: function () {
             let title = this.getView().byId("searchField").getValue();
-            this.filter.title = title;
             if (title != null || title != '') {
                 this.searchFilter();
+            }
+            if (title == '') {
+                this.loadData();
             }
         },
         onSearch: function (oEvent) {
             const params = oEvent.getParameters();
             const isReset = params.clearButtonPressed;
             if (isReset) {
-                this.filter.title = "";
                 this.searchFilter();
             }
             else

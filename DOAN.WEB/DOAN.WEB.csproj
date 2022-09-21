@@ -229,9 +229,6 @@
     <Content Include="app\v1.1\HopDong\ThucDon\Add1.controller.js" />
     <Content Include="app\v1.1\HopDong\ThucDon\Add1.fragment.xml" />
     <Content Include="app\v1.1\HopDong\ThucDon\Add1.view.xml" />
-    <Content Include="app\v1.1\HopDong\ThucDon\Detail.controller.js" />
-    <Content Include="app\v1.1\HopDong\ThucDon\Detail.fragment.xml" />
-    <Content Include="app\v1.1\HopDong\ThucDon\Detail.view.xml" />
     <Content Include="app\v1.1\HopDong\ThucDon\Edit.controller.js" />
     <Content Include="app\v1.1\HopDong\ThucDon\Edit.fragment.xml" />
     <Content Include="app\v1.1\HopDong\ThucDon\Edit.view.xml" />

@@ -44,7 +44,7 @@
             this.bus.subscribe('HopDongChannel', 'loadAddPage', this.loadAddPage, this);
             this.bus.subscribe('HopDongChannel', 'closeTDAdd', this.onCloseTDAdd, this);
 
-            this.clearForm();
+            //this.clearForm();
         },
         loadAddPage: function () {
             const root = this;
@@ -55,7 +55,13 @@
                         count = data.id + 1;
                     }
                     let x = {
-                        maHopDong: 'DC' + count
+                        maHopDong: 'DC' + count,
+                        suDungBanGhe: 1,
+                        trangThai: 2,
+                        soMamPhatSinh: 0,
+                        tienCoc: 0,
+                        tienPhatSinh: 0,
+                        tongTien: 0,
                     }
                     root.mainModel.setData(x);
                 }

@@ -12,7 +12,7 @@
         <f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<m:Title text="Quản lý món ănnnnnn" />
+					<m:Title text="Quản lý món ăn" />
 				</f:heading>
 				<f:actions>
 					<m:OverflowToolbarButton tooltip="Thêm mới" text="Thêm mới" type="Transparent" icon="sap-icon://add-document" press="onAddButtonPress" visible="true" />

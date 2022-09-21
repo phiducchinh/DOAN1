@@ -6,11 +6,11 @@
 			<Toolbar>
 				<Title text="Thêm mới máy chủ"/>
 				<ToolbarSpacer />
-				<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseServerSoftwareAdd"/>
+				<OverflowToolbarButton  icon="sap-icon://decline" press="onCloseThucDonhopDongAdd"/>
 			</Toolbar>
 		</customHeader>
 		<content>
-			<mvc:XMLView viewName="app.Software.Server.Add" id="app.Software.Server.Add"/>
+			<mvc:XMLView viewName="app.HopDong.ThucDon.Add" id="app.HopDong.ThucDon.Add"/>
 		</content>
 	</Dialog>
 </core:FragmentDefinition>

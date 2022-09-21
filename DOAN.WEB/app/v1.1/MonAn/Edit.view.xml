@@ -1,4 +1,4 @@
-<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" 
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" 
     controllerName="app.MonAn.Edit">
 	<Page showHeader="false">
 		<content>
@@ -51,4 +51,4 @@
 			</Toolbar>
 		</footer>
     </Page>
-</core:View>
+</mvc:View>

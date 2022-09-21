@@ -18,7 +18,7 @@
 							<f:formElements >
 								<f:FormElement label="Mã phiếu mua">
 									<f:fields>
-										<Input id="maPhieuMua" value="{mainModel>/maPhieuMua}" maxLength="255" required="true" />
+										<Input id="maPhieuMua" value="{mainModel>/maPhieuMua}" editable="false" maxLength="255" required="true" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="Ngày tạo" >

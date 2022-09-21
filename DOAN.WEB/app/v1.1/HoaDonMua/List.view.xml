@@ -47,38 +47,13 @@
                             <form:formElements>
                                 <form:FormElement label="Tìm kiếm">
                                     <form:fields>
-										<m:SearchField id="searchField" placeholder="Tìm kiếm theo mã hóa đơn ..." search="onSearch" liveChange="onLiveChange"  width="300px"/>
+										<m:SearchField id="searchField" placeholder="Tìm kiếm theo mã hóa đơn ..." search="onSearch" liveChange="onLiveChange" />
                                     </form:fields>
                                 </form:FormElement>
                             </form:formElements>
+							
                         </form:FormContainer>
-                        <!--<form:FormContainer>
-                            <form:formElements>
-								<form:FormElement label="Trạng thái hợp đồng">
-									<form:fields>
-										<m:Select id="statusFilter" forceSelection="false" selectedKey="-1" change="onStatusFilterChange" >
-											<c:Item key="-1" text="Tất cả" />
-											<c:Item key="0" text="Hủy" />
-											<c:Item key="1" text="Hoãn" />
-											<c:Item key="2" text="Lên hợp đồng" />
-											<c:Item key="3" text="Chuẩn bị" />
-											<c:Item key="4" text="Đang thực hiện" />
-											<c:Item key="5" text="Hoàn thành" />
-										</m:Select>
-									</form:fields>
-								</form:FormElement>
-								<form:FormElement label="Trạng thái thanh toán">
-									<form:fields>
-										<m:Select id="statusThanhToanFilter" forceSelection="false" selectedKey="-1" change="onStatusThanhToanFilterChange" >
-											<c:Item key="-1" text="Tất cả" />
-											<c:Item key="0" text="Chưa thanh toán" />
-											<c:Item key="1" text="Đã thanh toán" />
-											<c:Item key="2" text="Đang nợ" />
-										</m:Select>
-									</form:fields>
-								</form:FormElement>
-                            </form:formElements>
-                        </form:FormContainer>-->
+						
                     </form:formContainers>
                 </form:Form>
             </f:DynamicPageHeader>
@@ -99,7 +74,7 @@
 
                 </extension>
                 <columns>
-					<Column width="3rem">
+					<Column width="3.5rem" hAlign="Center">
 						<m:Label text="STT"/>
 						<template>
 							<m:Text text="{mainModel>STT}" wrapping="false" />
@@ -117,13 +92,13 @@
 							<m:Text text="{mainModel>hopDong/tenHopDong}" wrapping="false" />
 						</template>
 					</Column>
-					<Column width="7rem">
+					<Column width="7rem" hAlign="Center">
 						<m:Label text="Số mâm"/>
 						<template>
 							<m:Text text="{mainModel>hopDong/soMam}" wrapping="false" />
 						</template>
 					</Column>
-					<Column width="10rem">
+					<Column width="10rem" hAlign="End">
 						<m:Label text="Ngày tạo"/>
 						<template>
 							<m:Text text="{

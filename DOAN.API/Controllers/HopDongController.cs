@@ -33,6 +33,20 @@ namespace DOAN.API.Controllers
             return Ok(listhd);
         }
 
+        [HttpGet("getByStartDate/{start}")]
+        public async Task<ActionResult<IEnumerable<HopDong>>> GetAll(DateTime start)
+        {
+            start = start.AddHours(-7);
+            var listhd = await _context.HopDong.Include(x => x.bepTruong).Where(v=>v.ngayBatDau >= start).ToListAsync();
+            listhd.ForEach(item =>
+            {
+                item.ngayBatDau =  item.ngayBatDau.AddHours(7);
+                item.ngayKetThuc = item.ngayKetThuc.AddHours(7);
+            });
+            return Ok(listhd);
+        }
+
+
         [HttpPost("searchFilter")]
         public async Task<ActionResult<IEnumerable<HopDong>>> GetAllWithFilter(HDFilter filter)
         {

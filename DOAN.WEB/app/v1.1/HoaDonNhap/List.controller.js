@@ -336,7 +336,6 @@
                 });
 
             });
-            console.log(datas);
             return datas;
             
         },
@@ -353,33 +352,42 @@
         searchFilter: function () {
             const root = this;
             let title = this.getView().byId("searchField").getValue();
-            let status = this.getView().byId('statusFilter').getSelectedKey();
-            this.filter.title = title;
-            this.filter.status = status;
-            Connector.postToApi(sdConfig.adminApiEndpoint + 'HoaDonNhap/filter', {
-                oParameters: root.filter,
-                fnProcessData: function (data) {
-                    if (data && data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
-                            data[i]['STT'] = i + 1;
+
+            if (title) {
+                Connector.getFromApi(sdConfig.adminApiEndpoint + 'HoaDonNhap/filter/' + title, {
+                    fnProcessData: function (data) {
+                        let dataResult;
+                        if (data && data.length > 0) {
+                            //for (var i = 0; i < data.length; i++) {
+                            //    data[i]['STT'] = i + 1;
+                            //}
+                            dataResult = root.formatDataPN(data);
+                            setTimeout(() => {
+                                root.mainModel.setData(dataResult);
+
+                            }, 500)
                         }
+                        root.mainModel.setData(dataResult);
                     }
-                    root.mainModel.setData(data);
-                }
-            });
+                });
+            }
+            
         },
         onLiveChange: function () {
             let title = this.getView().byId("searchField").getValue();
-            this.filter.title = title;
+            //  this.filter.title = title;
             if (title != null || title != '') {
                 this.searchFilter();
+            }
+            if (title == '') {
+                this.loadData();
             }
         },
         onSearch: function (oEvent) {
             const params = oEvent.getParameters();
             const isReset = params.clearButtonPressed;
             if (isReset) {
-                this.filter.title = "";
+                //this.filter.title = "";
                 this.searchFilter();
             }
             else

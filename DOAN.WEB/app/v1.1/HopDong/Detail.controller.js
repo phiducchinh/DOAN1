@@ -27,6 +27,7 @@
             this.bus.subscribe('HopDongChannel', 'loadThucDonData', this.loadThucDonData, this);
             this.bus.subscribe('HopDongChannel', 'onCloseThucDonhopDongAdd', this.onCloseThucDonhopDongAdd, this);
             this.bus.subscribe('HopDongChannel', 'onCloseThucDonHopDongEdit', this.onCloseThucDonHopDongEdit, this);
+            this.bus.subscribe('HopDongChannel', 'onCloseThucDonEdit', this.onCloseTDEdit, this);
             this.bus.subscribe('HopDongChannel', 'onCloseThucDonHopDongDetail', this.onCloseThucDonHopDongDetail, this);
             this.bus.subscribe('HopDongChannel', 'switchToThucDonViewPage', this.switchToThucDonViewPage, this);
             this.bus.subscribe('HopDongChannel', 'reLoadData', this.reLoadData, this);
@@ -34,6 +35,7 @@
         },
         loadDetailPage: function (oChannel, oEvent, oData) {
             const root = this;
+            this.getView().byId('detailIconTabBar').setSelectedKey('hopDongTab');
             if (oData && oData.Id) {
                 root.mainId = oData.Id;
                 root.mainTitle = oData.title;
@@ -76,6 +78,33 @@
                     }
                 }
             });
+        },
+        editThucDon: function () {
+            let root = this;
+
+            let oView = this.getView();
+            if (!this._thucDonE) {
+                Fragment.load({
+                    id: oView.getId(),
+                    name: 'app.HopDong.ThucDon.Edit',
+                    controller: this,
+                    type: 'XML'
+                }).then(function (oDialog) {
+                    root._thucDonE = oDialog;
+                    oView.addDependent(oDialog);
+                    root._thucDonE.open();
+                    root.bus.publish("HopDongChannel", "editThucDon", { idHopDong: root.mainId });
+
+                });
+            } else {
+                root.bus.publish("HopDongChannel", "editThucDon", { idHopDong: root.mainId });
+
+                root._thucDonE.open();
+            }
+        },
+        onCloseTDEdit: function () {
+            if (this._thucDonE)
+                this._thucDonE.close();
         },
         onEditButtonPress: function () {
             if (this.mainId) {

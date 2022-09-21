@@ -32,7 +32,8 @@
 			</f:DynamicPageHeader>
 		</f:header>
 		<f:content>
-			<IconTabBar id="detailIconTabBar" headerMode="Inline" upperCase="true" expandable="false" class="sapUiNoContentPadding" stretchContentHeight="true" select="onTabSelectionChange">
+			<IconTabBar id="detailIconTabBar" headerMode="Inline" upperCase="true" expandable="false" 
+						class="sapUiNoContentPadding" stretchContentHeight="true" select="onTabSelectionChange">
 				<items>
 					<IconTabFilter text="THÔNG TIN HỢP DỒNG" key="hopDongTab">
 						<form:Form editable="true" class="displayForm">
@@ -181,6 +182,7 @@
 									<SearchField width="200px" search="onThucDonSearch" liveChange="onThucDonLiveChange" />
 									
 									<OverflowToolbarButton tooltip="Thêm" text="Thêm" type="Transparent" icon="sap-icon://add-document" press="addThucDon" />
+									<OverflowToolbarButton tooltip="Sửa nhanh" text="Sửa nhanh" type="Transparent" icon="sap-icon://edit" press="editThucDon" />
 									<OverflowToolbarButton tooltip="Tải lại" text="Tải lại" icon ="sap-icon://refresh" press="onThucDonRefresh" />
 									<OverflowToolbarButton id="deleteThucDonButton" press="onDeleteThucDonButtonPress" text="Xóa" tooltip="Xóa" icon="sap-icon://delete" type="Transparent" visible="false" />
 								</OverflowToolbar>
