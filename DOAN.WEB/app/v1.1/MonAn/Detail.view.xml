@@ -190,7 +190,7 @@
 										<Text text="{path: 'thucPhamModel>soLuong'}" wrapping="false" />
 									</t:template>
 								</t:Column>
-								<t:Column width="10rem" >
+								<t:Column width="8rem" >
 									<Label text="Đơn vị" />
 									<t:template>
 										<Text text="{path: 'thucPhamModel>thucPham/donVi'}" wrapping="false" />
@@ -202,7 +202,7 @@
 										<Text text="{path: 'thucPhamModel>thucPham/loai', formatter: '.globalFormatter.formatLoaiTPText'}" wrapping="false" />
 									</t:template>
 								</t:Column>
-								<t:Column width="21rem" >
+								<t:Column>
 									<Label text="Ghi chú" />
 									<t:template>
 										<Text text="{path: 'thucPhamModel>ghiChu'}" wrapping="false" />

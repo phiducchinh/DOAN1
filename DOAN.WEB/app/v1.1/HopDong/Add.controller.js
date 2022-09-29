@@ -257,7 +257,6 @@
 
         openThucDon: function (paras) {
             let root = this;
-            
             let oView = this.getView();
             if (!this._thucDonF) {
                 Fragment.load({

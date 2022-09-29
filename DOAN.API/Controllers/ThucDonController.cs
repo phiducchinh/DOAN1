@@ -36,6 +36,18 @@ namespace DOAN.API.Controllers
             var list = await _context.ThucDon.Include(x => x.monAn).Include(z => z.hopDong).Where(a=>a.idHopDong==id).ToListAsync();
             return Ok(list);
         }
+        [HttpGet("TDMau")]
+        public async Task<ActionResult<IEnumerable<ThucDon>>> GetthucDonmauAll()
+        {
+            var list = await _context.ThucDon.Where(a => a.idThucDonMau != null).ToListAsync();
+            return Ok(list);
+        }
+        [HttpGet("TDMau/{id}")]
+        public async Task<ActionResult<IEnumerable<ThucDon>>> GetthucDonmauAllbyId(int id)
+        {
+            var list = await _context.ThucDon.Include(x => x.monAn).Where(a => a.idThucDonMau == id).ToListAsync();
+            return Ok(list);
+        }
         [HttpGet("check/{idMonAn}/{idHopDong}")]
         public async Task<ActionResult<ThucDon>> Check(int idMonAn, int idHopDong)
         {
@@ -54,6 +66,26 @@ namespace DOAN.API.Controllers
             await _context.SaveChangesAsync();
             return Ok("Thêm thành công");
         }
+
+        [HttpPost("addTDMau")]
+        public async Task<ActionResult> Postthucdon(List<ThucDon> thucDon)
+        {
+            var tdm = await _context.ThucDon.OrderByDescending(a => a.id).FirstOrDefaultAsync(x => x.idThucDonMau != null);
+
+            thucDon.ForEach(item =>
+            {
+                item.hopDong = null;
+                item.monAn = null;
+                if (tdm != null)
+                    item.idThucDonMau = tdm.idThucDonMau + 1;
+                else
+                    item.idThucDonMau = 1;
+            });
+            _context.ThucDon.AddRange(thucDon);
+            await _context.SaveChangesAsync();
+            return Ok("Thêm thành công");
+        }
+
         [HttpPost("addList")]
         public async Task<ActionResult> PostMonAn(List<ThucDon> thucDon)
         {

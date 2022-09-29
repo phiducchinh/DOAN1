@@ -209,6 +209,7 @@
             }
         },
         save: function () {
+            console.log(this.phieuMuaId);
             let mainD = this.mainModel.getData();
             if (mainD.showXuat == true && mainD.showMua == false) {
                 let input, isValid = true;
@@ -260,10 +261,12 @@
                                 ghiChu: mainData.ghiChu,
                                 ngayTao: ngayTao
                             }
-
+                            
                             dataVC = dataVC.filter(item => {
                                 return item.isEdit == true;
                             });
+                            console.log(phieuNhap);
+                            return;
                             Connector.postToApi(sdConfig.adminApiEndpoint + 'phieunhapvd', {
                                 oParameters: phieuNhap,
                                 fnSuccess: function (data) {
@@ -348,7 +351,7 @@
                             dataVC = dataVC.filter(item => {
                                 return item.isEditMua == true;
                             });
-                            
+                           
                             Connector.postToApi(sdConfig.adminApiEndpoint + 'PNVatDung', {
                                 oParameters: phieuNhap,
                                 fnSuccess: function (data) {
@@ -583,6 +586,8 @@
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
                         root.phieuMuaModel.setData(data);
+                    } else {
+                    root.phieuMuaModel.setData(data);
                     }
                 }
             });
@@ -592,7 +597,6 @@
             let rowPath = oRowContext.getPath();
             let rowObject = oRowContext.getObject(rowPath);
             this.phieuMuaId = rowObject.id;
-            
             let data = {
                 maPhieu: 'PNM' + rowObject.id,
                 ngayTao: moment().format('DD/MM/YYYY'),
@@ -602,7 +606,10 @@
             }
             this.mainModel.setData(data);
             this.loadPhieuNhapByPhieuMua(rowObject.id);
-            this.closephieuMuaputDialog();
+            //this.closephieuMuaputDialog();
+            this._phieuMuaFrag.close();
+            this.getView().byId('phieuMuaList').removeSelections(true);
+
         },
         closephieuMuaputDialog: function () {
             this._phieuMuaFrag.close();
@@ -702,7 +709,6 @@
             const root = this;
             Connector.getFromApi(sdConfig.adminApiEndpoint + 'ChiTietPhieuNhapVatDung/phieuMua/' + idPhieuMua, {
                 fnProcessData: function (data) {
-                    console.log(data);
                     if (data && data.length > 0) {
                         let arrCheck = [];
                         let dataResult = [];

@@ -53,6 +53,18 @@
 						</form:FormContainer>
 						<form:FormContainer>
 							<form:formElements>
+								<form:FormElement label="Hết hạn sử dụng">
+									<form:fields>
+										<!--<m:DatePicker id="hanSuDung" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="onStatusFilterChange" width="400px" />-->
+										<m:Select id="hanSuDungFilter" forceSelection="false" selectedKey="-1" change="onStatusFilterChange" width="400px">
+											<c:Item key="-1" text="Tất cả" />
+											<c:Item key="0" text="Hết hạn sử dụng" />
+											<c:Item key="1" text="Sắp hết hạn sử dụng" />
+											<c:Item key="2" text="Còn hạn sử dụng" />
+										</m:Select>
+									</form:fields>
+								</form:FormElement>
+								
 								<form:FormElement label="Loại">
 									<form:fields>
 										<m:Select id="statusFilter" forceSelection="false" selectedKey="-1" change="onStatusFilterChange" width="400px">
@@ -77,7 +89,7 @@
 				selectionMode="None"
 				rows="{path: 'mainModel>/',
 						parameters: {
-							numberOfExpandedLevels: 0
+							numberOfExpandedLevels: 1
 						}}"
 				ariaLabelledBy="title"
 				rowActionCount="0"
@@ -93,19 +105,25 @@
 							<m:Text text="{mainModel>STT}" wrapping="false" />
 						</template>
 					</Column>-->
-					<Column width="15rem">
+					<Column width="13rem">
 						<m:Label text="Tên thực phẩm"/>
 						<template>
 							<m:Text text="{mainModel>tenThucPham}" wrapping="false" />
 						</template>
 					</Column>
-					<Column width="10rem">
+					<Column width="8rem">
 						<m:Label text="Mã thực phẩm"/>
 						<template>
 							<m:Text text="{mainModel>maThucPham}" wrapping="false" />
 						</template>
 					</Column>
-					<Column width="8rem" hAlign="Center">
+					<Column width="8rem">
+						<m:Label text="Mã đơn nhập"/>
+						<template>
+							<m:Text text="{mainModel>maHoaDon}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem" hAlign="End">
 						<m:Label text="Số lượng"/>
 						<template>
 							<m:Text text="{mainModel>soLuong}" wrapping="false" />
@@ -135,10 +153,10 @@
 							}" />
 						</template>
 					</Column>
-					<Column width="10rem">
+					<Column width="10rem" hAlign="End">
 						<m:Label text="Hạn sử dụng"/>
 						<template>
-							<m:Text text="{
+							<m:ObjectStatus text="{
 								path: 'mainModel>hanSuDung',
 								type: 'sap.ui.model.type.DateTime',
 								formatOptions: {
@@ -149,7 +167,7 @@
 									pattern: 'dd/MM/yyyy',
 									UTC: false
 								}
-							}" />
+							}" state="{path:'mainModel>hanSuDung', formatter: '.formateDateHSD' }"/>
 						</template>
 					</Column>
 					<Column width="12rem">

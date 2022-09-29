@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DOAN.API.ViewModel
@@ -30,5 +31,6 @@ namespace DOAN.API.ViewModel
     {
         public string? title { get; set; }
         public int? status { get; set; }
+        public int? date { get; set; }
     }
 }

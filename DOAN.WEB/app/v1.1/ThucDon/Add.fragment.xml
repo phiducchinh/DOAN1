@@ -1,19 +1,20 @@
 <core:FragmentDefinition
 	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core">
-	<Dialog id="thucDonAAddDialog"
-        contentWidth="750px" contentHeight="78vh"
+	<Dialog id="ThucDonAddDialog"
+        contentWidth="850px"
+		contentHeight="650px"
         verticalScrolling="false" 
         class="sapUiSizeCompact">
     <customHeader>
       <Toolbar>
-        <Title class="fw-b" text="Tạo Thực đơn"/>
+        <Title text="Thêm mới"/>
         <ToolbarSpacer />
-        <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseTDAdd"/>
+        <OverflowToolbarButton  icon="sap-icon://decline" press="onCloseThucDonAdd"/>
       </Toolbar>
     </customHeader>    
 		<content>
-      <mvc:XMLView viewName="app.HopDong.ThucDon.Add1" id="app.HopDong.ThucDon.Add1"/>
+      <mvc:XMLView viewName="app.ThucDon.Add" id="app.ThucDon.Add"/>
 		</content>
 	</Dialog>
 </core:FragmentDefinition>

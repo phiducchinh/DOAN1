@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,11 +68,33 @@ namespace DOAN.API.Controllers
                 listThucPham = listThucPham.Where(x => x.loai == filter.status).ToList();
             }
 
+            //if (filter.date != null)
+            //{
+            //    listThucPham = listThucPham.Where(x => x.loai == filter.status).ToList();
+            //}
 
             List<AllThucPham> list = new List<AllThucPham>();
             listThucPham.ForEach(item =>
             {
-                var listTP = _context.ChiTietPhieuNhap.Where(x => x.idThucPham == item.id && x.isCheck == 0).ToList();
+                var listTP = _context.ChiTietPhieuNhap.Include(a=>a.hoaDonhNhap).Where(x => x.idThucPham == item.id && x.isCheck == 0).ToList();
+                if(filter.date != null || filter.date!= -1)
+                {
+                    DateTime date = DateTime.Now;
+                    DateTime nearDate = date.AddDays(3);
+                    if (filter.date == 0)
+                    {
+                        listTP = listTP.Where(x => x.hanSuDung < date).ToList();
+                    }
+                    else if(filter.date == 1)
+                    {
+                        listTP = listTP.Where(x => x.hanSuDung >= date && x.hanSuDung <= nearDate).ToList();
+                    }
+                    else if(filter.date == 2)
+                    {
+                        listTP = listTP.Where(x => x.hanSuDung > nearDate).ToList();
+                    }
+                    //filter.date = filter.date.Value.AddDays(-5);
+                }
                 AllThucPham chiTiet = new AllThucPham();
                 chiTiet.id = item.id;
                 chiTiet.donVi = item.donVi;

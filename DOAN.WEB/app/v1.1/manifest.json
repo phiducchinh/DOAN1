@@ -157,6 +157,11 @@
           "pattern": "PhieuXuat/add",
           "name": "addphieuxuat",
           "target": [ "rootMaster", "PhieuXuatAdd" ]
+        },
+        {
+          "pattern": "DanhMuc/ThucDon",
+          "name": "ThucDon",
+          "target": [ "rootMaster", "ThucDon" ]
         }
       ],
       "targets": {
@@ -285,7 +290,15 @@
           "controlId": "appRoot",
           "controlAggregation": "detailPages",
           "viewLevel": 2
+        },
+        "ThucDon": {
+          "viewId": "ThucDon",
+          "viewName": "ThucDon.List",
+          "controlId": "appRoot",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
         }
+
       }
     }
   }

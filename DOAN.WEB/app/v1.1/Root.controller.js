@@ -251,6 +251,19 @@
                             "Value": "Vật dụng",
                             "items": []
                         },
+                        {
+                            "Icon": "sap-icon://activity-items",
+                            "Position": "main",
+                            "RequirePermission": true,
+                            "Endpoint": "ThucDon",
+                            "Expanded": true,
+                            "Index": 2,
+                            "Parent": "",
+                            "Level": 1,
+                            "Key": "ThucDon",
+                            "Value": "Thực đơn",
+                            "items": []
+                        },
                     ]
                 },
                 {

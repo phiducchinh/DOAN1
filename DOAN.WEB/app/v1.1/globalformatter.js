@@ -354,6 +354,22 @@
                 default:
                     return "Warning";
             }
-        }
+        },
+        formateDateHSD: function (val) {
+            let dateTP = new Date(val);
+            let dateToday = new Date(moment().format('YYYY-MM-DD'));
+            if (dateTP < dateToday) {
+                return 'Error';
+            }
+            else {
+                let ganHSD = new Date(moment().subtract(5, 'D').format('YYYY-MM-DD'));
+                if (dateTP < ganHSD) {
+                    return 'Success';
+                } else {
+                    return 'Warning';
+                }
+            }
+            return 'Success';
+        },
     };
 });

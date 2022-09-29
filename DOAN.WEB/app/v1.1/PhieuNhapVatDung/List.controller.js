@@ -127,7 +127,6 @@
                 });
             }
             
-            console.log(list2);
             setTimeout(() => {
                 root.mainModel.setData([...datas, ...list2]);
             }, 500)

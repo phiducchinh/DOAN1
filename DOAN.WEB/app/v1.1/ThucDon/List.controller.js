@@ -11,7 +11,7 @@
     'sap/ui/model/FilterOperator'
 ], function (Controller, Core, MessageToast, MessageBox, Connector, CoreJsonModel, Fragment, GlobalFormatter, Filter, FilterOperator) {
     'use strict';
-    return Controller.extend('app.ThucPham.List', {
+    return Controller.extend('app.ThucDon.List', {
         globalFormatter: GlobalFormatter,
         saveObject: {},
         mainModel: new CoreJsonModel(),
@@ -26,57 +26,51 @@
             this.mainTable = this.getView().byId('mainTable');
             this.getView().setModel(this.mainModel, "mainModel");
             this.loadData()
-            this.bus.subscribe('ThucPhamChannel', 'switchToDetailPage', this.switchToDetailPage, this);
-            this.bus.subscribe('ThucPhamChannel', 'onCloseThucPhamView', this.onCloseThucPhamView, this);
-            this.bus.subscribe('ThucPhamChannel', 'onCloseThucPhamAdd', this.onCloseThucPhamAdd, this);
-            this.bus.subscribe('ThucPhamChannel', 'onCloseThucPhamEdit', this.onCloseThucPhamEdit, this);
-            this.bus.subscribe('ThucPhamChannel', 'reLoadData', this.reLoadData, this);
-            this.bus.subscribe('ThucPhamChannel.Detail', 'reLoadData', this.reLoadData, this);
+            this.bus.subscribe('ThucDonChannel', 'switchToDetailPage', this.switchToDetailPage, this);
+            this.bus.subscribe('ThucDonChannel', 'onCloseThucDonView', this.onCloseThucDonView, this);
+            this.bus.subscribe('ThucDonChannel', 'onCloseThucDonAdd', this.onCloseThucDonAdd, this);
+            this.bus.subscribe('ThucDonChannel', 'onCloseThucDonEdit', this.onCloseThucDonEdit, this);
+            this.bus.subscribe('ThucDonChannel', 'reLoadData', this.reLoadData, this);
+            this.bus.subscribe('ThucDonChannel.Detail', 'reLoadData', this.reLoadData, this);
         },
         loadData: function () {
             const root = this;
-            Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucPham/getall', {
+            Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucDon/TDMau', {
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
-                        data.forEach(item => {
-                            if (item.phieuNhap && item.phieuNhap.length > 0) {
-                                item.phieuNhap.forEach(i => {
-                                    i.donVi = item.donVi;
-                                    i.loai = item.loai;
-                                    i.soLuong = i.soLuongConLai;
-                                    i.thucPham = null;
-                                    i.ngayNhap = i.hoaDonhNhap.ngayTao;
-                                    i.maHoaDon = i.hoaDonhNhap.maHoaDon;
-                                    i.hoaDonhNhap = null;
-                                })
-                            }
-                        })
-                        data = data.filter(item => {
-                            return item.soLuong > 0;
-                        });
+                        let dataR = root.formatdata(data);
+                        for (var i = 0; i < dataR.length; i++) {
+                            dataR[i]['STT'] = i + 1;
+                        }
+                        root.mainModel.setData(dataR);
                     }
-                    root.mainModel.setData(data);
                 }
             });
         },
-        formateDateHSD: function (val) {
-            if (val) {
-                let dateTP = moment(val)._d;
-                let dateToday = moment()._d;
-                if (dateTP < dateToday) {
-                    return 'Error';
-                }
-                else {
-                    let ganHSD = moment().add(5, 'days')._d;
-                    if (dateTP > ganHSD) {
-                        return 'Success';
-                    } else {
-                        return 'Warning';
+        formatdata: function (data) {
+            if (data) {
+                let arrCheck = [];
+                let arrResult = [];
+                data.forEach((item,index)=> {
+                    if (!arrCheck.includes(item.idThucDonMau)) {
+                        let count = 0;
+                        let tong = 0;
+                        data.forEach(i => {
+                            if (i.idThucDonMau == item.idThucDonMau) {
+                                count++;
+                                tong += i.giaTien;
+                            }
+                        })
+                        console.log(count);
+                        item.soLuong = count;
+                        item.giaTien = tong;
+
+                        arrCheck.push(item.idThucDonMau);
+                        arrResult.push(item);
                     }
-                }
+                })
+                return arrResult;
             }
-            
-            return 'Success';
         },
         onRefresh: function () {
             this.reLoadData();
@@ -91,16 +85,16 @@
         },
         removeSelections: function () {
             this.mainTable.clearSelection();
-            //this.getView().byId('btnUpdateStatus').setVisible(false);
-            //this.getView().byId('btnDelete').setVisible(false);
+            this.getView().byId('btnUpdateStatus').setVisible(false);
+            this.getView().byId('btnDelete').setVisible(false);
         },
         onRowSelectionChange: function (oEvent) {
             const selectedIndices = this.mainTable.getSelectedIndices();
             if (selectedIndices.length > 0) {
-                //this.getView().byId('btnUpdateStatus').setVisible(true);
+                this.getView().byId('btnUpdateStatus').setVisible(true);
                 this.getView().byId('btnDelete').setVisible(true);
             } else {
-                //this.getView().byId('btnUpdateStatus').setVisible(false);
+                this.getView().byId('btnUpdateStatus').setVisible(false);
                 this.getView().byId('btnDelete').setVisible(false);
             }
         },
@@ -109,7 +103,7 @@
             const button = oEvent.getSource();
             if (!root.fragUpdateStatus) {
                 Fragment.load({
-                    name: "app.ThucPham.fragment.UpdateStatus",
+                    name: "app.ThucDon.fragment.UpdateStatus",
                     type: "XML",
                     controller: root
                 }).then(function (frag) {
@@ -134,7 +128,7 @@
                     for (let i = 0; i < indices.length; i++) {
                         listId.push(dataTable[indices[i]].itemId);
                     }
-                    Connector.postToApi(sdConfig.adminApiEndpoint + 'ThucPham/updateStatus', {
+                    Connector.postToApi(sdConfig.adminApiEndpoint + 'ThucDon/updateStatus', {
                         oParameters: {
                             ids: listId,
                             status: sts,
@@ -158,36 +152,15 @@
             const root = this;
             let title = this.getView().byId("searchField").getValue();
             let status = this.getView().byId('statusFilter').getSelectedKey();
-            let hsd = this.getView().byId('hanSuDungFilter').getSelectedKey();
             this.filter.title = title;
-            this.filter.date = hsd;
-            this.filter.status = Number(status);
-            Connector.postToApi(sdConfig.adminApiEndpoint + 'ThucPham/filter', {
+            this.filter.status = status;
+            Connector.postToApi(sdConfig.adminApiEndpoint + 'ThucDon/filter', {
                 oParameters: root.filter,
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
-                        data.forEach(item => {
-                            let tong = 0;
-                            if (item.phieuNhap && item.phieuNhap.length > 0) {
-                                item.phieuNhap.forEach(i => {
-                                    tong += i.soLuongConLai
-                                    i.donVi = item.donVi;
-                                    i.loai = item.loai;
-                                    i.ngayNhap = i.hoaDonhNhap.ngayTao;
-                                    i.maHoaDon = i.hoaDonhNhap.maHoaDon;
-                                    i.soLuong = i.soLuongConLai;
-                                    i.thucPham = null;
-                                    i.hoaDonhNhap = null;
-                                })
-                            }
-                            item.soLuong = tong;
-                        });
-                        console.log(data);
-                        data = data.filter(item => {
-                            return item.phieuNhap !=null;
-                        });
-                        let table = root.getView().byId('mainTable');
-                        table.setExpandFirstLevel(false);
+                        for (var i = 0; i < data.length; i++) {
+                            data[i]['STT'] = i + 1;
+                        }
                     }
                     root.mainModel.setData(data);
                 }
@@ -205,7 +178,7 @@
             const isReset = params.clearButtonPressed;
             if (isReset) {
                 this.filter.title = "";
-                this.loadData();
+                this.searchFilter();
             }
             else
                 this.searchFilter();
@@ -218,33 +191,33 @@
         onCellClick: function (oEvent) {
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('rowBindingContext'));
             if (selected)
-                this.bus.publish('ThucPhamChannel', 'switchToDetailPage', { Id: selected.id, title: selected.tenThucPham });
+                this.bus.publish('ThucDonChannel', 'switchToDetailPage', { Id: selected.id, title: selected.tenThucDon });
         },
         onRowView: function (oEvent) {
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
-            this.bus.publish('ThucPhamChannel', 'switchToDetailPage', { Id: selected.id, title: selected.tenThucPham });
+            this.bus.publish('ThucDonChannel', 'switchToDetailPage', { Id: selected.id, title: selected.tenThucDon });
         },
         switchToDetailPage: function (oChannel, oEvent, oData) {
             const root = this;
-            if (!this._ThucPhamDetail) {
+            if (!this._ThucDonDetail) {
                 Fragment.load({
                     id: root.getView().getId(),
-                    name: "app.ThucPham.Detail",
+                    name: "app.ThucDon.Detail",
                     type: "XML",
                     controller: this
                 }).then(function (frag) {
-                    root._ThucPhamDetail = frag;
-                    root._ThucPhamDetail.open();
-                    root.bus.publish('ThucPhamChannel', 'loadDetailPage', { Id: oData.Id, title: oData.title });
+                    root._ThucDonDetail = frag;
+                    root._ThucDonDetail.open();
+                    root.bus.publish('ThucDonChannel', 'loadDetailPage', { Id: oData.Id, title: oData.title });
                 });
             }
             else {
-                root._ThucPhamDetail.open();
-                root.bus.publish('ThucPhamChannel', 'loadDetailPage', { Id: oData.Id, title: oData.title });
+                root._ThucDonDetail.open();
+                root.bus.publish('ThucDonChannel', 'loadDetailPage', { Id: oData.Id, title: oData.title });
             }
         },
-        onCloseThucPhamView: function () {
-            this._ThucPhamDetail.close();
+        onCloseThucDonView: function () {
+            this._ThucDonDetail.close();
         },
 
         //#endregion
@@ -252,23 +225,23 @@
         //#region Add
         onAddButtonPress: function () {
             const root = this;
-            if (!this._ThucPhamAdd) {
+            if (!this._ThucDonAdd) {
                 Fragment.load({
                     id: root.getView().getId(),
-                    name: "app.ThucPham.Add",
+                    name: "app.ThucDon.Add",
                     type: "XML",
                     controller: this
                 }).then(function (frag) {
-                    root._ThucPhamAdd = frag;
-                    root._ThucPhamAdd.open();
+                    root._ThucDonAdd = frag;
+                    root._ThucDonAdd.open();
                 });
             }
             else {
-                root._ThucPhamAdd.open();
+                root._ThucDonAdd.open();
             }
         },
-        onCloseThucPhamAdd: function () {
-            this._ThucPhamAdd.close();
+        onCloseThucDonAdd: function () {
+            this._ThucDonAdd.close();
         },
 
         //#endregion
@@ -277,13 +250,13 @@
         onRowDelete: function (oEvent) {
             const root = this;
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
-            MessageBox.show('Bạn muốn xóa ' + selected.tenThucPham, {
+            MessageBox.show('Bạn muốn xóa ' + selected.tenThucDon, {
                 icon: MessageBox.Icon.WARNING,
                 title: 'Xác nhận',
                 actions: [MessageBox.Action.DELETE, MessageBox.Action.NO],
                 onClose: function (oAction) {
                     if (oAction == MessageBox.Action.DELETE) {
-                        Connector.deleteToApi(sdConfig.adminApiEndpoint + 'ThucPham/' + selected.id, {
+                        Connector.deleteToApi(sdConfig.adminApiEndpoint + 'ThucDon/' + selected.id, {
                             fnSuccess: function (data) {
                                 root.reLoadData();
                                 MessageToast.show("Xóa thành công!", { width: '25em', duration: 5000 });
@@ -309,7 +282,7 @@
                     actions: [MessageBox.Action.DELETE, MessageBox.Action.NO],
                     onClose: function (oAction) {
                         if (oAction == MessageBox.Action.DELETE) {
-                            Connector.deleteToApi(sdConfig.adminApiEndpoint + 'ThucPham/list', {
+                            Connector.deleteToApi(sdConfig.adminApiEndpoint + 'ThucDon/list', {
                                 oParameters: listId,
                                 fnSuccess: function (data) {
                                     root.reLoadData();
@@ -330,26 +303,26 @@
         onRowEdit: function (oEvent) {
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
             const root = this;
-            if (!this._ThucPhamEdit) {
+            if (!this._ThucDonEdit) {
                 Fragment.load({
                     id: root.getView().getId(),
-                    name: "app.ThucPham.Edit",
+                    name: "app.ThucDon.Edit",
                     type: "XML",
                     controller: this
                 }).then(function (frag) {
-                    root._ThucPhamEdit = frag;
-                    root._ThucPhamEdit.open();
-                    root.bus.publish('ThucPhamChannel', 'loadEditPage', { Id: selected.id, title: selected.tenThucPham });
+                    root._ThucDonEdit = frag;
+                    root._ThucDonEdit.open();
+                    root.bus.publish('ThucDonChannel', 'loadEditPage', { Id: selected.id, title: selected.tenThucDon });
                 });
             }
             else {
-                root._ThucPhamEdit.open();
-                root.bus.publish('ThucPhamChannel', 'loadEditPage', { Id: selected.id, title: selected.tenThucPham });
+                root._ThucDonEdit.open();
+                root.bus.publish('ThucDonChannel', 'loadEditPage', { Id: selected.id, title: selected.tenThucDon });
             }
         },
-        onCloseThucPhamEdit: function () {
-            if (this._ThucPhamEdit)
-                this._ThucPhamEdit.close();
+        onCloseThucDonEdit: function () {
+            if (this._ThucDonEdit)
+                this._ThucDonEdit.close();
         },
         //#endregion
 

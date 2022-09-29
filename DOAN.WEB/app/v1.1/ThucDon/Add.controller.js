@@ -1,4 +1,4 @@
-sap.ui.define([
+﻿sap.ui.define([
     'sap/ui/core/Core',
     'sap/ui/core/mvc/Controller',
     'sap/m/MessageToast',
@@ -18,29 +18,28 @@ sap.ui.define([
         globalFormatter: GlobalFormatter,
         thucDonModel: new CoreJsonModel([{ soluong: 0 }]),
         hangModel: new CoreJsonModel(),
+        mainModel: new CoreJsonModel(),
         monAnModel: new CoreJsonModel(),
-        tdmauModel: new CoreJsonModel(),
         nccModel: new CoreJsonModel(),
         selectedId: {},
         //tableData: [],
-        phieuNhap: [{isEdit:true}],
+        phieuNhap: [{ isEdit: true }],
         onInit: function () {
             this.router = sap.ui.core.UIComponent.getRouterFor(this);
             this.bus = Core.getEventBus();
             //sap.ui.core.UIComponent.getRouterFor(this).getRoute("dongmua-add").attachMatched(this._onObjectMatched, this);   
             this.getView().setModel(this.thucDonModel, 'thucDonModel');
+            this.getView().setModel(this.mainModel, 'mainModel');
             //this.getView().setModel(this.hangModel, 'hangModel');
             this.getView().setModel(this.monAnModel, 'monAnModel');
-            this.getView().setModel(this.tdmauModel, 'tdmauModel');
             //this.getView().setModel(this.nccModel);
             this.thucDonModel.setData(this.phieuNhap);
-            this.bus.subscribe('HopDongChannel', 'addHopdong', this.addHopdong, this);
+            this.bus.subscribe('HopDongChannel', 'editThucDon', this.editThucDon, this);
 
             this.initialize();
         },
         initialize: function () {
             this.loadDataHang();
-            this.loadTDMau();
             //this.loadDataNCC();
             //this.getView().byId('maPhieu').setValue(this.Base.randID());
             //this.getView().byId('ngayNhap').setValue(moment().format('MM/DD/YYYY'));
@@ -48,58 +47,6 @@ sap.ui.define([
                 return oItem.getText().match(new RegExp(sTerm, "i"));
             });
             this.getView().byId('idhang').setSuggestionRowValidator(this.suggestionRowValidator);
-        },
-        loadTDMau: function () {
-            const root = this;
-            Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucDon/TDMau', {
-                fnProcessData: function (data) {
-                    if (data && data.length > 0) {
-                        let dataR = root.formatdata(data);
-                        root.tdmauModel.setData(dataR);
-                    }
-                }
-            });
-        },
-        onThucDonChange: function (oEvent) {
-            const root = this;
-            let id = oEvent.getSource().getSelectedKey();
-            if (id && id != 'All') {
-                Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucDon/TDMau/'+id, {
-                    fnProcessData: function (data) {
-                        if (data && data.length > 0) {
-                            root.phieuNhap = [];
-                            data.forEach(item => {
-                                item.isEdit = false;
-                                item.id = item.monAn.id
-                                item.tenMonAn = item.monAn.tenMonAn;
-                                item.loai = item.monAn.loai;
-                                root.phieuNhap.push(item);
-                            })
-
-                            root.phieuNhap.push({ isEdit: true });
-                            root.thucDonModel.setData(root.phieuNhap);
-                        }
-                    }
-                });
-            }
-
-        },
-        formatdata: function (data) {
-            if (data) {
-                let arrCheck = [];
-                let arrResult = [];
-                arrResult.push({
-                    tenThucDon: 'Chọn thực đơn mẫu',
-                    idThucDonMau:'All'
-                })
-                data.forEach((item, index) => {
-                    if (!arrCheck.includes(item.idThucDonMau)) {
-                        arrCheck.push(item.idThucDonMau);
-                        arrResult.push(item);
-                    }
-                })
-                return arrResult;
-            }
         },
         _onObjectMatched: function (e, f) {
             this.clearForm();
@@ -112,12 +59,39 @@ sap.ui.define([
             });
         },
         clearForm: function () {
-            this.thucDon = [];
-            //this.thucDonModel.setData([{ soluong: 0 }]);
+            this.phieuNhap = [{ isEdit: true }];
+            this.thucDonModel.setData(this.phieuNhap);
         },
         addHopdong: function (oc, oE, oData) {
             if (oData) {
                 this.paras = oData.paras;
+            }
+        },
+
+        editThucDon: function (oC, oE, oData) {
+            const root = this;
+            if (oData) {
+                this.idHopDong = oData.idHopDong;
+                Connector.getFromApi(sdConfig.adminApiEndpoint + 'ThucDon/HopDong/' + this.idHopDong, {
+                    fnProcessData: function (data) {
+                        if (data && data.length > 0) {
+                            console.log(data);
+                            root.phieuNhap = [];
+                            data.forEach(item => {
+                                root.phieuNhap.push({
+                                    tenMonAn: item.monAn.tenMonAn,
+                                    idMonAn: item.idMonAn,
+                                    id: item.idMonAn,
+                                    giaTien: item.giaTien,
+                                    loai: item.monAn.loai,
+                                    isEdit: false
+                                });
+                            });
+                            root.phieuNhap.push({ isEdit: true });
+                            root.thucDonModel.setData(root.phieuNhap);
+                        }
+                    }
+                });
             }
         },
         pass: function () {
@@ -133,61 +107,57 @@ sap.ui.define([
                 }
             });
         },
+        validate: function () {
+            let isCheck = true;
+            let input = this.getView().byId('tentd');
+            if (!input.getValue()) {
+                input.setValueState('Error');
+                input.setValueStateText('Trường thông tin này bắt buộc!');
+                isCheck = false;
+            } else {
+                input.setValueState('None');
+            }
+            return isCheck
+        },
         closeAreaTD: function () {
             this.clearForm();
-            this.bus.publish('HopDongChannel', "closeTDAdd");
+            this.bus.publish('ThucDonChannel', "onCloseThucDonAdd");
         },
-        saveTD: async function () {
-            const root = this;
-            this.paras.isThucDon = 1;
-            Connector.postToApi(sdConfig.adminApiEndpoint + 'HopDong', {
-                oParameters: this.paras,
-                fnSuccess: function (data) {
-                    let listThucDon = root.thucDonModel.getData();
+        save: async function () {
+
+            if (this.validate()) {
+                const root = this;
+                let listThucDon = root.thucDonModel.getData();
+                let tt = root.mainModel.getData();
+                if (listThucDon && listThucDon.length <= 1) {
+                    MessageToast.show("Cần thêm ít nhất 1 món ăn", { width: '25em', duration: 5000 });
+
+                } else {
                     listThucDon.pop();
                     let newlistThucDon = listThucDon.map((item) => {
                         return {
-                            idHopDong: data.id,
+                            idHopDong: 2,
                             idMonAn: item.idMonAn,
-                            giaTien: item.giaTien,
+                            giaTien: Number(item.giaTien),
+                            tenThucDon: tt.tenThucDon,
+                            ghiChu: tt.ghiChu,
                         }
                     });
-                    Connector.postToApi(sdConfig.adminApiEndpoint + 'thucdon/addList', {
+                    
+                    Connector.postToApi(sdConfig.adminApiEndpoint + 'thucdon/addTDMau', {
                         oParameters: newlistThucDon,
                         fnSuccess: function (data) {
                             root.closeAreaTD();
-                            root.bus.publish('HopDongChannel', 'onCloseHopDongAdd');
-                            root.bus.publish('HopDongChannel', 'reLoadData');
+                            root.bus.publish('ThucDonChannel', 'reLoadData');
                             MessageToast.show("Thêm thành công", { width: '25em', duration: 5000 });
                         }
                     })
                 }
-            })
-            //let body = this.Base.getDataFromGroup(GROUP_NAME_STEP_ONE);
-            //let { id, idncc, ngaymua } = body;
-            //idncc = this.selectedId.idncc;
-            //let bodyHang = this.tableData.map(el => { return { idhang: el.id, soluong: Number(el.soluong) } })
-            //let bodyReq = {
-            //    donmua: {
-            //        id, idncc, ngaymua
-            //    },
-            //    hang: [...bodyHang]
-            //}
+            }
 
-            ////let isCheck = this.Base.isCheckValidator(GROUP_NAME);
-            //if (true) {
-            //    new CoreJsonModel().postToAPI(sdConfig.adminApiEndpoint + "dongmua/addmutil", bodyReq).success(dt => {
-            //        if (dt && dt.success) {
-            //            MessageToast.show(dt.message);
-            //            root.closeArea();
-            //            root.clearForm();
-            //            root.tableData = [];
-            //        }
-            //    }).error(err => {
-            //        console.log(err)
-            //        MessageToast.show('Đã có lỗi xảy ra, vui lòng kiểm tra lại!')
-            //    });
-            //}
+            
+
+
         },
         loadDataHang: async function () {
             let root = this;
@@ -202,8 +172,8 @@ sap.ui.define([
                 }
             });
         },
-       
-        
+
+
         handleSearch: function (oEvent) {
             let sValue = oEvent.getParameter("value");
             let oFilter = new Filter('id', FilterOperator.Contains, sValue);
@@ -267,26 +237,26 @@ sap.ui.define([
         onSelected: function (evt) {
             if (evt.getParameter("selectedRow")) {
                 let object = evt.getParameter("selectedRow").getBindingContext("monAnModel").getObject();
-                let {id} = object;
+                let { id } = object;
                 let isCheck = this.phieuNhap.some(x => x.id == id);
                 if (isCheck) {
-                    MessageToast.show('Đơn hàng này đã được thêm vào phiếu\n Vui lòng chọn đơn hàng khác.');
+                    MessageToast.show('Món ăn này đã được thêm vào thực đơn\n Vui lòng chọn món ăn khác.');
                 } else {
                     let dCount = this.phieuNhap.length;
                     let obj = Object.assign({ index: dCount, idMonAn: id }, object)
                     this.phieuNhap[dCount - 1] = Object.assign({ isEdit: false }, obj);
-                    this.phieuNhap.push({ isEdit: true, index: dCount + 1 }); 
+                    this.phieuNhap.push({ isEdit: true, index: dCount + 1 });
                     this.thucDonModel.setData(this.phieuNhap);
-                    
+
                     setTimeout(() => {
                         let domEl = document.querySelector(`[data-inputindex='i${dCount + 1}']`);
                         if (domEl)
-                        domEl.firstChild.firstChild.focus();
+                            domEl.firstChild.firstChild.focus();
                     }, 100);
                 }
                 ////let index = evt.getSource().data('inputIndex');
 
-                
+
                 ////let domEl = document.querySelector(`[data-inputindex='i${dCount + 1}']`);
 
                 ////setTimeout(() => {
@@ -361,7 +331,7 @@ sap.ui.define([
             let selected = oEvt.getSource().getBindingContext("thucDonModel").getObject();
             this.phieuNhap = this.phieuNhap.filter(el => el.id !== selected.id);
             this.phieuNhap.forEach((el, idex) => {
-                el.index = idex + 1; 
+                el.index = idex + 1;
             })
             this.phieuNhap[this.phieuNhap.length - 1] = {
                 isEdit: true, index: this.phieuNhap.length, tenThucPham: ''
@@ -374,5 +344,5 @@ sap.ui.define([
             console.log(this.phieuNhap);
         }
     };
-    return Controller.extend('app.HoaDonNhap.Add1', oController);
+    return Controller.extend('app.ThucDon.Add', oController);
 });

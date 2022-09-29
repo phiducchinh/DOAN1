@@ -12,47 +12,7 @@
         controllerName="app.HopDong.ThucDon.Add1">
 	<Page showHeader="false">
 		<content>
-				<!--<f:Form editable="true" class="displayForm">
-					<f:layout>
-						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" />
-					</f:layout>
-					<f:formContainers>
-						<f:FormContainer>
-							<f:formElements>
-								<f:FormElement label="Mã phiếu nhập">
-									<f:fields>
-										<Input name="id" maxLength="255" fieldGroupIds='addGroupStepOne' required="true" />
-									</f:fields>
-								</f:FormElement>
-								<f:FormElement label="Ngày nhập">
-									<f:fields>
-										<DatePicker id="ngayNhap" name="ngaymua" required="true" valueFormat="dd/MM/yyyy" displayFormat="dd/MM/yyyy" />
-									</f:fields>
-								</f:FormElement>
-								<f:FormElement label="Nhà cung cáp">
-									<f:fields>
-										<Input maxLength="255" fieldGroupIds='addGroupStepOne' required="true" />
-									</f:fields>
-								</f:FormElement>
-							</f:formElements>
-						</f:FormContainer>
-						<f:FormContainer>
-							<f:formElements>
-								<f:FormElement label="Mã phiếu mua">
-									<f:fields>
-										<Input maxLength="255"  required="true" />
-									</f:fields>
-								</f:FormElement>
-								<f:FormElement label="Ghi chú">
-									<f:fields>
-										<TextArea id="ghiChu" value="{mainModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="3" width="100%" />
-									</f:fields>
-								</f:FormElement>
-								
-							</f:formElements>
-						</f:FormContainer>
-					</f:formContainers>
-				</f:Form>-->
+				
 				<t:Table id="thucDonTable"
 					noData="Không có kết quả phù hợp"
 					rowActionCount="1"
@@ -64,7 +24,9 @@
 						<OverflowToolbar style="Clear">
 							<Title class="blockTitle" id="title" text="Danh sách các món ăn" />
 							<ToolbarSpacer />
-							<!--<Button press="fillValueTable" icon="sap-icon://pull-down" />-->
+							<Select items="{tdmauModel>/}" selectedKey="All" forceSelection="false" change="onThucDonChange" >
+								<core:Item key="{tdmauModel>idThucDonMau}" text="{tdmauModel>tenThucDon}" />
+							</Select>
 						</OverflowToolbar>
 					</t:extension>
 					<t:columns>
@@ -139,7 +101,7 @@
 					<t:rowActionTemplate>
 						<t:RowAction>
 							<t:items>
-								<t:RowActionItem text="Xóa" icon="sap-icon://delete" press="onRowDelete" />
+								<t:RowActionItem text="Xóa" icon="sap-icon://delete" visible="{=${thucDonModel>isEdit}===true?false:true}" press="onRowDelete" />
 							</t:items>
 						</t:RowAction>
 					</t:rowActionTemplate>
