@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:f="sap.ui.layout.form">
+	<Dialog id="phatSinhFrag" title="Kiểm kê vật dụng" contentWidth="33vw"  titleAlignment="Center">
+		
+		<f:Form editable="true" class="displayForm sapUiMediumMarginBegin">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="3"
+					labelSpanL="3"
+					labelSpanM="3"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="4"
+					emptySpanL="4"
+					emptySpanM="4"
+					emptySpanS="0"
+					columnsXL="1"
+					columnsL="1"
+					columnsM="1"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Tên vật dụng">
+							<f:fields>
+								<Text text="{kiemKeModel>/tenVatTu}" wrapping="false"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Mã vật dụng">
+							<f:fields>
+								<Text text="{kiemKeModel>/maVatTu}" wrapping="false"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Số lượng">
+							<f:fields>
+								<Input value="{kiemKeModel>/soLuongConLai}" editable="false" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Số lượng kiểm kê">
+							<f:fields>
+								<Input id="kiemKe" maxLength="255" type="Number" value="{kiemKeModel>/soLuongKiemKe}" liveChange="changeKiemKe"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Chênh lệch">
+						<f:fields>
+							<Input maxLength="255" type="Number" value="{kiemKeModel>/chenhLech}" editable="false" />
+						</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Ngày kiểm kê">
+							<f:fields>
+								<DatePicker id="ngayTao" value="{kiemKeModel>/ngayTao}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" required="true" />
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Ghi chú">
+							<f:fields>
+								<TextArea value="{kiemKeModel>/ghiChu}" growing="true" maxLength="500" growingMaxLines="5" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+
+		<beginButton>
+			<Button type="Success" press="onKiemKeSave" text="Lưu và cập nhật" />
+		</beginButton>
+		<endButton>
+			<Button type="Emphasized" press="closeKiemKe" text="Đóng" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

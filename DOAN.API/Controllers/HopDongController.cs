@@ -67,6 +67,16 @@ namespace DOAN.API.Controllers
             return Ok(listhd);
         }
 
+        [HttpPost("bydate")]
+        public async Task<ActionResult<IEnumerable<HopDong>>> bydate (date date)
+        {
+            date.startDate = date.startDate.AddDays(1);
+            date.endDate = date.endDate.AddDays(1);
+            var list = await _context.HopDong.Where(x => x.ngayKetThuc >= date.startDate && x.ngayBatDau <= date.endDate).ToListAsync(); 
+
+            return Ok(list);
+        }
+
         [HttpPost("updateStatusThanhToan")]
         public async Task<ActionResult> updatsytsThanhToan(UpdateStatus update)
         {
@@ -89,7 +99,7 @@ namespace DOAN.API.Controllers
         [HttpGet("checkVC")]
         public async Task<ActionResult<IEnumerable<HopDong>>> GetAllCheckVC()
         {
-            var listhd = await _context.HopDong.Include(x => x.bepTruong).Where(a => a.isVanChuyen == 0 && a.isThucDon==1).ToListAsync();
+            var listhd = await _context.HopDong.OrderByDescending(x=>x.id).ToListAsync();
             return Ok(listhd);
         }
 

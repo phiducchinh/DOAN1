@@ -15,5 +15,6 @@ namespace DOAN.API.ViewModel
         public int? soLuongChuaSD { get; set; }
         public int? trangThai { get; set; } = 1;
         public string? ghiChu { get; set; } = string.Empty;
+        public int? soLuongHong { get; set; } = 0;
     }
 }

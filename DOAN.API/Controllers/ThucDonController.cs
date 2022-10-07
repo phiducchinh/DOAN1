@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace DOAN.API.Controllers
@@ -86,9 +87,12 @@ namespace DOAN.API.Controllers
             return Ok("Thêm thành công");
         }
 
+
         [HttpPost("addList")]
         public async Task<ActionResult> PostMonAn(List<ThucDon> thucDon)
         {
+            var hp = await _context.HopDong.SingleOrDefaultAsync(x => x.id == thucDon[0].idHopDong);
+            hp.isThucDon = 1;
             thucDon.ForEach(item =>
             {
                 item.hopDong = null;

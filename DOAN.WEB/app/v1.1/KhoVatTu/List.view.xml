@@ -1,4 +1,4 @@
-<mvc:View controllerName="app.VatTu.List" 
+<mvc:View controllerName="app.KhoVatTu.List" 
     xmlns:html="http://www.w3.org/1999/xhtml"
     height="100%"
     xmlns="sap.ui.table"
@@ -117,9 +117,9 @@
 						</template>
 					</Column>
 					<Column hAlign="End">
-						<m:Label text="SL chưa sử dụng"/>
+						<m:Label text="Số lượng hỏng"/>
 						<template>
-							<m:Text text="{mainModel>soLuongChuaSD}" wrapping="false" />
+							<m:Text text="{mainModel>soLuongHong}" wrapping="false" />
 						</template>
 					</Column>
 					<Column>
@@ -163,9 +163,9 @@
 					<RowAction>
 						<items>
 							<RowActionItem id="viewButtonRow" text="Chi tiết" icon="sap-icon://detail-view" visible="true" press="onRowView" />
+							<RowActionItem text="Kiểm kê" icon="sap-icon://detail-view" press="kiemKePress" />
 							<RowActionItem id="editButtonRow" text="Sửa" icon="sap-icon://edit" visible="true" press="onRowEdit" />
 							<RowActionItem id="deleteButtonRow" text="Xóa" icon="sap-icon://delete" visible="true" press="onRowDelete" />
-							
 						</items>
 					</RowAction>
 				</rowActionTemplate>

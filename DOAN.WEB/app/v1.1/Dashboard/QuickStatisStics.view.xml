@@ -7,8 +7,11 @@
   xmlns:viz.data="sap.viz.ui5.data"
   xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
   xmlns="sap.m"
+  xmlns:main="sap.ui.webc.main"
   xmlns:unified="sap.ui.unified"
   xmlns:f="sap.f"
+  xmlns:card="sap.f.cards"
+  xmlns:w="sap.ui.integration.widgets"
   controllerName="app.Dashboard.QuickStatisStics"
   xmlns:grid="sap.ui.layout.cssgrid"
   xmlns:l="sap.ui.layout"
@@ -27,7 +30,65 @@
 		</f:title>
 		<f:content>
 			<VBox>
-				<Panel id="pgBlockContainer1" backgroundDesign="Solid" class="fb-cont" height="700px">
+				<HBox justifyContent="SpaceAround">
+					<f:Card class="sapUiMediumMargin" width="350px">
+						<f:header>
+							<card:Header
+								class="background-yellow"
+								title="SỐ ĐƠN CỖ"
+								subtitleMaxLines="1	"
+								subtitle="{donCoModel>/soDonCo}"
+								iconBackgroundColor="Random"
+								iconSrc="sap-icon://legend" />
+						</f:header>
+						<f:content>
+							<HBox renderType="Bare" width="350px" class="sapUiSmallMargin" justifyContent="SpaceAround">
+								<DatePicker width="150px" value="{donCoModel>/ngayBD}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="dateChange" />
+								<DatePicker width="150px" value="{donCoModel>/ngayKT}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="dateChange"/>
+
+							</HBox>
+						</f:content>
+					</f:Card>
+					<f:Card class="sapUiMediumMargin" width="350px">
+						<f:header>
+							<card:Header
+								class="background-red"
+								title="DOANH THU"
+								subtitleMaxLines="1	"
+								subtitle="{path:'doanhThuModel>/doanhThu' , formatter: '.globalFormatter.formatTien'} VNĐ "
+								iconBackgroundColor="Random"
+								iconSrc="sap-icon://batch-payments" />
+						</f:header>
+						<f:content>
+							<HBox renderType="Bare" width="350px" class="sapUiSmallMargin" justifyContent="SpaceAround">
+								<DatePicker width="150px" value="{doanhThuModel>/ngayBD}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="doanhThuChange" />
+								<DatePicker width="150px" value="{doanhThuModel>/ngayKT}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="doanhThuChange"/>
+
+							</HBox>
+						</f:content>
+					</f:Card>
+
+					<f:Card class="sapUiMediumMargin" width="350px">
+						<f:header>
+							<card:Header
+								class="background-brown"
+								title="CHI TIÊU"
+								subtitleMaxLines="1	"
+								subtitle="{path:'chiTieuModel>/chiTieu' , formatter: '.globalFormatter.formatTien'} VNĐ "
+								iconBackgroundColor="Random"
+								iconSrc="sap-icon://waiver" />
+						</f:header>
+						<f:content>
+							<HBox renderType="Bare" width="350px" class="sapUiSmallMargin" justifyContent="SpaceAround">
+								<DatePicker width="150px" value="{chiTieuModel>/ngayBD}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="chiTieuChange" />
+								<DatePicker width="150px" value="{chiTieuModel>/ngayKT}" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="chiTieuChange"/>
+
+							</HBox>
+						</f:content>
+					</f:Card>
+				</HBox>
+				
+				<Panel id="pgBlockContainer1" backgroundDesign="Solid" class="fb-cont" height="400px">
 					<headerToolbar>
 						<OverflowToolbar>
 							<core:Icon src="sap-icon://badge" />
@@ -42,21 +103,7 @@
 						</OverflowToolbar>
 					</headerToolbar>
 
-					<!--id="PC1"
-					builtInViews="Day"
-					appointmentHeight="Automatic"
-					appointmentRoundWidth="HalfColumn"
-					showIntervalHeaders="false"
-					showRowHeaders="false"
-					groupAppointmentsMode="Collapsed"
-					showDayNamesLine="true"
-					startDate="{path: 'planningModel>/startDate'}"
-					rows="{path: 'planningModel>/people'}"
-					appointmentsVisualization="Filled"
-					appointmentSelect="handleAppointmentSelect"
-					viewChange="viewChange"
-					startDateChange="changePlan"
-					showWeekNumbers="false"-->
+					
 					<content>
 						<PlanningCalendar
 							showRowHeaders="false"
@@ -128,41 +175,122 @@
 						</PlanningCalendar>
 					</content>
 				</Panel>
-				<Panel id="pgBlockContainer" backgroundDesign="Solid" class="fb-cont" height="700px">
-					<headerToolbar>
-						<OverflowToolbar>
-							<core:Icon src="sap-icon://badge" />
-							<Text id="blockTitle" class="blockTitle" />
-							<ToolbarSpacer />
-							<SegmentedButton id="segBtn" selectedKey="column" selectionChange = "onViewChange" class="sapUiTinyMarginRight">
-								<items>
-									<SegmentedButtonItem icon="sap-icon://column-chart-dual-axis" key="column" />
-									<SegmentedButtonItem icon="sap-icon://full-stacked-column-chart" key="stacked" />
-								</items>
-							</SegmentedButton>
-						</OverflowToolbar>
-					</headerToolbar>
-					<content>
-						<viz:VizFrame id="iVizFrame" height="100%" width="100%" vizType='column'>
-							<viz:dataset>
-								<viz.data:FlattenedDataset data="{dataModel>/Data}">
-									<viz.data:dimensions>
-										<viz.data:DimensionDefinition identity="{dataModel>VATDUNGID}" name="Status" value="{dataModel>TENVATDUNG}" />
-									</viz.data:dimensions>
-									<viz.data:measures>
-										<viz.data:MeasureDefinition identity="CL" name="Còn lại" value="{dataModel>CL}" />
-										<viz.data:MeasureDefinition identity="MUON" name="Đang mượn" value="{dataModel>MUON}" />
-									</viz.data:measures>
-								</viz.data:FlattenedDataset>
-							</viz:dataset>
+				<HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+					<Panel id="pgBlockContainer" backgroundDesign="Solid" class="fb-cont" width="45vw" height="550px">
+						<headerToolbar>
+							<OverflowToolbar>
+								<core:Icon src="sap-icon://badge" />
+								<Text id="blockTitle" text="Tình trạng vật dụng" class="blockTitle" />
+								<ToolbarSpacer />
+								<SegmentedButton id="segBtn" selectedKey="column" selectionChange = "onViewChange" class="sapUiTinyMarginRight">
+									<items>
+										<SegmentedButtonItem icon="sap-icon://column-chart-dual-axis" key="column" />
+										<SegmentedButtonItem icon="sap-icon://full-stacked-column-chart" key="stacked" />
+									</items>
+								</SegmentedButton>
+							</OverflowToolbar>
+						</headerToolbar>
+						<content>
+							<viz:VizFrame id="iVizFrame" height="100%" width="100%" vizType='column'>
+								<viz:dataset>
+									<viz.data:FlattenedDataset data="{dataModel>/Data}">
+										<viz.data:dimensions>
+											<viz.data:DimensionDefinition identity="{dataModel>VATDUNGID}" name="Status" value="{dataModel>TENVATDUNG}" />
+										</viz.data:dimensions>
+										<viz.data:measures>
+											<viz.data:MeasureDefinition identity="CL" name="Còn lại" value="{dataModel>CL}" />
+											<viz.data:MeasureDefinition identity="MUON" name="Đang mượn" value="{dataModel>MUON}" />
+										</viz.data:measures>
+									</viz.data:FlattenedDataset>
+								</viz:dataset>
 
-							<viz:feeds>
-								<viz.feeds:FeedItem id="fiSoftwareType" uid="valueAxis" type="Measure" values="CL,MUON" />
-								<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
-							</viz:feeds>
-						</viz:VizFrame>
-					</content>
-				</Panel>
+								<viz:feeds>
+									<viz.feeds:FeedItem id="fiSoftwareType" uid="valueAxis" type="Measure" values="CL,MUON" />
+									<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Status" />
+								</viz:feeds>
+							</viz:VizFrame>
+						</content>
+					</Panel>
+					<Panel id="pgBlockContainere" backgroundDesign="Solid" class="fb-cont " width="37vw" height="550px">
+						<headerToolbar>
+							<OverflowToolbar>
+								<core:Icon src="sap-icon://badge" />
+								<Text id="blockTitlee" text="Thực phẩm sắp hết hạn" class="blockTitle" />
+							</OverflowToolbar>
+						</headerToolbar>
+						<content>
+							<t:Table id="thucPhamTable"
+								visibleRowCountMode="Auto"
+								noData="Không có kết quả phù hợp"
+								selectionMode="None"
+								rows="{path: 'thucPhamModel>/'}"
+								ariaLabelledBy="title"
+								rowActionCount="2"
+								fixedColumnCount="2"
+								rowSelectionChange="onRowSelectionChange"
+								cellClick="onCellClick"
+								firstVisibleRowChanged="onScroll">
+								<t:extension>
+
+								</t:extension>
+								<t:rowSettingsTemplate>
+									<t:RowSettings highlight="{thucPhamModel>Status}"/>
+								</t:rowSettingsTemplate>
+								<t:columns>
+									<t:Column width="3rem">
+										<Label text="STT"/>
+										<t:template>
+											<Text text="{thucPhamModel>STT}" wrapping="false" />
+										</t:template>
+									</t:Column>
+									<t:Column width="10rem">
+										<Label text="Tên thực phẩm"/>
+										<t:template>
+											<Text text="{thucPhamModel>thucPham/tenThucPham}" wrapping="false" />
+										</t:template>
+									</t:Column>
+									<t:Column width="7rem">
+										<Label text="Hóa đơn nhập"/>
+										<t:template>
+											<Text text="{thucPhamModel>hoaDonhNhap/maHoaDon}" wrapping="false" />
+										</t:template>
+									</t:Column>
+									<t:Column width="5rem" hAlign="End">
+										<Label text="Số lượng"/>
+										<t:template>
+											<Text text="{thucPhamModel>soLuong}" wrapping="false" />
+										</t:template>
+									</t:Column>
+									<t:Column width="5rem">
+									<Label text="Đơn vị"/>
+									<t:template>
+										<Text text="{thucPhamModel>thucPham/donVi}" wrapping="false" />
+									</t:template>
+								</t:Column>
+									<t:Column >
+										<Label text="Hạn sử dụng"/>
+										<t:template>
+											<Text text="{
+												path: 'thucPhamModel>hanSuDung',
+												type: 'sap.ui.model.type.DateTime',
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-ddTHH:mm:ss.SSSSSSS',
+														UTC: true
+													},
+													pattern: 'dd/MM/yyyy',
+													UTC: false
+												}
+											}" />
+										</t:template>
+									</t:Column>
+
+								</t:columns>
+							</t:Table>
+						</content>
+					</Panel>
+				</HBox>
+				
 			</VBox>
 		</f:content>
 	</f:DynamicPage>

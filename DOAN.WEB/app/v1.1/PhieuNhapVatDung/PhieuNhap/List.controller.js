@@ -500,10 +500,12 @@
             }
         },
         getPhieuXuatData: function () {
+            console.log(123);
             const root = this;
             Connector.getFromApi(sdConfig.adminApiEndpoint + 'phieuxuatvd/check', {
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
+                        console.log(data);
                         root.phieuXuatModel.setData(data);
                     }
                 }

@@ -120,18 +120,19 @@ namespace DOAN.API.Controllers
         {
             List<ChiTietVanChuyen> listCTVanChuyen = new List<ChiTietVanChuyen>();
             List<MappingVatDung> mapping = new List<MappingVatDung>();
+            var hp = _context.HopDong.SingleOrDefault(x => x.id == idHopDong);
             var listThucDon = _context.ThucDon.Where(x => x.idHopDong == idHopDong).ToList();
             var hopDong = _context.HopDong.SingleOrDefault(a => a.id == idHopDong);
             if (hopDong.suDungBanGhe == 1)
             {
-                var ban = _context.VatTu.SingleOrDefault(x => x.id == 1);
-                var ghe = _context.VatTu.SingleOrDefault(x => x.id == 2);
+                var ban = _context.VatTu.SingleOrDefault(x => x.id == 3);
+                var ghe = _context.VatTu.SingleOrDefault(x => x.id == 4);
 
                 mapping.Add(new MappingVatDung() { idVatDung = ban.id, soLuong = hopDong.soMam, vatTu = ban });
                 mapping.Add(new MappingVatDung() { idVatDung = ghe.id, soLuong = hopDong.soMam * 6, vatTu = ghe });
             }
-            var bat = _context.VatTu.SingleOrDefault(x => x.id == 3);
-            var dua = _context.VatTu.SingleOrDefault(x => x.id == 4);
+            var bat = _context.VatTu.SingleOrDefault(x => x.id == 5);
+            var dua = _context.VatTu.SingleOrDefault(x => x.id == 6);
             mapping.Add(new MappingVatDung() { idVatDung = bat.id, soLuong = hopDong.soMam * 6, vatTu = bat });
             mapping.Add(new MappingVatDung() { idVatDung = dua.id, soLuong = hopDong.soMam * 12, vatTu = dua });
             if (listThucDon.Count() > 0)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DOAN.API.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220831155046_first")]
+    [Migration("20221006014642_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace DOAN.API.Migrations
                     b.Property<string>("NCC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("giaTien")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("hanSuDung")
                         .HasColumnType("datetime2");
 
@@ -99,10 +102,16 @@ namespace DOAN.API.Migrations
                     b.Property<int>("idThucPham")
                         .HasColumnType("int");
 
+                    b.Property<int>("isCheck")
+                        .HasColumnType("int");
+
                     b.Property<int?>("lan")
                         .HasColumnType("int");
 
                     b.Property<double>("soLuong")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("soLuongConLai")
                         .HasColumnType("float");
 
                     b.HasKey("id");
@@ -158,6 +167,9 @@ namespace DOAN.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("idChiTietNhap")
+                        .HasColumnType("int");
+
                     b.Property<int>("idHoaDon")
                         .HasColumnType("int");
 
@@ -168,6 +180,8 @@ namespace DOAN.API.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("id");
+
+                    b.HasIndex("idChiTietNhap");
 
                     b.HasIndex("idHoaDon");
 
@@ -394,7 +408,7 @@ namespace DOAN.API.Migrations
                     b.Property<string>("ghiChu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idBeptruong")
+                    b.Property<int?>("idBeptruong")
                         .HasColumnType("int");
 
                     b.Property<int?>("isHoaDon")
@@ -662,11 +676,17 @@ namespace DOAN.API.Migrations
                     b.Property<int>("giaTien")
                         .HasColumnType("int");
 
-                    b.Property<int>("idHopDong")
+                    b.Property<int?>("idHopDong")
                         .HasColumnType("int");
 
                     b.Property<int>("idMonAn")
                         .HasColumnType("int");
+
+                    b.Property<int?>("idThucDonMau")
+                        .HasColumnType("int");
+
+                    b.Property<string>("tenThucDon")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -705,6 +725,38 @@ namespace DOAN.API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("ThucPham");
+                });
+
+            modelBuilder.Entity("DOAN.API.ViewModel.ThucPhamHistory", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ghiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idPhieuNhap")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idThucPham")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("loai")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ngayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("soLuong")
+                        .HasColumnType("float");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idThucPham");
+
+                    b.ToTable("ThucPhamHistory");
                 });
 
             modelBuilder.Entity("DOAN.API.ViewModel.ThucPhamKemMonAn", b =>
@@ -773,6 +825,38 @@ namespace DOAN.API.Migrations
                     b.ToTable("VanChuyen");
                 });
 
+            modelBuilder.Entity("DOAN.API.ViewModel.VatDungHistory", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ghiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idVatTu")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("loai")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ngayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("soLuong")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("soLuongKiemKe")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idVatTu");
+
+                    b.ToTable("VatDungHistory");
+                });
+
             modelBuilder.Entity("DOAN.API.ViewModel.VatTu", b =>
                 {
                     b.Property<int>("id")
@@ -791,6 +875,9 @@ namespace DOAN.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("soLuongConLai")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("soLuongHong")
                         .HasColumnType("int");
 
                     b.Property<int?>("soLuongTong")
@@ -885,6 +972,10 @@ namespace DOAN.API.Migrations
 
             modelBuilder.Entity("DOAN.API.ViewModel.ChiTietPhieuXuat", b =>
                 {
+                    b.HasOne("DOAN.API.ViewModel.ChiTietPhieuNhap", "chiTietPhieuNhap")
+                        .WithMany()
+                        .HasForeignKey("idChiTietNhap");
+
                     b.HasOne("DOAN.API.ViewModel.HoaDonXuat", "hoaDonXuat")
                         .WithMany()
                         .HasForeignKey("idHoaDon")
@@ -896,6 +987,8 @@ namespace DOAN.API.Migrations
                         .HasForeignKey("idThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("chiTietPhieuNhap");
 
                     b.Navigation("hoaDonXuat");
 
@@ -1011,9 +1104,7 @@ namespace DOAN.API.Migrations
                 {
                     b.HasOne("DOAN.API.ViewModel.NhanVien", "bepTruong")
                         .WithMany()
-                        .HasForeignKey("idBeptruong")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("idBeptruong");
 
                     b.Navigation("bepTruong");
                 });
@@ -1066,9 +1157,7 @@ namespace DOAN.API.Migrations
                 {
                     b.HasOne("DOAN.API.ViewModel.HopDong", "hopDong")
                         .WithMany()
-                        .HasForeignKey("idHopDong")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("idHopDong");
 
                     b.HasOne("DOAN.API.ViewModel.MonAn", "monAn")
                         .WithMany()
@@ -1079,6 +1168,15 @@ namespace DOAN.API.Migrations
                     b.Navigation("hopDong");
 
                     b.Navigation("monAn");
+                });
+
+            modelBuilder.Entity("DOAN.API.ViewModel.ThucPhamHistory", b =>
+                {
+                    b.HasOne("DOAN.API.ViewModel.ThucPham", "thucPham")
+                        .WithMany()
+                        .HasForeignKey("idThucPham");
+
+                    b.Navigation("thucPham");
                 });
 
             modelBuilder.Entity("DOAN.API.ViewModel.ThucPhamKemMonAn", b =>
@@ -1107,6 +1205,17 @@ namespace DOAN.API.Migrations
                         .HasForeignKey("idHopDong");
 
                     b.Navigation("hopDong");
+                });
+
+            modelBuilder.Entity("DOAN.API.ViewModel.VatDungHistory", b =>
+                {
+                    b.HasOne("DOAN.API.ViewModel.VatTu", "vatTu")
+                        .WithMany()
+                        .HasForeignKey("idVatTu")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("vatTu");
                 });
 #pragma warning restore 612, 618
         }

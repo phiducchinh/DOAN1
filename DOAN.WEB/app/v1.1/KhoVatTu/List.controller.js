@@ -16,6 +16,7 @@
         saveObject: {},
         mainModel: new CoreJsonModel(),
         countModel: new CoreJsonModel(),
+        kiemKeModel: new CoreJsonModel(),
         mainId: null,
         filter: {
             title:'',
@@ -25,6 +26,7 @@
             this.bus = Core.getEventBus();
             this.mainTable = this.getView().byId('mainTable');
             this.getView().setModel(this.mainModel, "mainModel");
+            this.getView().setModel(this.kiemKeModel, "kiemKeModel");
             this.loadData()
             this.bus.subscribe('VatTuChannel', 'switchToDetailPage', this.switchToDetailPage, this);
             this.bus.subscribe('VatTuChannel', 'onCloseVatTuView', this.onCloseVatTuView, this);
@@ -153,6 +155,85 @@
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
             this.bus.publish('VatTuChannel', 'switchToDetailPage', { Id: selected.id, title: selected.tenVatTu });
         },
+        onRowEditt: function () {
+            console.log(123);
+        },
+        kiemKePress: function (oEvent) {
+            const root = this;
+            let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
+            selected.chenhLech = 0;
+            if (!this.kiemKeVD) {
+                Fragment.load({
+                    id: root.getView().getId(),
+                    name: "app.KhoVatTu.fragment.KiemKe",
+                    type: "XML",
+                    controller: this
+                }).then(function (frag) {
+                    root.kiemKeVD = frag;
+                    root.getView().addDependent(frag);
+                    root.loadKiemKe(selected);
+                    root.kiemKeVD.open();
+
+                });
+            }
+            else {
+                root.loadKiemKe(selected);
+                root.kiemKeVD.open();
+            }
+        },
+        loadKiemKe: function (data) {
+            data.ngayTao = moment().format('DD/MM/YYYY');
+            this.kiemKeModel.setData(data)
+        },
+        closeKiemKe: function () {
+            if (this.kiemKeVD) {
+                this.kiemKeVD.close();
+            }
+        },
+        changeKiemKe: function (evt) {
+            let ctrol = this.getView().byId('kiemKe');
+            let slKiemKe = ctrol.getValue();
+            if (!slKiemKe) {
+                ctrol.setValueState('Error');
+                ctrol.setValueStateText('Trường thông tin này bắt buộc!');
+            } else {
+                let gr = Number.isInteger(Number(slKiemKe));
+                if (!gr) {
+                    ctrol.setValueState('Error');
+                    ctrol.setValueStateText('Trường thông tin này phải nhập số!');
+                } else {
+                    evt.getSource().setValueState("None");
+                    let data = this.kiemKeModel.getData();
+                    data.chenhLech = Number(data.soLuongConLai) - Number(slKiemKe);
+                    this.kiemKeModel.refresh();
+                }
+
+            }
+        },
+        onKiemKeSave: function () {
+            const root = this;
+            let input = true;
+            input = this.getView().byId('kiemKe');
+            if (!input.getValue()) {
+                input.setValueState('Error');
+                input.setValueStateText('Trường thông tin này bắt buộc!');
+            } else {
+                input.setValueState('None');
+                let params = this.kiemKeModel.getData();
+                params.soLuong = params.soLuongConLai;
+                params.soLuongKiemKe = Number(params.soLuongKiemKe)
+                params.ngayTao = params.ngayTao == moment().format('DD/MM/YYYY') ? moment().format('YYYY-MM-DD') : params.ngayTao;
+                params.idVatTu = params.id;
+                Connector.postToApi(sdConfig.adminApiEndpoint + 'vatdunghistory/kiemke', {
+                    oParameters: params,
+                    fnSuccess: function (data) {
+                        MessageToast.show("Thêm thành công", { width: '25em', duration: 5000 });
+                        root.closeKiemKe();
+                        root.loadData();
+                    }
+                });
+            }
+        },
         switchToDetailPage: function (oChannel, oEvent, oData) {
             const root = this;
             if (!this._VatTuDetail) {
@@ -259,6 +340,7 @@
 
         //#region Edit
         onRowEdit: function (oEvent) {
+            
             let selected = this.getView().getModel('mainModel').getProperty('', oEvent.getParameter('row').getBindingContext('mainModel'));
             const root = this;
             if (!this._VatTuEdit) {

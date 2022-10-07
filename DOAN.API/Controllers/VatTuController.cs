@@ -25,6 +25,7 @@ namespace DOAN.API.Controllers
             return Ok(listVatTu);
         }
 
+        
         [HttpPost("notInArr")]
         public async Task<ActionResult<IEnumerable<VatTu>>> GetAllfilter([FromBody]List<int> mainId)
         {

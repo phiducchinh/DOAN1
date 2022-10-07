@@ -1,11 +1,14 @@
-﻿using DOAN.API.ViewModel;
+﻿using Dapper;
+using DOAN.API.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DOAN.API.Controllers
 {
@@ -14,9 +17,11 @@ namespace DOAN.API.Controllers
     public class ChiTietVanChuyenNhapController : ControllerBase
     {
         private readonly Context _context;
-        public ChiTietVanChuyenNhapController(Context context)
+        private readonly DapperContext _dapperContext;
+        public ChiTietVanChuyenNhapController(Context context, DapperContext dapperContext)
         {
             _context = context;
+            _dapperContext = dapperContext;
         }
 
         [HttpGet("vanchuyen/{idVanChuyen}")]
@@ -31,6 +36,76 @@ namespace DOAN.API.Controllers
             var phieuNhap = await _context.PhieuNhapVD.SingleOrDefaultAsync(x => x.idPhieuXuat == phieuXuat.id);
             var list = await _context.ChiTietVanChuyenNhap.Include(z => z.vatTu).Where(x => x.idPhieuNhap == phieuNhap.id).ToListAsync();
             return Ok(list);
+        }
+
+        [HttpGet("chart")]
+        public IActionResult Chart()
+        {
+            //var listPX = await _context.ChiTietVanChuyenXuat.Include(x=>x.PhieuXuatVD).ToListAsync();
+            //var listPN = await _context.ChiTietVanChuyenNhap.Include(x=>x.phieuNhapVD).ThenInclude(y=>y.phieuXuat).ToListAsync();
+            List<chartModel> arr= new List<chartModel>();
+
+            var query = @"SELECT idVatTu, PhieuXuatVD.id,SUM(soLuong) as SL 
+                        FROM [QLXC].[dbo].[ChiTietVanChuyenXuat] , dbo.PhieuXuatVD
+                        where ChiTietVanChuyenXuat.idPhieuXuat=PhieuXuatVD.id 
+                        group by idVatTu,PhieuXuatVD.id";
+            var query1 = @"SELECT idVatTu, PhieuXuatVD.id,SUM(soLuong) as SL 
+                        FROM [QLXC].[dbo].ChiTietVanChuyenNhap , dbo.PhieuXuatVD, dbo.PhieuNhapVD
+                        where ChiTietVanChuyenNhap.idPhieuNhap = PhieuNhapVD.id AND PhieuNhapVD.idPhieuXuat = PhieuXuatVD.id
+                        group by idVatTu,PhieuXuatVD.id";
+            using (var connection = _dapperContext.CreateConnection())
+            {
+                var pxx = connection.Query<chartModel>(query).ToList();
+                var pnn= connection.Query<chartModel>(query1).ToList();
+                pxx.ForEach(px =>
+                {
+                    var check = true;
+                    pnn.ForEach(pn =>
+                    {
+                        if (pn.id == px.id && pn.idVatTu== px.idVatTu)
+                        {
+                            var sl = px.sl - pn.sl;
+                            if(sl>0)
+                                arr.Add(new chartModel(pn.idVatTu, sl, pn.id));
+                            check = false;
+                        }
+                        
+                    });
+                    if (check)
+                    {
+                        arr.Add(px);
+                    }
+                });
+
+                List<int> check= new List<int>();
+                List<int> check1= new List<int>();
+                List<chartModel> result = new List<chartModel>();
+
+                arr.ForEach(item =>
+                {
+                    //var soluong = 0;
+                    if (!check.Contains(item.idVatTu))
+                    {
+                        int soLuong = 0;
+                        check.Add(item.idVatTu);
+                        chartModel a = new chartModel();
+                        arr.ForEach(i =>
+                        {
+                            if (i.idVatTu == item.idVatTu)
+                            {
+                                soLuong = soLuong +  i.sl;
+                            }
+                            a.idVatTu = item.idVatTu;
+                            a.sl = soLuong;
+                            a.id = i.id;
+
+                        });
+                        result.Add(a);
+                    }
+                });
+                return Ok(result);
+            }
+
         }
 
         [HttpGet("phieunhap/{id}")]
@@ -68,6 +143,13 @@ namespace DOAN.API.Controllers
 
             for (int i = 0; i < list.Count; i++)
             {
+                VatDungHistory vd= new VatDungHistory();
+                vd.idVatTu = list[i].idVatTu;
+                vd.ngayTao = DateTime.UtcNow;
+                vd.soLuong = list[i].soLuong.Value;
+                vd.loai = 2;
+                await _context.VatDungHistory.AddAsync(vd);
+
                 list[i].lan = lan;
                 list[i].vatTu = null;
                 list[i].phieuNhapVD = null;

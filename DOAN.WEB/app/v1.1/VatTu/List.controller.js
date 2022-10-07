@@ -41,8 +41,8 @@
                         for (var i = 0; i < data.length; i++) {
                             data[i]['STT'] = i + 1;
                         }
-                        root.mainModel.setData(data);
                     }
+                    root.mainModel.setData(data);
                 }
             });
         },

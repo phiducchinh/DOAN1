@@ -2,7 +2,7 @@
 	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core">
 	<Dialog id="VatTuAddDialog"
-        contentWidth="550px" contentHeight="550px" 
+        contentWidth="550px" contentHeight="400px" 
         verticalScrolling="false" 
         class="sapUiSizeCompact">
     <customHeader>

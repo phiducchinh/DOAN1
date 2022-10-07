@@ -15,7 +15,6 @@ namespace DOAN.API.ViewModel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
         }
 
         public DbSet<MonAn> MonAn { get; set; }
@@ -43,6 +42,9 @@ namespace DOAN.API.ViewModel
         public DbSet<PNVatDung> PNVatDung { get; set; }
         public DbSet<ChiTietPhieuMuaVatDung> ChiTietPhieuMuaVatDung { get; set; }
         public DbSet<ChiTietPhieuNhapVatDung> ChiTietPhieuNhapVatDung { get; set; }
+        public DbSet<VatDungHistory> VatDungHistory { get; set; }
+        
+        public DbSet<ThucPhamHistory> ThucPhamHistory { get; set; }
 
 
     }

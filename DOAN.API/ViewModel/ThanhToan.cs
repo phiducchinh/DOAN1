@@ -17,4 +17,9 @@ namespace DOAN.API.ViewModel
         [ForeignKey("idHopDong")]
         public virtual HopDong? hopDong { get; set; }
     }
+    public class datet
+    {
+        public DateTime s { get; set; }
+        public DateTime e { get; set; }
+    }
 }

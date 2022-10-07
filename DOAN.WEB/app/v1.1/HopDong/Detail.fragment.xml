@@ -2,7 +2,7 @@
 	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core">
 	<Dialog id="HopDongDetailDialog" 
-        stretch="true" 
+                contentHeight="60%" contentWidth="60%"
         verticalScrolling="false" 
         class="sapUiSizeCompact">
         <customHeader>

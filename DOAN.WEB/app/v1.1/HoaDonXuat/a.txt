@@ -1,0 +1,59 @@
+prmContract.forEach(ct => {
+                ct.Device = {
+                    MAHOPDONG: 'Thiết bị',
+                    listDevice: []
+                };
+                ct.Software = {
+                    MAHOPDONG: 'Phần mềm',
+                    listSoftware: []
+                };
+                ct.License = {
+                    MAHOPDONG: 'Bản quyền',
+                    listLicense: []
+                };
+
+                prmDevice.forEach(dv => {
+                    dv.Component = {
+                        MAHOPDONG: 'Linh kiện',
+                        listCompent: []
+                    };
+                    dv.Extend = {
+                        MAHOPDONG: 'Gia hạn',
+                        listCompent: []
+                    };
+                    dv.MAHOPDONG = 'Bổ sung';
+                    if (ct['MAHOPDONG'] === dv['MAHOPDONGMUABAN']) {
+                        ct.Device['listDevice'].push(dv);
+                    }
+
+                    prmComponent.forEach(cm => {
+                        if (dv['ID'] === cm['THIETBIID']) {
+                            cm.TENTHIETBI = cm.TENLINHKIEN;
+                            cm.MATHIETBI = cm.4:15 PM 10/4/20224:15 PM 10/4/2022;
+                            dv.Component['listCompent'].push(cm);
+                        }
+                    })
+                });
+
+
+                //ct.Software['listSoftware'] = prmSoftware.filter(e => ct['MAHOPDONG'] === e['HOPDONGID']).forEach(item => {
+                //    console.log(1);
+                //    item.TENTHIETBI = item.TENPHANMEM;
+                //    item.MATHIETBI = item.MAPHANMEM;
+                //});
+
+                prmSoftware.forEach(item => {
+                    if (ct['MAHOPDONG'] === item['HOPDONGID']) {
+                        item.TENTHIETBI = item.TENPHANMEM;
+                        item.MATHIETBI = item.MAPHANMEM;
+                        ct.Software['listSoftware'].push(item);
+                    }
+                });
+
+                prmLicense.forEach(item => {
+                    if (ct['MAHOPDONG'] === item['MAHOPDONGMUABAN']) {
+                        item.TENTHIETBI = item.TENGIAYPHEP;
+                        item.MATHIETBI = item.MAGIAYPHEP;
+                        ct.License['listLicense'].push(item);
+                    }
+                });

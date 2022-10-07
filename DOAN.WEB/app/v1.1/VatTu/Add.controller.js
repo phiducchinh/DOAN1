@@ -16,7 +16,7 @@
         _oriModel: {
             maVatTu: '',
             tenVatTu: '',
-            trangThai:null,
+            trangThai:1,
             soLuongTong: 0,
             soLuongConLai: 0,
             ghiChu: '',
@@ -57,36 +57,6 @@
             } else {
                 input.setValueState('None');
             }
-            //input = this.getView().byId('soLuongTong');
-            //if (!input.getValue()) {
-            //    input.setValueState('Error');
-            //    input.setValueStateText('Trường thông tin này bắt buộc!');
-            //    isValid = false;
-            //} else {
-            //    let gr = Number.isInteger(Number(input.getValue()));
-            //    if (!gr) {
-            //        input.setValueState('Error');
-            //        input.setValueStateText('Trường thông tin này phải nhập số!');
-            //        isValid = false;
-            //    } else {
-            //        input.setValueState('None');
-            //    }
-            //}
-            //input = this.getView().byId('soLuongConLai');
-            //if (!input.getValue()) {
-            //    input.setValueState('Error');
-            //    input.setValueStateText('Trường thông tin này bắt buộc!');
-            //    isValid = false;
-            //} else {
-            //    let gr = Number.isInteger(Number(input.getValue()));
-            //    if (!gr) {
-            //        input.setValueState('Error');
-            //        input.setValueStateText('Trường thông tin này phải nhập số!');
-            //        isValid = false;
-            //    } else {
-            //        input.setValueState('None');
-            //    }
-            //}
             
             return isValid;
         },

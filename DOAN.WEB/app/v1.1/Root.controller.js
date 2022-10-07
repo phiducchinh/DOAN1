@@ -90,7 +90,7 @@
                             "Parent": "KhoThucPham",
                             "Level": 2,
                             "Key": "Mua",
-                            "Value": "Phiếu mua",
+                            "Value": "Phiếu đặt hàng",
                             "items": []
                         },
                         {
@@ -143,7 +143,7 @@
                             "Parent": "",
                             "Level": 1,
                             "Key": "PhieuMua",
-                            "Value": "Phiếu Mua",
+                            "Value": "Phiếu đặt mua",
                             "items": []
                         },
                         {

@@ -16,7 +16,7 @@
         _oriModel: {
             tenThucPham: '',
             maThucPham: '',
-            loai: '',
+            loai: 0,
             donVi: '',
             ghiChu:''
         },

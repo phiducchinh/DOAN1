@@ -46,6 +46,12 @@ namespace DOAN.API.Controllers
             await checkDone(PhieuNhapVatDung.idPhieuMua, PhieuNhapVatDung.id);
             return Ok();
         }
+        [HttpPost("chart")]
+        public async Task<ActionResult> chart(datet date)
+        {
+            var list = await _context.ChiTietPhieuNhapVatDung.Where(x => x.pnVatDung.NgayTao >= date.s && x.pnVatDung.NgayTao <= date.e).ToListAsync();
+            return Ok(list);
+        }
         private async Task<int> getLanMax(int idPhieuNhap)
         {
             var ct = await _context.ChiTietPhieuNhapVatDung.OrderByDescending(x => x.lan).FirstOrDefaultAsync(a=>a.idPhieuNhap==idPhieuNhap);

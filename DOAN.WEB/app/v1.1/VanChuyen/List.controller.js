@@ -325,7 +325,6 @@
             this.closedonCoputDialog();
         },
         loadFraAdd: function (id) {
-            //console.log(id);
             let oView = this.getView();
             const root = this;
             if (!this._hoaDonMuaAdd) {
@@ -352,46 +351,14 @@
             if (this._hoaDonMuaAdd)
                 this._hoaDonMuaAdd.close();
         },
-        //onPressItems: function () {
-        //    const indices = this.getView().byId('donCoList').getSelectedIndices();
-        //    const dataTable = this.getView().byId('donCoList').getBinding('rows').getModel().getData();
-        //    const listId = [];
-        //    let oView = this.getView();
-        //    const root = this;
-        //    if (indices.length > 0) {
-        //        for (let i = 0; i < indices.length; i++) {
-        //            listId.push(dataTable[indices[i]].id);
-        //        }
-        //    }
-
-        //    if (listId.length > 0) {
-        //        if (!this._hoaDonMuaAdd) {
-        //            Fragment.load({
-        //                id: oView.getId(),
-        //                name: 'app.HoaDonMua.Add',
-        //                controller: this,
-        //                type: 'XML'
-        //            }).then(function (oDialog) {
-        //                root._hoaDonMuaAdd = oDialog;
-        //                //oView.addDependent(oDialog);
-        //                root._hoaDonMuaAdd.open();
-        //                root.bus.publish('HoaDonMuaChannel', 'loadAddpage', { ListId: listId });
-
-        //            });
-        //        } else {
-        //            root.bus.publish('HoaDonMuaChannel', 'loadAddpage', { ListId: listId });
-        //            root._hoaDonMuaAdd.open();
-
-        //        }
-        //        this.closeDonCoputDialog();
-        //    }
-        //},
+        
         
         loadDonCo: function () {
             const root = this;
             Connector.getFromApi(sdConfig.adminApiEndpoint + 'HopDong/checkVC', {
                 fnProcessData: function (data) {
                     if (data && data.length > 0) {
+                        console.log(data);
                         root.donCoModel.setData(data);
                     }
                 }

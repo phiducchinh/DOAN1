@@ -29,6 +29,12 @@ namespace DOAN.API.Controllers
             var listThanhToan = await _context.ThanhToan.Where(x=>!arrID.Contains(x.id)).ToListAsync();
             return Ok(listThanhToan);
         }
+        [HttpPost("chart")]
+        public async Task<ActionResult<IEnumerable<ThanhToan>>> chart(datet date)
+        {
+            var listThanhToan = await _context.ThanhToan.Where(x => x.ngayTao >= date.s && x.ngayTao <= date.e).ToListAsync();
+            return Ok(listThanhToan);
+        }
 
 
         [HttpGet("{id}")]

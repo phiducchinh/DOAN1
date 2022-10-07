@@ -66,6 +66,13 @@ namespace DOAN.API.Controllers
 
             for (int i = 0; i < list.Count; i++)
             {
+                VatDungHistory vd = new VatDungHistory();
+                vd.idVatTu = list[i].idVatTu;
+                vd.ngayTao = DateTime.UtcNow;
+                vd.soLuong = list[i].soLuong;
+                vd.loai = 1;
+                await _context.VatDungHistory.AddAsync(vd);
+
                 list[i].lan = lan;
                 list[i].vatTu = null;
                 list[i].PhieuXuatVD = null;

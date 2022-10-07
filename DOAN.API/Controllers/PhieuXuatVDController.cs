@@ -41,7 +41,7 @@ namespace DOAN.API.Controllers
         [HttpGet("check")]
         public async Task<ActionResult<IEnumerable<PhieuXuatVD>>> GetAllChuaHT()
         {
-            var list = await _context.PhieuXuatVD.Include(z => z.vanChuyen).ThenInclude(x => x.hopDong).Where(a=>a.vanChuyen.trangThai==2 && a.isCheck==1).ToListAsync();
+            var list = await _context.PhieuXuatVD.Include(z => z.vanChuyen).ThenInclude(x => x.hopDong).ToListAsync();
             return Ok(list);
         }
 

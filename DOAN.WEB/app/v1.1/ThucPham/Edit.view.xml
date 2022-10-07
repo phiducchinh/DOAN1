@@ -1,4 +1,6 @@
-<core:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" 
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns="sap.m" 
+          xmlns:mvc="sap.ui.core.mvc"
+		  xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" 
     controllerName="app.ThucPham.Edit">
 	<Page showHeader="false">
 		<content>
@@ -55,4 +57,4 @@
 			</Toolbar>
 		</footer>
     </Page>
-</core:View>
+</mvc:View>

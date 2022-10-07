@@ -248,6 +248,7 @@
     <Content Include="app\v1.1\HopDong\VatDungDiKem\Edit.fragment.xml" />
     <Content Include="app\v1.1\HopDong\VatDungDiKem\Edit.view.xml" />
     <Content Include="app\v1.1\init.js" />
+    <Content Include="app\v1.1\KhoVatTu\fragment\KiemKe.fragment.xml" />
     <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.controller.js" />
     <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.fragment.xml" />
     <Content Include="app\v1.1\KhoVatTu\PhieuMua\Add.view.xml" />

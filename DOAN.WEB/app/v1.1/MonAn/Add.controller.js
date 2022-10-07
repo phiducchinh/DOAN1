@@ -15,7 +15,7 @@
         globalFormatter: GlobalFormatter,
         _oriModel: {
             tenMonAn: '',
-            loai: '',
+            loai: 1,
             soDienThoai: '',
             giaTien: '',
             ghiChu:''

@@ -19,5 +19,21 @@ namespace DOAN.API.ViewModel
         [ForeignKey("idPhieuXuat")]
         public virtual PhieuXuatVD? PhieuXuatVD { get; set; }
     }
+    public class chartModel
+    {
+        public chartModel()
+        {
+        }
+        public chartModel(int idVatTu,int sl, int id)
+        {
+            this.idVatTu = idVatTu;
+            this.sl = sl;
+            this.id = id;
+        }
+        public int idVatTu { get; set; }
+        public int sl { get; set; }
+        public int id { get; set; }
 
+
+    }
 }

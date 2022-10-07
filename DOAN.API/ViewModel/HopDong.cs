@@ -33,5 +33,9 @@ namespace DOAN.API.ViewModel
         [ForeignKey("idBeptruong")]
         public virtual NhanVien? bepTruong { get; set; }
     }
-
+    public class date
+    {
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+    }
 }

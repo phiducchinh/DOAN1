@@ -559,3 +559,12 @@ fb-cont-child {
 .mg-b{
     margin:10px;
 }
+.background-yellow {
+    background-color: #90E0EF !important;
+}
+.background-red {
+    background-color: #00B4D8 !important;
+}
+.background-brown {
+    background-color: #0077B6 !important;
+}

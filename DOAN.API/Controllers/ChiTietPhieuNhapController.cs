@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,16 @@ namespace DOAN.API.Controllers
         {
             var list = await _context.ChiTietPhieuNhap.ToListAsync();
             return Ok(list);
+        }
+
+        [HttpGet("chart")]
+        public async Task<ActionResult<IEnumerable<ChiTietPhieuNhap>>> chart()
+        {
+            DateTime now = DateTime.UtcNow;
+            DateTime last = now.AddDays(5);
+            var list = await _context.ChiTietPhieuNhap.Include(z=>z.thucPham).Include(v=>v.hoaDonhNhap).Where(x=>x.hanSuDung<now).ToListAsync();
+            return Ok(list);
+            
         }
 
         [HttpGet("phieuMua/{idPhieuMua}")]
@@ -52,6 +63,13 @@ namespace DOAN.API.Controllers
             var list = await _context.ChiTietPhieuNhap.Include(x => x.thucPham).Where(z => z.idThucPham == id && z.isCheck==0).OrderBy(v=>v.hanSuDung).ToListAsync();
             return Ok(list);
 
+        }
+
+        [HttpPost("chart")]
+        public async Task<ActionResult> chart(datet date)
+        {
+            var list = await _context.ChiTietPhieuNhap.Where(x => x.hoaDonhNhap.ngayTao >= date.s && x.hoaDonhNhap.ngayTao<= date.e).ToListAsync();
+            return Ok(list);
         }
 
         [HttpPost]
@@ -83,7 +101,7 @@ namespace DOAN.API.Controllers
             return Ok();
         }
 
-
+        
 
         private async Task checkDone(int idPhieuMua, int idPhieuNhap)
         {

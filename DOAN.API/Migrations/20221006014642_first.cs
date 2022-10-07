@@ -87,7 +87,8 @@ namespace DOAN.API.Migrations
                     soLuongConLai = table.Column<int>(type: "int", nullable: false),
                     soLuongChuaSD = table.Column<int>(type: "int", nullable: true),
                     trangThai = table.Column<int>(type: "int", nullable: true),
-                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    soLuongHong = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,7 +114,7 @@ namespace DOAN.API.Migrations
                     ngayKetThuc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     soMamPhatSinh = table.Column<int>(type: "int", nullable: true),
                     tienCoc = table.Column<int>(type: "int", nullable: true),
-                    idBeptruong = table.Column<int>(type: "int", nullable: false),
+                    idBeptruong = table.Column<int>(type: "int", nullable: true),
                     ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isThucDon = table.Column<int>(type: "int", nullable: true),
                     isVanChuyen = table.Column<int>(type: "int", nullable: true),
@@ -129,7 +130,7 @@ namespace DOAN.API.Migrations
                         column: x => x.idBeptruong,
                         principalTable: "NhanVien",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,6 +154,30 @@ namespace DOAN.API.Migrations
                         principalTable: "PMVatDung",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ThucPhamHistory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    idThucPham = table.Column<int>(type: "int", nullable: true),
+                    idPhieuNhap = table.Column<int>(type: "int", nullable: false),
+                    loai = table.Column<int>(type: "int", nullable: true),
+                    soLuong = table.Column<double>(type: "float", nullable: true),
+                    ngayTao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThucPhamHistory", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ThucPhamHistory_ThucPham_idThucPham",
+                        column: x => x.idThucPham,
+                        principalTable: "ThucPham",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -241,6 +266,30 @@ namespace DOAN.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VatDungHistory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    idVatTu = table.Column<int>(type: "int", nullable: false),
+                    loai = table.Column<int>(type: "int", nullable: true),
+                    soLuong = table.Column<int>(type: "int", nullable: false),
+                    soLuongKiemKe = table.Column<int>(type: "int", nullable: true),
+                    ngayTao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VatDungHistory", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_VatDungHistory_VatTu_idVatTu",
+                        column: x => x.idVatTu,
+                        principalTable: "VatTu",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HoaDonMua",
                 columns: table => new
                 {
@@ -315,10 +364,12 @@ namespace DOAN.API.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idHopDong = table.Column<int>(type: "int", nullable: false),
+                    idHopDong = table.Column<int>(type: "int", nullable: true),
                     idMonAn = table.Column<int>(type: "int", nullable: false),
                     giaTien = table.Column<int>(type: "int", nullable: false),
-                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ghiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    tenThucDon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    idThucDonMau = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -328,7 +379,7 @@ namespace DOAN.API.Migrations
                         column: x => x.idHopDong,
                         principalTable: "HopDong",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ThucDon_MonAn_idMonAn",
                         column: x => x.idMonAn,
@@ -446,33 +497,6 @@ namespace DOAN.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChiTietPhieuXuat",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    idHoaDon = table.Column<int>(type: "int", nullable: false),
-                    idThucPham = table.Column<int>(type: "int", nullable: false),
-                    soLuong = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChiTietPhieuXuat", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ChiTietPhieuXuat_HoaDonXuat_idHoaDon",
-                        column: x => x.idHoaDon,
-                        principalTable: "HoaDonXuat",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ChiTietPhieuXuat_ThucPham_idThucPham",
-                        column: x => x.idThucPham,
-                        principalTable: "ThucPham",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ChiTietVanChuyen",
                 columns: table => new
                 {
@@ -532,8 +556,11 @@ namespace DOAN.API.Migrations
                     idHoaDon = table.Column<int>(type: "int", nullable: false),
                     idThucPham = table.Column<int>(type: "int", nullable: false),
                     soLuong = table.Column<double>(type: "float", nullable: false),
+                    soLuongConLai = table.Column<double>(type: "float", nullable: true),
                     hanSuDung = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    giaTien = table.Column<int>(type: "int", nullable: true),
                     lan = table.Column<int>(type: "int", nullable: true),
+                    isCheck = table.Column<int>(type: "int", nullable: false),
                     NCC = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -606,6 +633,40 @@ namespace DOAN.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChiTietPhieuXuat",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    idHoaDon = table.Column<int>(type: "int", nullable: false),
+                    idThucPham = table.Column<int>(type: "int", nullable: false),
+                    idChiTietNhap = table.Column<int>(type: "int", nullable: true),
+                    soLuong = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChiTietPhieuXuat", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuXuat_ChiTietPhieuNhap_idChiTietNhap",
+                        column: x => x.idChiTietNhap,
+                        principalTable: "ChiTietPhieuNhap",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuXuat_HoaDonXuat_idHoaDon",
+                        column: x => x.idHoaDon,
+                        principalTable: "HoaDonXuat",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuXuat_ThucPham_idThucPham",
+                        column: x => x.idThucPham,
+                        principalTable: "ThucPham",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ChiTietVanChuyenNhap",
                 columns: table => new
                 {
@@ -673,6 +734,11 @@ namespace DOAN.API.Migrations
                 name: "IX_ChiTietPhieuNhapVatDung_idVatTu",
                 table: "ChiTietPhieuNhapVatDung",
                 column: "idVatTu");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietPhieuXuat_idChiTietNhap",
+                table: "ChiTietPhieuXuat",
+                column: "idChiTietNhap");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietPhieuXuat_idHoaDon",
@@ -775,6 +841,11 @@ namespace DOAN.API.Migrations
                 column: "idMonAn");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ThucPhamHistory_idThucPham",
+                table: "ThucPhamHistory",
+                column: "idThucPham");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ThucPhamKemMonAn_idMonAn",
                 table: "ThucPhamKemMonAn",
                 column: "idMonAn");
@@ -788,6 +859,11 @@ namespace DOAN.API.Migrations
                 name: "IX_VanChuyen_idHopDong",
                 table: "VanChuyen",
                 column: "idHopDong");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VatDungHistory_idVatTu",
+                table: "VatDungHistory",
+                column: "idVatTu");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -797,9 +873,6 @@ namespace DOAN.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "ChiTietPhieuMuaVatDung");
-
-            migrationBuilder.DropTable(
-                name: "ChiTietPhieuNhap");
 
             migrationBuilder.DropTable(
                 name: "ChiTietPhieuNhapVatDung");
@@ -826,13 +899,19 @@ namespace DOAN.API.Migrations
                 name: "ThucDon");
 
             migrationBuilder.DropTable(
+                name: "ThucPhamHistory");
+
+            migrationBuilder.DropTable(
                 name: "ThucPhamKemMonAn");
 
             migrationBuilder.DropTable(
-                name: "HoaDonNhap");
+                name: "VatDungHistory");
 
             migrationBuilder.DropTable(
                 name: "PNVatDung");
+
+            migrationBuilder.DropTable(
+                name: "ChiTietPhieuNhap");
 
             migrationBuilder.DropTable(
                 name: "HoaDonXuat");
@@ -841,22 +920,25 @@ namespace DOAN.API.Migrations
                 name: "PhieuNhapVD");
 
             migrationBuilder.DropTable(
-                name: "VatTu");
-
-            migrationBuilder.DropTable(
                 name: "MonAn");
 
             migrationBuilder.DropTable(
-                name: "ThucPham");
-
-            migrationBuilder.DropTable(
-                name: "HoaDonMua");
+                name: "VatTu");
 
             migrationBuilder.DropTable(
                 name: "PMVatDung");
 
             migrationBuilder.DropTable(
+                name: "HoaDonNhap");
+
+            migrationBuilder.DropTable(
+                name: "ThucPham");
+
+            migrationBuilder.DropTable(
                 name: "PhieuXuatVD");
+
+            migrationBuilder.DropTable(
+                name: "HoaDonMua");
 
             migrationBuilder.DropTable(
                 name: "VanChuyen");

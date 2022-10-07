@@ -6,12 +6,12 @@
 	xmlns:m="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core">
 	<m:Dialog id="vanChuyenAddDialog"
-        contentWidth="75%" contentHeight="85%"
+        contentWidth="65%" contentHeight="77%"
         verticalScrolling="false" 
         class="sapUiSizeCompact">
     <m:customHeader>
       <m:Toolbar>
-        <m:Title text="Tạo đơn vận chuyển"/>
+        <m:Title text="Tạo phiếu mượn vật dụng"/>
         <m:ToolbarSpacer />
         <m:OverflowToolbarButton  icon="sap-icon://decline" press="onCloseVanChuyenAdd"/>
       </m:Toolbar>

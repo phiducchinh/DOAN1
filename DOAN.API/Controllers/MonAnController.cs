@@ -48,6 +48,14 @@ namespace DOAN.API.Controllers
             await _context.SaveChangesAsync();
             return Ok("Thêm sinh viên thành công");
         }
+        //[HttpPost]
+        //public async Task<ActionResult> a(ThucPhamHistory monAn)
+        //{
+        //    //monAn.thucPham = null;
+        //    _context.ThucPhamHistory.Add(monAn);
+        //    await _context.SaveChangesAsync();
+        //    return Ok("Thêm sinh viên thành công");
+        //}
         [HttpPut("{id}")]
         public async Task<ActionResult> EditMonAn(int id, MonAn monAn)
         {
