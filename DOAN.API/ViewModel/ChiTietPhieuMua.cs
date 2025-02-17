@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DOAN.API.ViewModel
 {
-    public class ChiTietPhieuMua1
+    public class ChiTietPhieuMua123
     {
         [Key]
         public int id { get; set; }
