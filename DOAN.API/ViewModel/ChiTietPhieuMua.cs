@@ -18,3 +18,4 @@ namespace DOAN.API.ViewModel
         public virtual ThucPham? thucPham { get; set; }
     }
 }
+bcd
